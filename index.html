@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bay Area Climate Dashboard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap"
     rel="stylesheet">
   <style>
     * {
@@ -19,10 +19,10 @@
       --forest: #1A362B;
       --moss: #2E5C47;
       --lite: #F4F8F6;
-      --cream: #FDFBF7;
-      --mid: #3C3C3C;
-      --muted: #737373;
-      --border: #E6E1DC;
+      --cream: #FAFAF8;
+      --mid: #2D3330;
+      --muted: #6B7280;
+      --border: #E3E8E5;
       --teal: #3B7A8C;
       --amber: #B08D57;
       --red: #C44536;
@@ -30,32 +30,52 @@
       --ej-bad: #C44536;
       --ej-mid: #B08D57;
       --ej-good: #2E5C47;
+      --surface: #FFFFFF;
+      --surface-muted: #F6F8F7;
+      --shadow-sm: 0 1px 2px rgba(22, 54, 43, 0.05), 0 4px 14px rgba(22, 54, 43, 0.04);
+      --shadow-md: 0 8px 24px rgba(22, 54, 43, 0.08);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --ring-focus: 0 0 0 2px var(--cream), 0 0 0 4px rgba(46, 92, 71, 0.45);
     }
 
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--cream);
-      color: var(--mid)
+      background-image: radial-gradient(ellipse 90% 50% at 50% -15%, rgba(46, 92, 71, 0.07), transparent 55%);
+      color: var(--mid);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    button:focus-visible {
+      outline: none;
+      box-shadow: var(--ring-focus);
     }
 
     /* ── HEADER ── */
     .hdr {
-      background: var(--forest);
-      padding: 11px 18px;
+      background: linear-gradient(165deg, #1a3a2f 0%, #142921 48%, #1a362b 100%);
+      padding: 14px 22px;
       display: flex;
       align-items: center;
-      justify-content: space-between
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.22);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.14);
     }
 
     .logo-text {
       font-family: 'DM Serif Display', serif;
       color: #fff;
-      font-size: 15px
+      font-size: 16px;
+      letter-spacing: -0.02em;
     }
 
     .logo-sub {
       font-size: 10px;
-      color: var(--moss)
+      color: rgba(196, 217, 207, 0.85);
+      letter-spacing: 0.04em;
+      margin-top: 2px;
     }
 
     .hdr-right {
@@ -96,31 +116,38 @@
 
     .tog {
       display: flex;
-      background: rgba(255, 255, 255, 0.12);
-      border-radius: 7px;
-      padding: 3px;
-      gap: 2px
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 4px;
+      gap: 2px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .tb {
-      padding: 5px 13px;
-      border-radius: 5px;
+      padding: 6px 15px;
+      border-radius: 6px;
       border: none;
       cursor: pointer;
       font-family: 'DM Sans', sans-serif;
       font-size: 11px;
-      font-weight: 500;
-      transition: all .2s
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      transition: color .2s, background .2s, box-shadow .2s;
     }
 
     .tb.on {
       background: #fff;
-      color: var(--forest)
+      color: var(--forest);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
     }
 
     .tb:not(.on) {
       background: transparent;
-      color: rgba(255, 255, 255, 0.7)
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .tb:not(.on):hover {
+      color: #fff;
     }
 
     /* ── BREADCRUMB ── */
@@ -157,14 +184,16 @@
     /* ── LAYOUT ── */
     .layout {
       display: grid;
-      grid-template-columns: 240px 1fr;
-      min-height: 500px
+      grid-template-columns: 244px 1fr;
+      min-height: 500px;
+      align-items: stretch;
     }
 
     .map-panel {
-      background: #fff;
+      background: var(--surface);
       border-right: 1px solid var(--border);
-      padding: 12px
+      padding: 16px 15px;
+      box-shadow: inset -8px 0 24px -18px rgba(22, 54, 43, 0.06);
     }
 
     .map-lbl {
@@ -172,27 +201,30 @@
       font-weight: 600;
       color: var(--muted);
       text-transform: uppercase;
-      letter-spacing: .07em;
-      margin-bottom: 4px
+      letter-spacing: .1em;
+      margin-bottom: 6px;
     }
 
     /* granularity hint banner */
     .gran-hint {
       font-size: 9px;
       color: var(--forest);
-      background: var(--lite);
-      border: 1px solid var(--moss);
-      border-radius: 5px;
-      padding: 5px 7px;
-      margin-bottom: 6px;
-      line-height: 1.4
+      background: linear-gradient(180deg, #f4faf7 0%, var(--lite) 100%);
+      border: 1px solid rgba(46, 92, 71, 0.28);
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      margin-bottom: 8px;
+      line-height: 1.45;
+      box-shadow: var(--shadow-sm);
     }
 
     #mapSvg {
       width: 100%;
       display: block;
-      background: #C8DCEA;
-      border-radius: 6px
+      background: linear-gradient(165deg, #cfe6f2 0%, #b8d4e8 45%, #a8c9e0 100%);
+      border-radius: 10px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(22, 54, 43, 0.1);
     }
 
     .cp {
@@ -296,55 +328,69 @@
 
     /* ── METRICS PANEL ── */
     .smetrics {
-      padding: 14px 15px;
+      padding: 18px 20px;
       overflow-y: auto;
-      max-height: 680px
+      max-height: 680px;
+      background: linear-gradient(180deg, var(--surface-muted) 0%, var(--cream) 18%);
     }
 
     .c-header {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 6px;
-      margin-bottom: 14px
+      gap: 8px;
+      margin-bottom: 16px;
     }
 
     .c-name {
       font-family: 'DM Serif Display', serif;
-      font-size: 22px;
-      color: var(--forest)
+      font-size: 23px;
+      color: var(--forest);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
     }
 
     .c-rank {
       font-size: 9px;
+      font-weight: 600;
       color: var(--muted);
-      background: var(--lite);
-      padding: 2px 8px;
-      border-radius: 10px
+      background: #fff;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
     }
 
     .track-banner {
-      background: #FFF3E0;
-      border: 1px solid #C47A1A;
-      border-radius: 6px;
-      padding: 8px 10px;
-      width: 100%
+      background: linear-gradient(135deg, #fff8ed 0%, #ffefd9 100%);
+      border: 1px solid rgba(196, 122, 26, 0.35);
+      border-radius: var(--radius-sm);
+      padding: 11px 13px;
+      width: 100%;
+      box-shadow: var(--shadow-sm);
     }
 
     .hero-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-bottom: 14px
+      gap: 10px;
+      margin-bottom: 16px;
     }
 
     .hc {
-      background: var(--cream);
-      border-radius: 9px;
-      padding: 12px;
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      padding: 14px 13px;
       border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
       position: relative;
-      overflow: hidden
+      overflow: hidden;
+      transition: box-shadow .2s, border-color .2s;
+    }
+
+    .hc:hover {
+      box-shadow: 0 4px 18px rgba(22, 54, 43, 0.08);
+      border-color: rgba(46, 92, 71, 0.2);
     }
 
     .hc::before {
@@ -416,12 +462,14 @@
 
     .etag {
       font-size: 8px;
-      background: var(--forest);
-      color: var(--moss);
-      padding: 1px 5px;
-      border-radius: 3px;
-      margin-top: 5px;
-      display: inline-block
+      font-weight: 600;
+      background: rgba(26, 54, 43, 0.12);
+      color: var(--forest);
+      padding: 3px 7px;
+      border-radius: 4px;
+      margin-top: 6px;
+      display: inline-block;
+      letter-spacing: 0.02em;
     }
 
     /* ── NEW: Housing + Car Ownership row ── */
@@ -433,13 +481,14 @@
     }
 
     .ctx-card {
-      background: #fff;
+      background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 9px;
-      padding: 11px;
+      border-radius: var(--radius-md);
+      padding: 13px;
       display: flex;
       flex-direction: column;
-      gap: 4px
+      gap: 4px;
+      box-shadow: var(--shadow-sm);
     }
 
     .ctx-label {
@@ -477,12 +526,13 @@
 
     /* ── NEW: Environmental Justice Panel ── */
     .ej-panel {
-      background: #fff;
+      background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 13px;
+      border-radius: var(--radius-md);
+      padding: 15px;
       margin-bottom: 14px;
-      border-left: 4px solid var(--ej-bad)
+      border-left: 4px solid var(--ej-bad);
+      box-shadow: var(--shadow-sm);
     }
 
     .ej-panel.ok {
@@ -560,11 +610,12 @@
 
     /* ── NEW: Tradeoff Visibility ── */
     .tradeoff-card {
-      background: #fff;
+      background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 13px;
-      margin-bottom: 14px
+      border-radius: var(--radius-md);
+      padding: 15px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-sm);
     }
 
     .tradeoff-title {
@@ -639,11 +690,12 @@
 
     /* ── CALC ── */
     .calc {
-      background: #fff;
+      background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 9px;
-      padding: 12px;
-      margin-bottom: 14px
+      border-radius: var(--radius-md);
+      padding: 15px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-sm);
     }
 
     .act-row {
@@ -865,11 +917,12 @@
     }
 
     .pc {
-      background: #fff;
-      border-radius: 8px;
-      padding: 10px 11px;
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      padding: 11px 12px;
       border: 1px solid var(--border);
-      border-left: 3px solid var(--moss)
+      border-left: 3px solid var(--moss);
+      box-shadow: var(--shadow-sm);
     }
 
     .pc-m {
@@ -904,32 +957,39 @@
     /* ── EXPERT ── */
     .x-tabs {
       display: flex;
-      background: var(--forest);
-      gap: 2px;
-      padding: 0 16px
+      background: linear-gradient(180deg, #1a3a2f 0%, #152b23 100%);
+      gap: 4px;
+      padding: 0 18px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     }
 
     .x-tab {
-      padding: 9px 16px;
+      padding: 12px 16px;
       border: none;
       background: transparent;
-      color: rgba(255, 255, 255, 0.6);
+      color: rgba(255, 255, 255, 0.55);
       font-family: 'DM Sans', sans-serif;
       font-size: 11px;
-      font-weight: 500;
+      font-weight: 600;
+      letter-spacing: 0.03em;
       cursor: pointer;
       border-bottom: 2px solid transparent;
-      transition: all .2s
+      margin-bottom: -1px;
+      transition: color .2s, border-color .2s;
+    }
+
+    .x-tab:hover {
+      color: rgba(255, 255, 255, 0.9);
     }
 
     .x-tab.on {
       color: #fff;
-      border-bottom-color: var(--moss)
+      border-bottom-color: #6ee7c8;
     }
 
     .x-content {
-      padding: 14px 16px;
-      display: none
+      padding: 18px 20px;
+      display: none;
     }
 
     .x-content.on {
@@ -945,11 +1005,12 @@
     }
 
     .baseline-card {
-      background: #fff;
-      border-radius: 10px;
-      padding: 14px;
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      padding: 16px 14px;
       border: 1px solid var(--border);
-      text-align: center
+      text-align: center;
+      box-shadow: var(--shadow-sm);
     }
 
     .baseline-pct {
@@ -1003,11 +1064,12 @@
 
     /* trend */
     .trend-card {
-      background: #fff;
-      border-radius: 10px;
-      padding: 14px 16px;
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
       border: 1px solid var(--border);
-      margin-bottom: 14px
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-sm);
     }
 
     .trend-header {
@@ -1062,11 +1124,12 @@
 
     /* sim */
     .sim-card {
-      background: #fff;
-      border-radius: 10px;
-      padding: 14px 16px;
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
       border: 1px solid var(--border);
-      margin-bottom: 14px
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-sm);
     }
 
     .sim-title {
@@ -1223,11 +1286,12 @@
 
     /* compare */
     .comp-card {
-      background: #fff;
-      border-radius: 10px;
-      padding: 14px 16px;
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
       border: 1px solid var(--border);
-      margin-bottom: 14px
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-sm);
     }
 
     .comp-title {
@@ -1399,11 +1463,12 @@
 
     /* NEW: EJ expert panel */
     .ej-expert {
-      background: #fff;
-      border-radius: 10px;
-      padding: 14px 16px;
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
       border: 1px solid var(--border);
-      margin-bottom: 14px
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-sm);
     }
 
     .ej-expert-title {
@@ -1602,8 +1667,10 @@
       text-align: center;
       font-size: 9px;
       color: var(--muted);
-      padding: 10px;
-      border-top: 1px solid var(--border)
+      letter-spacing: 0.03em;
+      padding: 14px 16px 18px;
+      border-top: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--cream) 0%, #f0f2f1 100%);
     }
   </style>
 </head>
@@ -2579,6 +2646,14 @@
       try {
         const res = await fetch('https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json');
         const us = await res.json();
+        // After await, user may already be in ZIP view (drawZipMap ran). Clear again so
+        // county paths are not layered on top of neighborhood rects (async race on load).
+        svg.selectAll('*').remove();
+        svg.attr('viewBox', '0 0 220 260');
+        if (curGran === 'zip') {
+          drawZipMap();
+          return;
+        }
         const topo = window.topojson;
         const bayFIPS = { '06001': 'Alameda', '06013': 'Contra Costa', '06041': 'Marin', '06055': 'Napa', '06075': 'San Francisco', '06081': 'San Mateo', '06085': 'Santa Clara', '06095': 'Solano', '06097': 'Sonoma' };
         const bgFIPS = { '06099': 'x', '06077': 'x', '06019': 'x', '06067': 'x', '06113': 'x' };
@@ -2600,6 +2675,12 @@
           .text(d => { const n = bayFIPS[d.id]; const s = { 'San Francisco': 'SF', 'Contra Costa': 'C.Costa', 'Santa Clara': 'S.Clara', 'San Mateo': 'S.Mateo' }; return s[n] || n; });
         d3.select('#mp-' + selCounty.replace(/ /g, '_')).classed('sel', true);
       } catch (e) {
+        svg.selectAll('*').remove();
+        svg.attr('viewBox', '0 0 220 260');
+        if (curGran === 'zip') {
+          drawZipMap();
+          return;
+        }
         svg.append('rect').attr('width', 210).attr('height', 200).attr('fill', '#C8DCEA').attr('rx', 4);
         svg.append('text').attr('x', 105).attr('y', 95).attr('text-anchor', 'middle').attr('font-size', 9).attr('fill', '#6B7280').text('Map loading...');
       }
