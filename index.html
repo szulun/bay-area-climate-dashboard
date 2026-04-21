@@ -16,33 +16,40 @@
     }
 
     :root {
-      --forest: #1A362B;
-      --moss: #2E5C47;
-      --lite: #F4F8F6;
-      --cream: #FAFAF8;
-      --mid: #2D3330;
-      --muted: #6B7280;
-      --border: #E3E8E5;
-      --teal: #3B7A8C;
-      --amber: #B08D57;
-      --red: #C44536;
-      --policy: #7C3AED;
-      --ej-bad: #C44536;
-      --ej-mid: #B08D57;
-      --ej-good: #2E5C47;
+      /* Ink & surfaces — slightly cool neutrals so greens don’t look “muddy brown” */
+      --forest: #0e2f28;
+      --moss: #2d6b59;
+      --moss-muted: #4a8d75;
+      --lite: #ecf3ef;
+      --cream: #f7f6f2;
+      --mid: #1b211e;
+      --muted: #5c6560;
+      --border: #cdd8d2;
+      /* Sector accents — energy / buildings / transport read as one system */
+      --energy: #9e6f1a;
+      --building: #207484;
+      --transport: #b44538;
+      --amber: var(--energy);
+      --teal: var(--building);
+      --red: var(--transport);
+      --policy: #5a4fcf;
+      --ej-bad: #b83228;
+      --ej-mid: #9a7214;
+      --ej-good: #1f6b4d;
       --surface: #FFFFFF;
-      --surface-muted: #F6F8F7;
-      --shadow-sm: 0 1px 2px rgba(22, 54, 43, 0.05), 0 4px 14px rgba(22, 54, 43, 0.04);
-      --shadow-md: 0 8px 24px rgba(22, 54, 43, 0.08);
+      --surface-muted: #f0f4f1;
+      --shadow-sm: 0 1px 2px rgba(14, 47, 40, 0.06), 0 6px 16px rgba(14, 47, 40, 0.05);
+      --shadow-md: 0 8px 28px rgba(14, 47, 40, 0.09);
       --radius-sm: 8px;
       --radius-md: 12px;
-      --ring-focus: 0 0 0 2px var(--cream), 0 0 0 4px rgba(46, 92, 71, 0.45);
+      --ring-focus: 0 0 0 2px var(--cream), 0 0 0 4px rgba(45, 107, 89, 0.42);
     }
 
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--cream);
-      background-image: radial-gradient(ellipse 90% 50% at 50% -15%, rgba(46, 92, 71, 0.07), transparent 55%);
+      background-image: radial-gradient(ellipse 85% 55% at 50% -12%, rgba(45, 107, 89, 0.09), transparent 52%),
+        linear-gradient(180deg, #f3f6f4 0%, var(--cream) 40%);
       color: var(--mid);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -181,10 +188,10 @@
       font-size: 9px;
     }
 
-    /* ── LAYOUT ── */
+    /* ── LAYOUT — left column wider so map + legend aren’t cramped ── */
     .layout {
       display: grid;
-      grid-template-columns: 244px 1fr;
+      grid-template-columns: clamp(280px, 30vw, 400px) minmax(0, 1fr);
       min-height: 500px;
       align-items: stretch;
     }
@@ -192,7 +199,7 @@
     .map-panel {
       background: var(--surface);
       border-right: 1px solid var(--border);
-      padding: 16px 15px;
+      padding: 18px 17px;
       box-shadow: inset -8px 0 24px -18px rgba(22, 54, 43, 0.06);
     }
 
@@ -221,10 +228,10 @@
     #mapSvg {
       width: 100%;
       display: block;
-      background: linear-gradient(165deg, #cfe6f2 0%, #b8d4e8 45%, #a8c9e0 100%);
+      background: linear-gradient(165deg, #d2e8ee 0%, #b9d9e3 42%, #a2cad8 100%);
       border-radius: 10px;
       box-shadow: var(--shadow-sm);
-      border: 1px solid rgba(22, 54, 43, 0.1);
+      border: 1px solid rgba(14, 47, 40, 0.11);
     }
 
     .cp {
@@ -261,7 +268,7 @@
     }
 
     .map-county-label.dk {
-      fill: #2C5F2D
+      fill: var(--ej-good)
     }
 
     /* zip labels smaller */
@@ -316,7 +323,7 @@
       height: 8px;
       border-radius: 4px;
       margin: 4px 0;
-      background: linear-gradient(90deg, #059669, #F59E0B, #DC2626)
+      background: linear-gradient(90deg, #1f6b4d, #c9980c, #b83228)
     }
 
     .ej-labels {
@@ -806,7 +813,7 @@
 
     /* streak */
     .streak-bar {
-      background: linear-gradient(135deg, #1a3d1b, #2C5F2D);
+      background: linear-gradient(135deg, #0e2f28, var(--moss));
       border-radius: 10px;
       padding: 10px 13px;
       margin-bottom: 10px;
@@ -1429,36 +1436,41 @@
       color: #fff
     }
 
-    /* vahmani */
+    /* vahmani — dark box: cite line must stay light (never moss on forest) */
     .vahmani-box {
-      background: var(--forest);
-      border-radius: 10px;
-      padding: 12px 16px;
-      margin-bottom: 14px;
+      background: linear-gradient(145deg, #163529 0%, #142a22 100%);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      margin-bottom: 16px;
       display: flex;
       align-items: center;
-      gap: 12px
+      gap: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: var(--shadow-sm);
     }
 
     .vahmani-n {
       font-family: 'DM Serif Display', serif;
       font-size: 36px;
-      color: var(--moss);
+      color: #B8EBD4;
       line-height: 1;
-      flex-shrink: 0
+      flex-shrink: 0;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
     }
 
     .vahmani-box h4 {
       color: #fff;
       font-size: 11px;
-      margin-bottom: 2px;
-      font-weight: 600
+      margin-bottom: 6px;
+      font-weight: 600;
+      line-height: 1.45;
     }
 
     .vahmani-box p {
-      color: var(--moss);
-      font-size: 9.5px;
-      line-height: 1.5
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 10px;
+      line-height: 1.55;
+      font-weight: 400;
     }
 
     /* NEW: EJ expert panel */
@@ -1709,13 +1721,13 @@
         <div class="legend">
           <div class="legend-title">Progress toward 2030 goal</div>
           <div class="leg-row">
-            <div class="leg-dot" style="background:#2C5F2D"></div>On track
+            <div class="leg-dot" style="background:var(--ej-good)"></div>On track
           </div>
           <div class="leg-row">
-            <div class="leg-dot" style="background:#7DB862"></div>Progressing
+            <div class="leg-dot" style="background:#6cad7a"></div>Progressing
           </div>
           <div class="leg-row">
-            <div class="leg-dot" style="background:#C5DC94"></div>Needs action
+            <div class="leg-dot" style="background:#d0e4b8"></div>Needs action
           </div>
         </div>
         <!-- EJ Overlay legend -->
@@ -2155,13 +2167,13 @@
         </div>
         <div class="scatter-legend" id="ejLegendDots">
           <div class="sl-item">
-            <div class="sl-dot" style="background:#DC2626"></div>High burden, low emissions (EJ concern)
+            <div class="sl-dot" style="background:#b83228"></div>High burden, low emissions (EJ concern)
           </div>
           <div class="sl-item">
-            <div class="sl-dot" style="background:#F59E0B"></div>Medium burden
+            <div class="sl-dot" style="background:#c9980c"></div>Medium burden
           </div>
           <div class="sl-item">
-            <div class="sl-dot" style="background:#059669"></div>Low burden
+            <div class="sl-dot" style="background:#1f6b4d"></div>Low burden
           </div>
           <div class="sl-item">
             <div class="sl-dot" style="background:#7C3AED;opacity:.5"></div>High income area
@@ -2404,21 +2416,22 @@
   <script>
     // ── DATA ──────────────────────────────────────────────────────────────────────
     const cData = {
-      'Alameda': { pop: 1682353, e: '68%', b: '41%', t: '18%', eb: 68, bb: 41, tb: 18, rank: '4th of 9', fill: '#7DB862', since90: { e: -22, b: -14, t: -8 }, eLbl: 'clean energy — above avg', bLbl: 'homes off gas — room to grow', tLbl: 'cars electric — catching up', density: 3200, car: 1.4, green: 62, transit: 18, ces: 62, pollute: 'High', income: '$74k', ejClass: 'bad' },
-      'San Francisco': { pop: 873965, e: '82%', b: '52%', t: '11%', eb: 82, bb: 52, tb: 11, rank: '1st of 9', fill: '#2C5F2D', since90: { e: -38, b: -29, t: -31 }, eLbl: 'clean energy — regional leader', bLbl: 'homes off gas — leading region', tLbl: 'low car use — dense transit', density: 17000, car: 0.6, green: 85, transit: 8, ces: 28, pollute: 'Low', income: '$130k', ejClass: 'good' },
-      'Santa Clara': { pop: 1936259, e: '71%', b: '38%', t: '22%', eb: 71, bb: 38, tb: 22, rank: '2nd of 9', fill: '#4A8C4B', since90: { e: -26, b: -16, t: -12 }, eLbl: 'clean energy — strong', bLbl: 'homes off gas — progressing', tLbl: 'EV leader — high VMT still', density: 1800, car: 1.7, green: 58, transit: 25, ces: 41, pollute: 'Med', income: '$128k', ejClass: 'ok' },
-      'Contra Costa': { pop: 1165927, e: '54%', b: '29%', t: '13%', eb: 54, bb: 29, tb: 13, rank: '7th of 9', fill: '#C5DC94', since90: { e: -11, b: -7, t: -4 }, eLbl: 'clean energy — below average', bLbl: 'homes off gas — needs work', tLbl: 'high VMT — suburban sprawl', density: 800, car: 1.9, green: 40, transit: 35, ces: 71, pollute: 'High', income: '$96k', ejClass: 'bad' },
-      'Marin': { pop: 258826, e: '76%', b: '45%', t: '21%', eb: 76, bb: 45, tb: 21, rank: '3rd of 9', fill: '#97BC62', since90: { e: -28, b: -20, t: -18 }, eLbl: 'clean energy — well above avg', bLbl: 'homes off gas — strong', tLbl: 'EV progress — good', density: 400, car: 1.6, green: 90, transit: 30, ces: 18, pollute: 'Low', income: '$158k', ejClass: 'good' },
-      'San Mateo': { pop: 764442, e: '79%', b: '48%', t: '24%', eb: 79, bb: 48, tb: 24, rank: '2nd of 9', fill: '#5E9E5F', since90: { e: -32, b: -24, t: -21 }, eLbl: 'clean energy — near top', bLbl: 'homes off gas — leading', tLbl: 'EV leader — Bay Area top', density: 2100, car: 1.5, green: 70, transit: 20, ces: 33, pollute: 'Low', income: '$120k', ejClass: 'good' },
-      'Sonoma': { pop: 488863, e: '65%', b: '35%', t: '16%', eb: 65, bb: 35, tb: 16, rank: '5th of 9', fill: '#8EB85E', since90: { e: -19, b: -12, t: -9 }, eLbl: 'clean energy — above avg', bLbl: 'homes off gas — progressing', tLbl: 'on track — rural mix', density: 300, car: 1.8, green: 75, transit: 40, ces: 44, pollute: 'Med', income: '$82k', ejClass: 'ok' },
-      'Napa': { pop: 138019, e: '60%', b: '32%', t: '14%', eb: 60, bb: 32, tb: 14, rank: '6th of 9', fill: '#AACB72', since90: { e: -15, b: -9, t: -6 }, eLbl: 'clean energy — average', bLbl: 'homes off gas — early stages', tLbl: 'starting out — rural county', density: 200, car: 1.8, green: 65, transit: 45, ces: 48, pollute: 'Med', income: '$78k', ejClass: 'ok' },
-      'Solano': { pop: 453491, e: '52%', b: '27%', t: '12%', eb: 52, bb: 27, tb: 12, rank: '8th of 9', fill: '#C5DC94', since90: { e: -10, b: -6, t: -3 }, eLbl: 'clean energy — below avg', bLbl: 'homes off gas — needs investment', tLbl: 'lagging — long commutes', density: 500, car: 2.0, green: 35, transit: 50, ces: 68, pollute: 'High', income: '$72k', ejClass: 'bad' },
+      'Alameda': { pop: 1682353, e: '68%', b: '41%', t: '18%', eb: 68, bb: 41, tb: 18, rank: '4th of 9', fill: '#6aaf72', since90: { e: -22, b: -14, t: -8 }, eLbl: 'clean energy — above avg', bLbl: 'homes off gas — room to grow', tLbl: 'cars electric — catching up', density: 3200, car: 1.4, green: 62, transit: 18, ces: 62, pollute: 'High', income: '$74k', ejClass: 'bad' },
+      'San Francisco': { pop: 873965, e: '82%', b: '52%', t: '11%', eb: 82, bb: 52, tb: 11, rank: '1st of 9', fill: '#1f6b4d', since90: { e: -38, b: -29, t: -31 }, eLbl: 'clean energy — regional leader', bLbl: 'homes off gas — leading region', tLbl: 'low car use — dense transit', density: 17000, car: 0.6, green: 85, transit: 8, ces: 28, pollute: 'Low', income: '$130k', ejClass: 'good' },
+      'Santa Clara': { pop: 1936259, e: '71%', b: '38%', t: '22%', eb: 71, bb: 38, tb: 22, rank: '2nd of 9', fill: '#4d9a62', since90: { e: -26, b: -16, t: -12 }, eLbl: 'clean energy — strong', bLbl: 'homes off gas — progressing', tLbl: 'EV leader — high VMT still', density: 1800, car: 1.7, green: 58, transit: 25, ces: 41, pollute: 'Med', income: '$128k', ejClass: 'ok' },
+      'Contra Costa': { pop: 1165927, e: '54%', b: '29%', t: '13%', eb: 54, bb: 29, tb: 13, rank: '7th of 9', fill: '#c9e0a8', since90: { e: -11, b: -7, t: -4 }, eLbl: 'clean energy — below average', bLbl: 'homes off gas — needs work', tLbl: 'high VMT — suburban sprawl', density: 800, car: 1.9, green: 40, transit: 35, ces: 71, pollute: 'High', income: '$96k', ejClass: 'bad' },
+      'Marin': { pop: 258826, e: '76%', b: '45%', t: '21%', eb: 76, bb: 45, tb: 21, rank: '3rd of 9', fill: '#8bb85c', since90: { e: -28, b: -20, t: -18 }, eLbl: 'clean energy — well above avg', bLbl: 'homes off gas — strong', tLbl: 'EV progress — good', density: 400, car: 1.6, green: 90, transit: 30, ces: 18, pollute: 'Low', income: '$158k', ejClass: 'good' },
+      'San Mateo': { pop: 764442, e: '79%', b: '48%', t: '24%', eb: 79, bb: 48, tb: 24, rank: '2nd of 9', fill: '#58a064', since90: { e: -32, b: -24, t: -21 }, eLbl: 'clean energy — near top', bLbl: 'homes off gas — leading', tLbl: 'EV leader — Bay Area top', density: 2100, car: 1.5, green: 70, transit: 20, ces: 33, pollute: 'Low', income: '$120k', ejClass: 'good' },
+      'Sonoma': { pop: 488863, e: '65%', b: '35%', t: '16%', eb: 65, bb: 35, tb: 16, rank: '5th of 9', fill: '#85b456', since90: { e: -19, b: -12, t: -9 }, eLbl: 'clean energy — above avg', bLbl: 'homes off gas — progressing', tLbl: 'on track — rural mix', density: 300, car: 1.8, green: 75, transit: 40, ces: 44, pollute: 'Med', income: '$82k', ejClass: 'ok' },
+      'Napa': { pop: 138019, e: '60%', b: '32%', t: '14%', eb: 60, bb: 32, tb: 14, rank: '6th of 9', fill: '#a8c978', since90: { e: -15, b: -9, t: -6 }, eLbl: 'clean energy — average', bLbl: 'homes off gas — early stages', tLbl: 'starting out — rural county', density: 200, car: 1.8, green: 65, transit: 45, ces: 48, pollute: 'Med', income: '$78k', ejClass: 'ok' },
+      'Solano': { pop: 453491, e: '52%', b: '27%', t: '12%', eb: 52, bb: 27, tb: 12, rank: '8th of 9', fill: '#cadca8', since90: { e: -10, b: -6, t: -3 }, eLbl: 'clean energy — below avg', bLbl: 'homes off gas — needs investment', tLbl: 'lagging — long commutes', density: 500, car: 2.0, green: 35, transit: 50, ces: 68, pollute: 'High', income: '$72k', ejClass: 'bad' },
     };
 
     // EJ neighborhood data per county (simulated, ZIP-level)
     const ejData = {
       'Alameda': [
         { name: 'East Oakland (94601)', ces: 82, car: 0.9, income: 52000, green: 28, size: 18 },
+        { name: 'Berkeley (94703)', ces: 46, car: 1.1, income: 92000, green: 74, size: 14 },
         { name: 'Fruitvale (94601)', ces: 78, car: 0.8, income: 48000, green: 31, size: 14 },
         { name: 'West Oakland (94607)', ces: 74, car: 0.7, income: 45000, green: 22, size: 12 },
         { name: 'San Leandro (94577)', ces: 58, car: 1.5, income: 78000, green: 50, size: 10 },
@@ -2446,6 +2459,7 @@
         { name: 'Danville (94526)', ces: 15, car: 2.2, income: 175000, green: 75, size: 8 },
       ],
       'Santa Clara': [
+        { name: 'Milpitas (95035)', ces: 44, car: 1.7, income: 118000, green: 52, size: 14 },
         { name: 'East San Jose (95116)', ces: 75, car: 1.4, income: 55000, green: 22, size: 18 },
         { name: 'Alviso (95002)', ces: 80, car: 1.5, income: 48000, green: 18, size: 8 },
         { name: 'Gilroy (95020)', ces: 62, car: 1.9, income: 72000, green: 38, size: 12 },
@@ -2548,7 +2562,7 @@
       const label = document.getElementById('mapLabel');
       if (g === 'zip') {
         hint.style.display = 'block';
-        hint.innerHTML = '🔍 Showing <strong>ZIP Code / neighborhood level</strong> data — more actionable for local policy decisions per Councilmember Lunaparra\'s recommendation.';
+        hint.innerHTML = '🔍 <strong>ZIP / neighborhood samples</strong> (not every city block). Berkeley, Milpitas, and other named areas are shown for policy context — per Councilmember Lunaparra\'s recommendation.';
         hint.style.background = 'var(--lite)'; hint.style.borderColor = 'var(--moss)';
         label.textContent = 'Select a neighborhood';
 
@@ -2584,7 +2598,7 @@
         const x = col * cellW + 3, y = row * cellH + 3;
         const w = cellW - 6, h = cellH - 6;
         // color by CES score
-        const c = n.ces > 70 ? '#DC2626' : n.ces > 50 ? '#F59E0B' : n.ces > 30 ? '#10B981' : '#059669';
+        const c = n.ces > 70 ? '#b83228' : n.ces > 50 ? '#b8890c' : n.ces > 30 ? '#2a9d6f' : '#1f6b4d';
         const opacity = 0.5 + n.ces / 200;
         const g = svg.append('g').style('cursor', 'pointer').on('click', () => selectNeighborhood(n, selCounty));
         g.append('rect').attr('x', x).attr('y', y).attr('width', w).attr('height', h)
@@ -2791,7 +2805,7 @@
       data.forEach(n => {
         const xPct = (n.car - 0.4) / (2.5 - 0.4) * 100;  // car ownership 0.4–2.5
         const yPct = 100 - (n.ces / 100 * 90 + 5);         // CES 0–100, inverted (high = top)
-        const color = n.ces > 70 ? '#DC2626' : n.ces > 50 ? '#F59E0B' : '#059669';
+        const color = n.ces > 70 ? '#b83228' : n.ces > 50 ? '#c9980c' : '#1f6b4d';
         const size = Math.max(8, Math.min(16, n.size));
         const dot = document.createElement('div');
         dot.className = 'scatter-dot';
@@ -2869,17 +2883,17 @@
         ctx.fillStyle = '#aaa'; ctx.font = '8px DM Sans'; ctx.textAlign = 'center'; ctx.fillText(yr, px[0], 128);
       });
       drawLine(ctx, targetPts, '#B85042', true, 1);
-      drawLine(ctx, histPts, '#2C5F2D', false, 2.5);
+      drawLine(ctx, histPts, '#1f6b4d', false, 2.5);
       if (histPts.length) {
         const last = histPts[histPts.length - 1];
         drawLine(ctx, [[last[0], last[1]], ...bauPts], '#B85042', true, 1.5);
         if (polTotal > 0) drawLine(ctx, [[last[0], last[1]], ...polPts], '#7C3AED', false, 2);
       }
-      histPts.forEach(p => { ctx.beginPath(); ctx.arc(p[0], p[1], 3, 0, Math.PI * 2); ctx.fillStyle = '#2C5F2D'; ctx.fill(); });
+      histPts.forEach(p => { ctx.beginPath(); ctx.arc(p[0], p[1], 3, 0, Math.PI * 2); ctx.fillStyle = '#1f6b4d'; ctx.fill(); });
       const pace = (lastVal - hist[0]) / (2024 - 2005);
       const needed = (-40 - lastVal) / (2030 - 2024);
       const onTrack = pace >= needed;
-      document.getElementById('onTrackText').innerHTML = `<strong>${county}</strong> reduced GHG by <strong style="color:var(--forest)">${Math.abs(lastVal)}%</strong> since 1990.<br>Pace: <strong>${pace.toFixed(1)}%/yr</strong> · Needed: <strong>${needed.toFixed(1)}%/yr</strong><br><span style="color:${onTrack ? '#2C5F2D' : '#B85042'};font-weight:600">${onTrack ? '✓ On track' : '✗ Needs to accelerate'}</span>`;
+      document.getElementById('onTrackText').innerHTML = `<strong>${county}</strong> reduced GHG by <strong style="color:var(--forest)">${Math.abs(lastVal)}%</strong> since 1990.<br>Pace: <strong>${pace.toFixed(1)}%/yr</strong> · Needed: <strong>${needed.toFixed(1)}%/yr</strong><br><span style="color:${onTrack ? '#1f6b4d' : '#B85042'};font-weight:600">${onTrack ? '✓ On track' : '✗ Needs to accelerate'}</span>`;
       document.getElementById('policyInsight').innerHTML = {
         'San Francisco': 'Dense transit + housing = lowest VMT in region. Reach Code adopted 2019. Model for other counties.',
         'Alameda': 'Strong energy progress, but building electrification lagging. Reach Code not yet countywide.',
@@ -2936,7 +2950,7 @@
       const tgtPts = toXY(canvas, [2005, 2030], [-40, -40], 2005, 2030, yMin, yMax);
       ctx.strokeStyle = '#f0f0f0'; ctx.lineWidth = 0.5;
       [-10, -20, -30, -40].forEach(y => { const pts = toXY(canvas, [2005, 2030], [y, y], 2005, 2030, yMin, yMax); ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]); ctx.lineTo(pts[1][0], pts[1][1]); ctx.stroke(); ctx.fillStyle = '#bbb'; ctx.font = '7px DM Sans'; ctx.fillText(y + '%', 2, pts[0][1] + 3); });
-      drawLine(ctx, tgtPts, '#2C5F2D', true, 1);
+      drawLine(ctx, tgtPts, '#1f6b4d', true, 1);
       drawLine(ctx, histPts, '#6B7280', false, 2);
       if (histPts.length) { const last = histPts[histPts.length - 1]; drawLine(ctx, [[last[0], last[1]], ...bauPts], '#B85042', true, 2); if (extra > 0) drawLine(ctx, [[last[0], last[1]], ...polPts], '#7C3AED', false, 2.5); }
     }
@@ -2961,8 +2975,8 @@
       <td><div class="prog-bar"><div class="prog-fill" style="width:${d.tb}%;background:var(--red)"></div></div><span style="font-size:9px;margin-left:4px">${d.t}</span></td>
       <td style="font-size:10px;color:var(--mid)">${d.density.toLocaleString()}/mi²</td>
       <td style="font-size:10px;color:${d.car < 1.2 ? '#059669' : d.car < 1.7 ? '#D97706' : '#DC2626'};font-weight:600">${d.car}</td>
-      <td style="font-weight:600;color:${since90 < -25 ? '#2C5F2D' : since90 < -15 ? '#C47A1A' : '#B85042'}">${since90}%</td>
-      <td style="font-size:11px">${onTrack ? '<span style="color:#2C5F2D">✓ On track</span>' : '<span style="color:#B85042">✗ Behind</span>'}</td>
+      <td style="font-weight:600;color:${since90 < -25 ? '#1f6b4d' : since90 < -15 ? '#C47A1A' : '#B85042'}">${since90}%</td>
+      <td style="font-size:11px">${onTrack ? '<span style="color:#1f6b4d">✓ On track</span>' : '<span style="color:#B85042">✗ Behind</span>'}</td>
     </tr>`;
       });
       body.innerHTML = html;
@@ -3026,9 +3040,9 @@
       const bigBadge = document.getElementById('badge-big');
       if (bigBadge) bigBadge.classList.toggle('earned', gameState.xp >= 200);
       const svgMap = {
-        bus: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="12" rx="2.5" fill="#EAF3DE" stroke="#2C5F2D" stroke-width="2"/><circle cx="8" cy="18" r="2" stroke="#2C5F2D" stroke-width="1.8" fill="none"/><circle cx="16" cy="18" r="2" stroke="#2C5F2D" stroke-width="1.8" fill="none"/><line x1="3" y1="11" x2="21" y2="11" stroke="#2C5F2D" stroke-width="1.5"/></svg>`,
-        utensils: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3C8 3 4 7 5 12C6 16 10 19 14 18C17 17 19 14 19 11C19 6.5 15.5 3 12 3Z" fill="#EAF3DE" stroke="#2C5F2D" stroke-width="2"/><path d="M12 12L9 19" stroke="#2C5F2D" stroke-width="2" stroke-linecap="round"/></svg>`,
-        energy: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="9" r="8" fill="#EAF3DE"/><path d="M11 3L4 12H9.5L8 17L15 8H10L11 3Z" fill="#2C5F2D"/></svg>`,
+        bus: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="12" rx="2.5" fill="#E8F4EC" stroke="#1f6b4d" stroke-width="2"/><circle cx="8" cy="18" r="2" stroke="#1f6b4d" stroke-width="1.8" fill="none"/><circle cx="16" cy="18" r="2" stroke="#1f6b4d" stroke-width="1.8" fill="none"/><line x1="3" y1="11" x2="21" y2="11" stroke="#1f6b4d" stroke-width="1.5"/></svg>`,
+        utensils: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3C8 3 4 7 5 12C6 16 10 19 14 18C17 17 19 14 19 11C19 6.5 15.5 3 12 3Z" fill="#E8F4EC" stroke="#1f6b4d" stroke-width="2"/><path d="M12 12L9 19" stroke="#1f6b4d" stroke-width="2" stroke-linecap="round"/></svg>`,
+        energy: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="9" r="8" fill="#E8F4EC"/><path d="M11 3L4 12H9.5L8 17L15 8H10L11 3Z" fill="#1f6b4d"/></svg>`,
       };
       const visIcons = document.getElementById('visIcons');
       if (visIcons) {
