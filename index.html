@@ -214,15 +214,28 @@
 
     /* granularity hint banner */
     .gran-hint {
-      font-size: 9px;
+      font-size: 10px;
       color: var(--forest);
       background: linear-gradient(180deg, #f4faf7 0%, var(--lite) 100%);
       border: 1px solid rgba(46, 92, 71, 0.28);
       border-radius: var(--radius-sm);
-      padding: 8px 10px;
-      margin-bottom: 8px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
       line-height: 1.45;
       box-shadow: var(--shadow-sm);
+    }
+
+    .gran-hint .zip-finder {
+      margin-top: 9px;
+      padding-top: 9px;
+      border-top: 1px solid rgba(22, 54, 43, 0.12);
+      font-size: 9px;
+      line-height: 1.5;
+      color: var(--mid);
+    }
+
+    .gran-hint .zip-finder strong {
+      color: var(--forest);
     }
 
     #mapSvg {
@@ -2460,7 +2473,8 @@
       ],
       'Santa Clara': [
         { name: 'Milpitas (95035)', ces: 44, car: 1.7, income: 118000, green: 52, size: 14 },
-        { name: 'East San Jose (95116)', ces: 75, car: 1.4, income: 55000, green: 22, size: 18 },
+        { name: 'San Jose Downtown (95113)', ces: 52, car: 1.4, income: 78000, green: 48, size: 12 },
+        { name: 'San Jose East (95116)', ces: 75, car: 1.4, income: 55000, green: 22, size: 18 },
         { name: 'Alviso (95002)', ces: 80, car: 1.5, income: 48000, green: 18, size: 8 },
         { name: 'Gilroy (95020)', ces: 62, car: 1.9, income: 72000, green: 38, size: 12 },
         { name: 'Mountain View (94043)', ces: 35, car: 1.6, income: 128000, green: 60, size: 10 },
@@ -2562,7 +2576,9 @@
       const label = document.getElementById('mapLabel');
       if (g === 'zip') {
         hint.style.display = 'block';
-        hint.innerHTML = '🔍 <strong>ZIP / neighborhood samples</strong> (not every city block). Berkeley, Milpitas, and other named areas are shown for policy context — per Councilmember Lunaparra\'s recommendation.';
+        hint.innerHTML = '🔍 <strong>ZIP / neighborhood samples</strong> (demo areas, not every block). Policy context — Councilmember Lunaparra\'s recommendation.'
+          + '<div class="zip-finder"><strong>Where to tap:</strong> <strong>Berkeley</strong> → open <strong>Alameda</strong> County on the map first.'
+          + ' <strong>Milpitas</strong> &amp; <strong>San José</strong> (Downtown / East) → open <strong>Santa Clara</strong> County. Breadcrumb: Bay Area → County → pick a cell.</div>';
         hint.style.background = 'var(--lite)'; hint.style.borderColor = 'var(--moss)';
         label.textContent = 'Select a neighborhood';
 
@@ -2604,13 +2620,13 @@
         g.append('rect').attr('x', x).attr('y', y).attr('width', w).attr('height', h)
           .attr('rx', 5).attr('fill', c).attr('opacity', opacity)
           .attr('stroke', '#fff').attr('stroke-width', 1.5);
-        // short label
-        const short = n.name.split('(')[0].trim().split(' ').slice(0, 2).join(' ');
+        // short label (up to 3 words so "San Jose Downtown" fits)
+        const short = n.name.split('(')[0].trim().split(/\s+/).slice(0, 3).join(' ');
         g.append('text').attr('x', x + w / 2).attr('y', y + h / 2 - 5).attr('text-anchor', 'middle')
-          .attr('dominant-baseline', 'middle').attr('font-size', '6.5').attr('fill', '#fff')
+          .attr('dominant-baseline', 'middle').attr('font-size', '7').attr('fill', '#fff')
           .attr('font-family', 'DM Sans').attr('font-weight', '600').text(short);
         g.append('text').attr('x', x + w / 2).attr('y', y + h / 2 + 6).attr('text-anchor', 'middle')
-          .attr('dominant-baseline', 'middle').attr('font-size', '5.5').attr('fill', 'rgba(255,255,255,0.85)')
+          .attr('dominant-baseline', 'middle').attr('font-size', '6').attr('fill', 'rgba(255,255,255,0.85)')
           .attr('font-family', 'DM Sans').text('CES: ' + n.ces);
       });
     }
@@ -2749,7 +2765,7 @@
         'Alameda': '⚠️ <strong>EJ Gap:</strong> East Oakland and Fruitvale have high CES scores (70–85) from port/highway pollution, yet lower car ownership. Residents produce fewer transport emissions but suffer worse air quality.',
         'San Francisco': '✅ <strong>Better equity:</strong> SF has the lowest car ownership + improving EJ conditions in historically overburdened areas like Bayview-Hunters Point. Ongoing vigilance needed.',
         'Contra Costa': '🚨 <strong>Severe EJ concern:</strong> Richmond and North Richmond face some of the highest pollution burdens in the Bay Area from Chevron refinery, yet are low-income communities with lower emissions per capita.',
-        'Santa Clara': '⚠️ <strong>EJ Gap:</strong> East San Jose and Alviso bear heavy pollution loads from industrial corridors, while Palo Alto/Saratoga enjoy cleaner air despite high car ownership.',
+        'Santa Clara': '⚠️ <strong>EJ Gap:</strong> East San José and Alviso bear heavy pollution loads from industrial corridors, while Palo Alto/Saratoga enjoy cleaner air despite high car ownership.',
         'Marin': '⚠️ <strong>Income-equity gap:</strong> Marin City and Canal District in San Rafael face higher burdens than wealthy hillside towns. Small county but the disparity is sharp.',
         'San Mateo': '⚠️ <strong>EJ concern:</strong> East Palo Alto has CES 72 — one of the highest in the county — surrounded by wealthy low-burden cities.',
         'Sonoma': '🟡 <strong>Moderate:</strong> Roseland neighborhood in Santa Rosa has higher burden from agricultural pesticides and lower incomes. Farmworker communities are most vulnerable.',
@@ -2824,7 +2840,7 @@
         'Alameda': 'Pattern: East Oakland and Fruitvale (upper-left of chart) = high pollution, low car use. Piedmont/Castro Valley (lower-right) = low pollution, high car use. This is the environmental justice gap.',
         'Contra Costa': 'Richmond and N.Richmond are extreme upper-left — most burdened communities with modest car ownership. Danville and Walnut Creek are lower-right — wealthy, low-burden, high car ownership.',
         'San Francisco': 'Bayview and Tenderloin (upper area) carry high burdens despite very low car use. Marina and Pacific Heights (lower) have high incomes, moderate cars, low burden.',
-        'Santa Clara': 'East San Jose and Alviso upper-left. Saratoga and Palo Alto lower-right. The tech wealth disparity maps directly onto pollution exposure.',
+        'Santa Clara': 'East San José and Alviso upper-left. Saratoga and Palo Alto lower-right. The tech wealth disparity maps directly onto pollution exposure.',
         'Marin': 'Marin City and Canal District (San Rafael) carry higher burdens than hillside towns despite much lower emissions per household.',
         'San Mateo': 'East Palo Alto stands out starkly — high CES, lower cars — surrounded by wealthier low-burden cities.',
         'Solano': 'Vallejo and Suisun City upper area — high burden, moderate car ownership. Benicia and Vacaville lower.',
