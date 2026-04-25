@@ -807,6 +807,138 @@
       color: #DC2626
     }
 
+    /* "Why this matters to me" + next steps (Simple mode) */
+    .act-bridge {
+      margin: 0 0 12px 0;
+      padding: 11px 12px;
+      background: linear-gradient(180deg, #f9fcf8 0%, #f1f6f0 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .act-bridge-k {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--forest);
+      margin: 0 0 5px 0;
+      letter-spacing: 0.01em;
+    }
+
+    .act-bridge p {
+      font-size: 9.5px;
+      line-height: 1.55;
+      color: var(--mid);
+      margin: 0;
+    }
+
+    .btn-link-inline {
+      display: inline;
+      background: none;
+      border: none;
+      padding: 0;
+      margin: 0;
+      font: inherit;
+      font-size: inherit;
+      color: var(--moss);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      cursor: pointer;
+    }
+
+    .btn-link-inline:hover {
+      color: var(--forest);
+    }
+
+    .ej-next {
+      margin-top: 10px;
+      padding: 9px 10px 10px;
+      background: #f0faf3;
+      border: 1px solid rgba(31, 107, 77, 0.15);
+      border-radius: 8px;
+    }
+
+    .ej-next-h {
+      font-size: 9.5px;
+      font-weight: 600;
+      color: var(--forest);
+      margin: 0 0 5px 0;
+    }
+
+    .ej-next ul {
+      margin: 0;
+      padding: 0 0 0 1.1em;
+      font-size: 9.5px;
+      line-height: 1.5;
+      color: #374151;
+    }
+
+    .ej-next li {
+      margin-bottom: 4px;
+    }
+
+    .policy-fair-note {
+      font-size: 9px;
+      line-height: 1.45;
+      color: var(--mid);
+      margin: 8px 0 0;
+      padding: 8px 10px;
+      background: #faf8f4;
+      border: 1px solid #e8e4dc;
+      border-radius: 6px;
+    }
+
+    .policy-fair-note a {
+      color: var(--moss);
+    }
+
+    /* Calculator → collective action (Simple mode) */
+    .collective-bridge {
+      margin: 14px 0 12px 0;
+      padding: 12px 13px;
+      background: linear-gradient(180deg, #f4f6fb 0%, #eef2f8 100%);
+      border: 1px solid #d1dbe8;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .collective-bridge-k {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--forest);
+      margin: 0 0 6px 0;
+      letter-spacing: 0.01em;
+    }
+
+    .collective-bridge > p {
+      font-size: 9.5px;
+      line-height: 1.55;
+      color: var(--mid);
+      margin: 0 0 8px 0;
+    }
+
+    .collective-bridge ul {
+      margin: 0;
+      padding: 0 0 0 1.1em;
+      font-size: 9.5px;
+      line-height: 1.5;
+      color: #374151;
+    }
+
+    .collective-bridge li {
+      margin-bottom: 5px;
+    }
+
+    .collective-bridge li strong {
+      color: var(--forest);
+    }
+
+    .collective-bridge a {
+      color: var(--moss);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
     /* ── NEW: Tradeoff Visibility ── */
     .tradeoff-card {
       background: var(--surface);
@@ -2281,6 +2413,17 @@
           </div>
         </div>
 
+        <div class="act-bridge" id="actBridge" role="region" aria-label="Why this view">
+          <div class="act-bridge-k">The gap: awareness → a next step (not more charts for their own sake)</div>
+          <p>People often <em>agree</em> climate is urgent and still <strong>resist</strong> changes that hit daily
+            convenience. This page is built for a different question: <strong>Why my place, why now, and what can I
+              actually do?</strong> Use <strong>your county and ZIP</strong> for place, the <a href="#ejPanel"
+              style="color:var(--moss)">EJ</a> block for <strong>who carries more burden</strong>, the high‑impact list
+            and calculator for <strong>household levers</strong>, and—when policy is the lever—<button type="button"
+              class="btn-link-inline" onclick="openExpertTab('compare')">Expert → What works elsewhere</button> to scan
+            <strong>peer ideas</strong> to borrow or adapt (lessons, not a beauty contest).</p>
+        </div>
+
         <!-- Hero metrics -->
         <div class="hero-row">
           <div class="hc e">
@@ -2378,6 +2521,19 @@
               <strong>Gap:</strong> Less driving here doesn’t always mean cleaner air (freight, freeways, industry).
             </div>
           </div>
+          <div class="ej-next" id="ejNextSteps" role="complementary" aria-label="EJ: possible next steps">
+            <div class="ej-next-h">Smallest next steps (pick one)</div>
+            <ul>
+              <li><strong>Place + fairness before “yes”:</strong> if a project adds car trips or idling, check
+                <strong>CES</strong> in this area—<em>burden and choices aren’t the same for every block</em>.</li>
+              <li><strong>Public decisions shape private convenience:</strong> parking, bus lanes, reach codes, and
+                electrics rules get decided in hearings—showing up is often where “abstract climate” becomes your street.
+              </li>
+              <li><strong>Pair your habit with infrastructure:</strong> your trip matters more when the safe bike lane
+                or charger actually exists. For block‑level EJ + drivership context, use <button type="button"
+                  class="btn-link-inline" onclick="openExpertTab('ej')">Expert → Environmental Justice</button>.</li>
+            </ul>
+          </div>
         </div>
 
         <!-- ══ Biggest impact actions ══ -->
@@ -2425,6 +2581,11 @@
           </div>
           <div style="font-size:8.5px;color:var(--muted);margin-top:6px">*<strong>VMT</strong> = all miles cars drive;
             see <a href="#sources-footnotes">footnotes</a>. Illustration from Lunaparra interview (qualitative).</div>
+          <p class="policy-fair-note" id="policyFairNote">When policy asks for shared sacrifice, resistance often spikes
+            if people don’t see <strong>fair burden‑sharing and relief for those with fewer options</strong>. That’s
+            why the <a href="#ejPanel" style="color:var(--moss)">EJ</a> story here isn’t a side panel—it’s the bridge
+            from “I get it” to “I can live with a rule that isn’t just pushing costs onto the same people again.”
+          </p>
         </div>
 
         <!-- Personal Impact Calculator -->
@@ -2552,7 +2713,31 @@
               href="#sources-footnotes">Full citations</a></div>
         </div>
 
-        <div class="sec">State / local levers (examples)</div>
+        <div class="collective-bridge" id="collectiveBridge" role="region" aria-label="From personal to collective action">
+          <div class="collective-bridge-k">After this habit: where “I” turns into “we”</div>
+          <p>The savings above are <strong>one household</strong>—worth doing. The Bay Area gap is still mostly shaped by
+            <strong>infrastructure, codes, and public budgets</strong> (transit, bike lanes, reach codes, who breathes
+            what). A habit scales when the <strong>safe lane, reliable bus, or clean building rule</strong> exists
+            for everyone—not when guilt scales. That’s the bridge this project cares about: from a private choice to
+            <strong>public pressure</strong>—hearings, who represents you, and ballots that fund the low-carbon
+            default.</p>
+          <ul>
+            <li><strong>Vote &amp; register (California, official):</strong> <a
+                href="https://www.sos.ca.gov/elections" target="_blank" rel="noopener noreferrer"
+                title="California Secretary of State — elections, registration, what’s on the ballot">California Secretary
+                of State — Elections</a></li>
+            <li><strong>Rep + local codes + air district (curated on this page):</strong> <a href="#polLevers"
+                style="color:var(--moss)">State / local levers (examples) ↓</a> — legislator lookup, Reach Code
+              hearings, BAAQMD incentives (same URLs as the cards; we don’t repeat a long list here).</li>
+            <li><strong>Borrow and adapt a peer policy (9-county, Expert):</strong>
+              <button type="button" class="btn-link-inline" onclick="openExpertTab('compare')">Open Expert → What works
+                elsewhere</button> — ideas to steal, not a rank-only scoreboard. Optional:
+              <button type="button" class="btn-link-inline" onclick="openExpertTab('simulate')">Policy Simulator</button>
+              to see rough scale of a rule, not your daily habit alone.</li>
+          </ul>
+        </div>
+
+        <div class="sec" id="polLevers">State / local levers (examples)</div>
         <div class="pol-row">
           <div class="pc">
             <div class="pc-m">Power mix</div>
@@ -3867,6 +4052,24 @@
       if (tab === 'trends') setTimeout(drawTrendChart, 50);
       if (tab === 'simulate') setTimeout(() => updateSim(), 50);
       if (tab === 'ej') setTimeout(() => drawEJScatter(), 50);
+    }
+
+    /** Switch to Expert and a given tab; scroll Expert into view (from Simple-mode links). */
+    function openExpertTab(tab) {
+      const keys = ['overview', 'ej', 'compare', 'trends', 'simulate'];
+      const i = keys.indexOf(tab);
+      if (i < 0) return;
+      const modeBtns = document.querySelectorAll('.hdr .tog .tb');
+      if (modeBtns.length < 2) return;
+      setMode('expert', modeBtns[1]);
+      const xb = document.querySelectorAll('.x-tabs .x-tab');
+      if (xb[i]) {
+        setXTab(tab, xb[i]);
+        setTimeout(() => {
+          const xm = document.getElementById('xMode');
+          if (xm) xm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 30);
+      }
     }
 
     // ── INIT (map embedded; no topojson script) ──
