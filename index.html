@@ -274,6 +274,21 @@
       margin-bottom: 6px;
     }
 
+    .ces-zip-explainer {
+      font-size: 9.5px;
+      line-height: 1.45;
+      color: var(--mid);
+      background: #f4faf6;
+      border: 1px solid rgba(46, 92, 71, 0.2);
+      border-radius: 8px;
+      padding: 8px 10px;
+      margin-bottom: 8px;
+    }
+
+    .ces-zip-explainer strong {
+      color: var(--forest);
+    }
+
     /* granularity hint banner */
     .gran-hint {
       font-size: 10px;
@@ -502,6 +517,14 @@
       letter-spacing: .07em;
       text-transform: uppercase;
       margin-bottom: 5px
+    }
+
+    .hc-t-metric {
+      font-size: 8px;
+      font-weight: 600;
+      color: var(--forest);
+      line-height: 1.25;
+      margin: -1px 0 5px;
     }
 
     .hc-val {
@@ -2052,6 +2075,13 @@
               <span class="bc-item bc-active" id="bcZip" style="display:none;">ZIP Code</span>
             </div>
             <div class="map-lbl" id="mapLabel">Select a county</div>
+            <div class="ces-zip-explainer" id="cesZipExplainer" style="display:none" role="note"
+              aria-label="What CES means on the neighborhood map">
+              <strong>CalEnviroScreen (CES) score</strong> (0–100) combines exposure to pollution and community
+              vulnerability. <strong>Lower is better</strong> (less total burden in this index). <span
+                style="color:var(--forest)">Each square = that score for a sample block.</span> Full area names on
+              hover. <a href="#fn-oehha" style="color:var(--moss)">OEHHA</a>
+            </div>
             <div class="gran-hint" id="granHint" style="display:none;">💡 <strong>ZIP / neighborhood</strong> (sample
               areas) — use for local policy. See <a href="#sources-footnotes" style="color:var(--moss)">sources</a></div>
             <div class="map-svg-wrap">
@@ -2072,11 +2102,11 @@
               </div>
             </div>
             <div class="ej-legend" id="ejLegend" style="display:none">
-              <div class="legend-title">Pollution burden (CalEnviroScreen)</div>
+              <div class="legend-title">CalEnviroScreen (CES) — burden</div>
               <div class="ej-grad"></div>
-              <div class="ej-labels"><span>Low</span><span>High</span></div>
-              <div style="font-size:8.5px;color:var(--muted);margin-top:5px;line-height:1.4">More exposure, not always
-                more tailpipe.</div>
+              <div class="ej-labels"><span>Lower = better</span><span>Higher = worse</span></div>
+              <div style="font-size:8.5px;color:var(--muted);margin-top:5px;line-height:1.4">Same score as the number in
+                each square. Pollution and stressors, not who drives per se.</div>
             </div>
           </div>
         </div>
@@ -2121,12 +2151,15 @@
             </div>
             <div class="etag">Vahmani</div>
           </div>
-          <div class="hc t">
-            <div class="hc-sec">Getting Around</div>
-            <div class="hc-val t" id="tVal">18%</div>
-            <div class="hc-lbl" id="tLbl">vehicles electric</div>
+            <div class="hc t">
+            <div class="hc-sec">Getting around</div>
+            <div class="hc-t-metric"
+              title="Share of households not mainly using a gasoline-only car: includes no car, transit, EV, etc. Illustrative.">
+              % households w/o a gasoline car</div>
+            <div class="hc-val t" id="tVal">44%</div>
+            <div class="hc-lbl" id="tLbl">many still in gas cars — big room</div>
             <div class="hc-bar">
-              <div class="hc-bf" id="tBar" style="width:18%;background:var(--red)"></div>
+              <div class="hc-bf" id="tBar" style="width:44%;background:var(--red)"></div>
             </div>
             <div class="etag">Alfred Twu</div>
           </div>
@@ -2173,12 +2206,12 @@
         <div class="sec">Environmental justice (EJ)</div>
         <div class="ej-panel" id="ejPanel">
           <div class="ej-title" id="ejTitle">Breathe: Alameda</div>
-          <div class="ej-subtitle">CES score = exposure + vulnerability (CalEnviroScreen). <a href="#fn-oehha"
-              style="color:var(--moss)">OEHHA</a></div>
+          <div class="ej-subtitle" id="ejSubtitle">OEHHA index for this area. <a href="#fn-oehha"
+              style="color:var(--moss)">Source</a></div>
           <div class="ej-metrics">
             <div class="ej-m">
               <div class="ej-m-val" id="ejCES" style="color:var(--ej-bad)">62</div>
-              <div class="ej-m-lbl">CES<br>(0–100)</div>
+              <div class="ej-m-lbl">CES<br><span style="font-size:7.5px;color:var(--muted)">(lower better)</span></div>
             </div>
             <div class="ej-m">
               <div class="ej-m-val" id="ejPollute" style="color:var(--ej-bad)">High</div>
@@ -2204,8 +2237,8 @@
             style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:10px;display:flex;justify-content:space-between;align-items:center;">
             <div>
               <div style="font-size:11px;font-weight:600;color:var(--mid);">1. Fewer car miles</div>
-              <div style="font-size:9px;color:var(--muted);">Transport ≈ <span id="actTransPct">18%</span> of CO₂
-                (county mix)</div>
+              <div style="font-size:9px;color:var(--muted);">Transport ≈ <span id="actTransPct">36%</span> of CO₂
+                (county mix, rough)</div>
             </div>
             <div style="text-align:right;">
               <div style="font-size:10px;font-weight:600;color:var(--forest);">~0.8 t CO₂/yr (order of magnitude)</div>
@@ -2772,7 +2805,7 @@
               <th>County</th>
               <th>Clean Energy</th>
               <th>Homes off gas</th>
-              <th>EV %</th>
+              <th>Off gasoline</th>
               <th>Density</th>
               <th>Car/HH</th>
               <th>vs 1990</th>
@@ -2821,8 +2854,10 @@
         </li>
       </ol>
       <p class="fn-abbr"><strong>Terms:</strong> <strong>VMT</strong> = vehicle miles traveled (all driving on roads).
-        <strong>CES</strong> = CalEnviroScreen 0–100 score. <strong>GHG</strong> = greenhouse gases. <strong>EJ</strong> =
+        <strong>CES</strong> = CalEnviroScreen 0–100 score (pollution + population stressors; <strong>lower is better</strong>).
+        <strong>GHG</strong> = greenhouse gases. <strong>EJ</strong> =
         environmental justice. <strong>CARB</strong> = California Air Resources Board.
+        <strong>Off gasoline</strong> in the compare table = share of households not mainly using a gasoline-only car (incl. car-free, transit, EV); illustrative.
         <strong>Reach Code</strong> = optional local building rules (often: new construction all-electric / no new gas), on top
         of state code—see <a href="https://www.bayareareachcodes.org/" target="_blank" rel="noopener">bayareareachcodes.org</a>.</p>
     </aside>
@@ -2834,15 +2869,15 @@
 
     // ── DATA ──────────────────────────────────────────────────────────────────────
     const cData = {
-      'Alameda': { pop: 1682353, e: '68%', b: '41%', t: '18%', eb: 68, bb: 41, tb: 18, rank: '4th of 9', fill: '#6aaf72', since90: { e: -22, b: -14, t: -8 }, eLbl: 'clean energy — above avg', bLbl: 'homes off gas — room to grow', tLbl: 'cars electric — catching up', density: 3200, car: 1.4, green: 62, transit: 18, ces: 62, pollute: 'High', income: '$74k', ejClass: 'bad' },
-      'San Francisco': { pop: 873965, e: '82%', b: '52%', t: '11%', eb: 82, bb: 52, tb: 11, rank: '1st of 9', fill: '#1f6b4d', since90: { e: -38, b: -29, t: -31 }, eLbl: 'clean energy — regional leader', bLbl: 'homes off gas — leading region', tLbl: 'low car use — dense transit', density: 17000, car: 0.6, green: 85, transit: 8, ces: 28, pollute: 'Low', income: '$130k', ejClass: 'good' },
-      'Santa Clara': { pop: 1936259, e: '71%', b: '38%', t: '22%', eb: 71, bb: 38, tb: 22, rank: '2nd of 9', fill: '#4d9a62', since90: { e: -26, b: -16, t: -12 }, eLbl: 'clean energy — strong', bLbl: 'homes off gas — progressing', tLbl: 'EVs up, long commutes still', density: 1800, car: 1.7, green: 58, transit: 25, ces: 41, pollute: 'Med', income: '$128k', ejClass: 'ok' },
-      'Contra Costa': { pop: 1165927, e: '54%', b: '29%', t: '13%', eb: 54, bb: 29, tb: 13, rank: '7th of 9', fill: '#c9e0a8', since90: { e: -11, b: -7, t: -4 }, eLbl: 'clean energy — below average', bLbl: 'homes off gas — needs work', tLbl: 'sprawl — lots of driving', density: 800, car: 1.9, green: 40, transit: 35, ces: 71, pollute: 'High', income: '$96k', ejClass: 'bad' },
-      'Marin': { pop: 258826, e: '76%', b: '45%', t: '21%', eb: 76, bb: 45, tb: 21, rank: '3rd of 9', fill: '#8bb85c', since90: { e: -28, b: -20, t: -18 }, eLbl: 'clean energy — well above avg', bLbl: 'homes off gas — strong', tLbl: 'EV progress — good', density: 400, car: 1.6, green: 90, transit: 30, ces: 18, pollute: 'Low', income: '$158k', ejClass: 'good' },
-      'San Mateo': { pop: 764442, e: '79%', b: '48%', t: '24%', eb: 79, bb: 48, tb: 24, rank: '2nd of 9', fill: '#58a064', since90: { e: -32, b: -24, t: -21 }, eLbl: 'clean energy — near top', bLbl: 'homes off gas — leading', tLbl: 'EV leader — Bay Area top', density: 2100, car: 1.5, green: 70, transit: 20, ces: 33, pollute: 'Low', income: '$120k', ejClass: 'good' },
-      'Sonoma': { pop: 488863, e: '65%', b: '35%', t: '16%', eb: 65, bb: 35, tb: 16, rank: '5th of 9', fill: '#85b456', since90: { e: -19, b: -12, t: -9 }, eLbl: 'clean energy — above avg', bLbl: 'homes off gas — progressing', tLbl: 'on track — rural mix', density: 300, car: 1.8, green: 75, transit: 40, ces: 44, pollute: 'Med', income: '$82k', ejClass: 'ok' },
-      'Napa': { pop: 138019, e: '60%', b: '32%', t: '14%', eb: 60, bb: 32, tb: 14, rank: '6th of 9', fill: '#a8c978', since90: { e: -15, b: -9, t: -6 }, eLbl: 'clean energy — average', bLbl: 'homes off gas — early stages', tLbl: 'starting out — rural county', density: 200, car: 1.8, green: 65, transit: 45, ces: 48, pollute: 'Med', income: '$78k', ejClass: 'ok' },
-      'Solano': { pop: 453491, e: '52%', b: '27%', t: '12%', eb: 52, bb: 27, tb: 12, rank: '8th of 9', fill: '#cadca8', since90: { e: -10, b: -6, t: -3 }, eLbl: 'clean energy — below avg', bLbl: 'homes off gas — needs investment', tLbl: 'lagging — long commutes', density: 500, car: 2.0, green: 35, transit: 50, ces: 68, pollute: 'High', income: '$72k', ejClass: 'bad' },
+      'Alameda': { pop: 1682353, e: '68%', b: '41%', t: '44%', eb: 68, bb: 41, tb: 44, tShare: 36, rank: '4th of 9', fill: '#6aaf72', since90: { e: -22, b: -14, t: -8 }, eLbl: 'clean energy — above avg', bLbl: 'homes off gas — room to grow', tLbl: 'many still in gas cars — big room', density: 3200, car: 1.4, green: 62, transit: 18, ces: 62, pollute: 'High', income: '$74k', ejClass: 'bad' },
+      'San Francisco': { pop: 873965, e: '82%', b: '52%', t: '88%', eb: 82, bb: 52, tb: 88, tShare: 28, rank: '1st of 9', fill: '#1f6b4d', since90: { e: -38, b: -29, t: -31 }, eLbl: 'clean energy — regional leader', bLbl: 'homes off gas — leading region', tLbl: 'transit, walk, not driving — not just EVs', density: 17000, car: 0.6, green: 85, transit: 8, ces: 28, pollute: 'Low', income: '$130k', ejClass: 'good' },
+      'Santa Clara': { pop: 1936259, e: '71%', b: '38%', t: '38%', eb: 71, bb: 38, tb: 38, tShare: 38, rank: '2nd of 9', fill: '#4d9a62', since90: { e: -26, b: -16, t: -12 }, eLbl: 'clean energy — strong', bLbl: 'homes off gas — progressing', tLbl: 'commutes: many still on gasoline', density: 1800, car: 1.7, green: 58, transit: 25, ces: 41, pollute: 'Med', income: '$128k', ejClass: 'ok' },
+      'Contra Costa': { pop: 1165927, e: '54%', b: '29%', t: '32%', eb: 54, bb: 29, tb: 32, tShare: 42, rank: '7th of 9', fill: '#c9e0a8', since90: { e: -11, b: -7, t: -4 }, eLbl: 'clean energy — below average', bLbl: 'homes off gas — needs work', tLbl: 'sprawl — more gas-vehicle need', density: 800, car: 1.9, green: 40, transit: 35, ces: 71, pollute: 'High', income: '$96k', ejClass: 'bad' },
+      'Marin': { pop: 258826, e: '76%', b: '45%', t: '58%', eb: 76, bb: 45, tb: 58, tShare: 35, rank: '3rd of 9', fill: '#8bb85c', since90: { e: -28, b: -20, t: -18 }, eLbl: 'clean energy — well above avg', bLbl: 'homes off gas — strong', tLbl: 'shorter trips + more EV, still some gas', density: 400, car: 1.6, green: 90, transit: 30, ces: 18, pollute: 'Low', income: '$158k', ejClass: 'good' },
+      'San Mateo': { pop: 764442, e: '79%', b: '48%', t: '50%', eb: 79, bb: 48, tb: 50, tShare: 34, rank: '2nd of 9', fill: '#58a064', since90: { e: -32, b: -24, t: -21 }, eLbl: 'clean energy — near top', bLbl: 'homes off gas — leading', tLbl: 'workplace + EV, suburbs remain mixed', density: 2100, car: 1.5, green: 70, transit: 20, ces: 33, pollute: 'Low', income: '$120k', ejClass: 'good' },
+      'Sonoma': { pop: 488863, e: '65%', b: '35%', t: '41%', eb: 65, bb: 41, tb: 41, tShare: 40, rank: '5th of 9', fill: '#85b456', since90: { e: -19, b: -12, t: -9 }, eLbl: 'clean energy — above avg', bLbl: 'homes off gas — progressing', tLbl: 'rural — more gas-vehicle use', density: 300, car: 1.8, green: 75, transit: 40, ces: 44, pollute: 'Med', income: '$82k', ejClass: 'ok' },
+      'Napa': { pop: 138019, e: '60%', b: '32%', t: '37%', eb: 60, bb: 32, tb: 37, tShare: 41, rank: '6th of 9', fill: '#a8c978', since90: { e: -15, b: -9, t: -6 }, eLbl: 'clean energy — average', bLbl: 'homes off gas — early stages', tLbl: 'widespread long gas commutes', density: 200, car: 1.8, green: 65, transit: 45, ces: 48, pollute: 'Med', income: '$78k', ejClass: 'ok' },
+      'Solano': { pop: 453491, e: '52%', b: '27%', t: '29%', eb: 52, bb: 27, tb: 29, tShare: 44, rank: '8th of 9', fill: '#cadca8', since90: { e: -10, b: -6, t: -3 }, eLbl: 'clean energy — below avg', bLbl: 'homes off gas — needs investment', tLbl: 'I-80 + long gas miles', density: 500, car: 2.0, green: 35, transit: 50, ces: 68, pollute: 'High', income: '$72k', ejClass: 'bad' },
     };
 
     // EJ neighborhood data per county (simulated, ZIP-level)
@@ -2966,6 +3001,10 @@
 
       document.getElementById('mapLabel').textContent = 'Select a county';
       document.getElementById('granHint').style.display = 'none';
+      const cesEx = document.getElementById('cesZipExplainer');
+      const ejLg = document.getElementById('ejLegend');
+      if (cesEx) cesEx.style.display = 'none';
+      if (ejLg) ejLg.style.display = 'none';
       initMap();
     }
 
@@ -2992,8 +3031,16 @@
         document.getElementById('bcSepZ').style.display = 'none';
         document.getElementById('bcZip').style.display = 'none';
 
+        const cesEx = document.getElementById('cesZipExplainer');
+        const ejLg = document.getElementById('ejLegend');
+        if (cesEx) cesEx.style.display = 'block';
+        if (ejLg) ejLg.style.display = 'block';
         drawZipMap();
       } else {
+        const cesEx = document.getElementById('cesZipExplainer');
+        const ejLg = document.getElementById('ejLegend');
+        if (cesEx) cesEx.style.display = 'none';
+        if (ejLg) ejLg.style.display = 'none';
         hint.style.display = 'none';
         label.textContent = 'Select a county';
         initMap();
@@ -3019,17 +3066,13 @@
         const c = n.ces > 70 ? '#b83228' : n.ces > 50 ? '#b8890c' : n.ces > 30 ? '#2a9d6f' : '#1f6b4d';
         const opacity = 0.5 + n.ces / 200;
         const g = svg.append('g').style('cursor', 'pointer').on('click', () => selectNeighborhood(n, selCounty));
+        g.append('title').text(n.name + ' — CES ' + n.ces + ' (lower = better on this 0–100 index)');
         g.append('rect').attr('x', x).attr('y', y).attr('width', w).attr('height', h)
           .attr('rx', 5).attr('fill', c).attr('opacity', opacity)
           .attr('stroke', '#fff').attr('stroke-width', 1.5);
-        // short label (up to 3 words so "San Jose Downtown" fits)
-        const short = n.name.split('(')[0].trim().split(/\s+/).slice(0, 3).join(' ');
-        g.append('text').attr('x', x + w / 2).attr('y', y + h / 2 - 5).attr('text-anchor', 'middle')
-          .attr('dominant-baseline', 'middle').attr('font-size', '7').attr('fill', '#fff')
-          .attr('font-family', 'DM Sans').attr('font-weight', '600').text(short);
-        g.append('text').attr('x', x + w / 2).attr('y', y + h / 2 + 6).attr('text-anchor', 'middle')
-          .attr('dominant-baseline', 'middle').attr('font-size', '6').attr('fill', 'rgba(255,255,255,0.85)')
-          .attr('font-family', 'DM Sans').text('CES: ' + n.ces);
+        g.append('text').attr('x', x + w / 2).attr('y', y + h / 2 + 1).attr('text-anchor', 'middle')
+          .attr('dominant-baseline', 'middle').attr('font-size', h > 48 ? 16 : 14).attr('fill', '#fff')
+          .attr('font-family', 'DM Sans, sans-serif').attr('font-weight', '700').text(String(n.ces));
       });
     }
 
@@ -3053,7 +3096,7 @@
         paradox.innerHTML = `<strong>High load:</strong> CES <strong>${n.ces}</strong> · ${n.car.toFixed(1)} cars/HH.`;
         document.getElementById('ejPanel').className = 'ej-panel ok';
       } else {
-        paradox.innerHTML = `<strong>Lower load:</strong> CES <strong>${n.ces}</strong> — room to go electric when ready.`;
+        paradox.innerHTML = `<strong>Lower load:</strong> CES <strong>${n.ces}</strong> — transit, walking, and getting off gas still help.`;
         document.getElementById('ejPanel').className = 'ej-panel good';
       }
       // Update context cards with neighborhood data
@@ -3137,7 +3180,7 @@
       document.getElementById('bBar').style.width = d.bb + '%';
       document.getElementById('tBar').style.width = d.tb + '%';
       document.getElementById('cNameAction').textContent = name;
-      document.getElementById('actTransPct').textContent = d.t;
+      document.getElementById('actTransPct').textContent = (d.tShare ?? 35) + '%';
 
       // Context cards
       document.getElementById('ctxDensity').textContent = d.density.toLocaleString();
