@@ -188,19 +188,56 @@
       font-size: 9px;
     }
 
-    /* ── LAYOUT — left column wider so map + legend aren’t cramped ── */
+    /* ── LAYOUT — map + legend = top “header” strip; metrics scroll below (teacher feedback) ── */
     .layout {
-      display: grid;
-      grid-template-columns: clamp(280px, 30vw, 400px) minmax(0, 1fr);
-      min-height: 500px;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
       align-items: stretch;
     }
 
-    .map-panel {
+    .map-block {
+      width: 100%;
+      flex-shrink: 0;
+    }
+
+    .map-panel-inner {
       background: var(--surface);
-      border-right: 1px solid var(--border);
-      padding: 18px 17px;
-      box-shadow: inset -8px 0 24px -18px rgba(22, 54, 43, 0.06);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 18px 20px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(180px, 240px);
+      gap: 16px 24px;
+      align-items: start;
+      box-shadow: 0 6px 24px -12px rgba(14, 47, 40, 0.1);
+    }
+
+    @media (max-width: 800px) {
+      .map-panel-inner {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .map-main-col {
+      min-width: 0;
+    }
+
+    .map-svg-wrap {
+      max-width: min(100%, 520px);
+    }
+
+    .map-legend-col {
+      font-size: 11px;
+    }
+
+    .map-legend-col .legend,
+    .map-legend-col .ej-legend {
+      margin-top: 0;
+    }
+
+    .map-legend-col .ej-legend {
+      margin-top: 12px;
+      padding-top: 10px;
     }
 
     .map-lbl {
@@ -348,10 +385,11 @@
 
     /* ── METRICS PANEL ── */
     .smetrics {
-      padding: 18px 20px;
-      overflow-y: auto;
-      max-height: 680px;
-      background: linear-gradient(180deg, var(--surface-muted) 0%, var(--cream) 18%);
+      padding: 20px 22px 32px;
+      max-width: 960px;
+      margin: 0 auto;
+      width: 100%;
+      background: linear-gradient(180deg, var(--surface-muted) 0%, var(--cream) 14%);
     }
 
     .c-header {
@@ -1688,14 +1726,125 @@
       min-width: 90px
     }
 
-    .footer {
+    .footer-line {
       text-align: center;
       font-size: 9px;
       color: var(--muted);
       letter-spacing: 0.03em;
-      padding: 14px 16px 18px;
+      padding: 12px 16px 8px;
       border-top: 1px solid var(--border);
       background: linear-gradient(180deg, var(--cream) 0%, #f0f2f1 100%);
+    }
+
+    .footnotes {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px 28px;
+      font-size: 9px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    .fn-title {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--forest);
+      margin-bottom: 8px;
+    }
+
+    .fn-list {
+      padding-left: 1.1em;
+      margin: 0 0 10px 0;
+    }
+
+    .fn-list li {
+      margin-bottom: 5px;
+    }
+
+    .fn-list a {
+      color: var(--moss);
+    }
+
+    .fn-abbr {
+      font-size: 8.5px;
+      color: var(--muted);
+      margin: 0;
+      padding-top: 6px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* CO₂: car vs pool — visual for general audience */
+    .co2-compare-diag {
+      background: var(--surface-muted);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px 14px 14px;
+      margin: 8px 0 12px;
+    }
+
+    .co2-compare-diag .ccd-title {
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--forest);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+
+    .ccd-pairs {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 8px 6px;
+      align-items: end;
+    }
+
+    @media (max-width: 560px) {
+      .ccd-pairs {
+        grid-template-columns: 1fr;
+      }
+
+      .ccd-vs {
+        transform: rotate(90deg);
+        text-align: center;
+      }
+    }
+
+    .ccd-col {
+      text-align: center;
+    }
+
+    .ccd-sico {
+      width: 100%;
+      max-width: 160px;
+      height: 72px;
+      margin: 0 auto 6px;
+      display: block;
+    }
+
+    .ccd-cap {
+      font-size: 8.5px;
+      color: var(--mid);
+      line-height: 1.4;
+    }
+
+    .ccd-vs {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--border);
+      padding-bottom: 20px;
+    }
+
+    .ccd-you {
+      font-size: 9.5px;
+      color: var(--forest);
+      margin: 10px 0 0;
+      line-height: 1.45;
+    }
+
+    .ccd-you strong {
+      color: var(--moss);
     }
   </style>
 </head>
@@ -1718,53 +1867,59 @@
   <!-- ══ SIMPLE MODE ══ -->
   <div id="sMode">
     <div class="layout">
-      <div class="map-panel">
-        <div class="breadcrumb" id="mapBc">
-          <span class="bc-item bc-active" id="bcBayArea" onclick="resetToBayArea()">Bay Area</span>
-          <span class="bc-sep" id="bcSepC" style="display:none;">&gt;</span>
-          <span class="bc-item" id="bcCounty" style="display:none;" onclick="resetToCounty()">County</span>
-          <span class="bc-sep" id="bcSepZ" style="display:none;">&gt;</span>
-          <span class="bc-item bc-active" id="bcZip" style="display:none;">ZIP Code</span>
-        </div>
-        <div class="map-lbl" id="mapLabel">Select a county</div>
-        <div class="gran-hint" id="granHint" style="display:none;">💡 Switch to <strong>ZIP Code</strong> view for
-          neighborhood-level data —
-          more actionable for policy decisions.</div>
-        <svg id="mapSvg" viewBox="0 0 220 260"></svg>
-        <div class="legend">
-          <div class="legend-title">Progress toward 2030 goal</div>
-          <div class="leg-row">
-            <div class="leg-dot" style="background:var(--ej-good)"></div>On track
+      <div class="map-block">
+        <div class="map-panel-inner">
+          <div class="map-main-col">
+            <div class="breadcrumb" id="mapBc">
+              <span class="bc-item bc-active" id="bcBayArea" onclick="resetToBayArea()">Bay Area</span>
+              <span class="bc-sep" id="bcSepC" style="display:none;">&gt;</span>
+              <span class="bc-item" id="bcCounty" style="display:none;" onclick="resetToCounty()">County</span>
+              <span class="bc-sep" id="bcSepZ" style="display:none;">&gt;</span>
+              <span class="bc-item bc-active" id="bcZip" style="display:none;">ZIP Code</span>
+            </div>
+            <div class="map-lbl" id="mapLabel">Select a county</div>
+            <div class="gran-hint" id="granHint" style="display:none;">💡 <strong>ZIP / neighborhood</strong> (sample
+              areas) — use for local policy. See <a href="#sources-footnotes" style="color:var(--moss)">sources</a></div>
+            <div class="map-svg-wrap">
+              <svg id="mapSvg" viewBox="0 0 220 260"></svg>
+            </div>
           </div>
-          <div class="leg-row">
-            <div class="leg-dot" style="background:#6cad7a"></div>Progressing
+          <div class="map-legend-col">
+            <div class="legend">
+              <div class="legend-title">Progress toward 2030 goal</div>
+              <div class="leg-row">
+                <div class="leg-dot" style="background:var(--ej-good)"></div>On track
+              </div>
+              <div class="leg-row">
+                <div class="leg-dot" style="background:#6cad7a"></div>Progressing
+              </div>
+              <div class="leg-row">
+                <div class="leg-dot" style="background:#d0e4b8"></div>Needs action
+              </div>
+            </div>
+            <div class="ej-legend" id="ejLegend" style="display:none">
+              <div class="legend-title">Pollution burden (CalEnviroScreen)</div>
+              <div class="ej-grad"></div>
+              <div class="ej-labels"><span>Low</span><span>High</span></div>
+              <div style="font-size:8.5px;color:var(--muted);margin-top:5px;line-height:1.4">More exposure, not always
+                more tailpipe.</div>
+            </div>
           </div>
-          <div class="leg-row">
-            <div class="leg-dot" style="background:#d0e4b8"></div>Needs action
-          </div>
-        </div>
-        <!-- EJ Overlay legend -->
-        <div class="ej-legend" id="ejLegend" style="display:none">
-          <div class="legend-title">Pollution Burden (CalEnviroScreen)</div>
-          <div class="ej-grad"></div>
-          <div class="ej-labels"><span>Low burden</span><span>High burden</span></div>
-          <div style="font-size:8.5px;color:var(--muted);margin-top:5px;line-height:1.4">High burden = more pollution
-            exposure despite potentially lower emissions</div>
         </div>
       </div>
 
       <div class="smetrics">
-        <!-- Header -->
+        <!-- County summary -->
         <div class="c-header">
           <div style="display:flex;justify-content:space-between;width:100%;align-items:baseline;">
             <div class="c-name" id="cName">Alameda County</div>
             <div class="c-rank" id="cRank">4th of 9 counties</div>
           </div>
           <div class="track-banner">
-            <div style="font-size:11px;font-weight:600;color:#B85042;" id="cTrackAlert">🚨 NOT on track for 2030 climate
-              goals</div>
-            <div style="font-size:10px;color:var(--mid);margin-top:2px;">Need <strong id="cGapText"
-                style="color:#B85042">18%</strong> more reduction</div>
+            <div style="font-size:11px;font-weight:600;color:#B85042;" id="cTrackAlert">Not on track for 2030</div>
+            <div style="font-size:10px;color:var(--mid);margin-top:2px;">Gap: <strong id="cGapText"
+                style="color:#B85042">18%</strong> · <a href="#sources-footnotes" style="color:var(--moss)">terms</a>
+            </div>
             <div style="width:100%;height:4px;background:#E5E7EB;border-radius:2px;margin-top:6px;">
               <div id="cGapBarTop"
                 style="height:100%;width:55%;background:#B85042;border-radius:2px;transition:width 1s ease;"></div>
@@ -1804,7 +1959,7 @@
         </div>
 
         <!-- ══ NEW: Housing Density + Car Ownership ══ -->
-        <div class="sec">Housing & Car Context</div>
+        <div class="sec">Density &amp; cars</div>
         <div class="context-row" style="margin-bottom:14px">
           <div class="ctx-card">
             <div class="ctx-label">Housing Density</div>
@@ -1841,84 +1996,78 @@
         </div>
 
         <!-- ══ NEW: Environmental Justice Panel ══ -->
-        <div class="sec">Environmental Justice</div>
+        <div class="sec">Environmental justice (EJ)</div>
         <div class="ej-panel" id="ejPanel">
-          <div class="ej-title" id="ejTitle">Pollution Burden vs Emissions — Alameda County</div>
-          <div class="ej-subtitle">Who produces emissions vs who experiences pollution? This reveals environmental
-            inequality.</div>
+          <div class="ej-title" id="ejTitle">Who drives pollution vs who breathes it — Alameda</div>
+          <div class="ej-subtitle">Who drives more <em>vs</em> who breathes worse air? Use <a href="#fn-oehha"
+              style="color:var(--moss)">CalEnviroScreen</a> (OEHHA).</div>
           <div class="ej-metrics">
             <div class="ej-m">
               <div class="ej-m-val" id="ejCES" style="color:var(--ej-bad)">62</div>
-              <div class="ej-m-lbl">CalEnviroScreen<br>score (0–100)</div>
+              <div class="ej-m-lbl">CES<br>(0–100)</div>
             </div>
             <div class="ej-m">
               <div class="ej-m-val" id="ejPollute" style="color:var(--ej-bad)">High</div>
-              <div class="ej-m-lbl">Pollution<br>exposure level</div>
+              <div class="ej-m-lbl">Pollution load</div>
             </div>
             <div class="ej-m">
               <div class="ej-m-val" id="ejIncome" style="color:var(--amber)">$74k</div>
-              <div class="ej-m-lbl">Median household<br>income</div>
+              <div class="ej-m-lbl">Income<br>(median)</div>
             </div>
           </div>
-          <!-- The Paradox -->
           <div class="paradox-box" id="paradoxBox">
             <div class="paradox-icon">⚠️</div>
             <div class="paradox-text" id="paradoxText">
-              <strong>Environmental Justice Gap:</strong> Low-income communities in this county produce fewer emissions
-              (less driving, smaller homes) but face <strong>higher pollution exposure</strong> from industrial
-              facilities and highways nearby. Those who pollute least breathe the worst air.
+              <strong>EJ gap:</strong> Less driving can still mean more exposure near freeways and industry.
             </div>
           </div>
         </div>
 
         <!-- ══ Biggest impact actions ══ -->
-        <div class="sec">Biggest impact actions in <span id="cNameAction">Alameda</span></div>
+        <div class="sec">High-impact moves · <span id="cNameAction">Alameda</span></div>
         <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
           <div
             style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:10px;display:flex;justify-content:space-between;align-items:center;">
             <div>
-              <div style="font-size:11px;font-weight:600;color:var(--mid);">1. Drive less</div>
-              <div style="font-size:9px;color:var(--muted);">(↓ transport = <span id="actTransPct">18%</span> of
-                emissions)</div>
+              <div style="font-size:11px;font-weight:600;color:var(--mid);">1. Fewer car miles</div>
+              <div style="font-size:9px;color:var(--muted);">Transport ≈ <span id="actTransPct">18%</span> of CO₂
+                (county mix)</div>
             </div>
             <div style="text-align:right;">
-              <div style="font-size:10px;font-weight:600;color:var(--forest);">→ Save ~0.8 tons CO₂/yr</div>
+              <div style="font-size:10px;font-weight:600;color:var(--forest);">~0.8 t CO₂/yr (order of magnitude)</div>
             </div>
           </div>
           <div
             style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:10px;display:flex;justify-content:space-between;align-items:center;">
             <div>
-              <div style="font-size:11px;font-weight:600;color:var(--mid);">2. Electrify your home</div>
-              <div style="font-size:9px;color:var(--muted);">(Largest gap vs 2030 goal)</div>
+              <div style="font-size:11px;font-weight:600;color:var(--mid);">2. Electrify home</div>
+              <div style="font-size:9px;color:var(--muted);">Largest 2030 gap in many places</div>
             </div>
             <div style="text-align:right;">
-              <div style="font-size:10px;font-weight:600;color:var(--forest);">→ Eliminate gas use</div>
+              <div style="font-size:10px;font-weight:600;color:var(--forest);">No gas in buildings</div>
             </div>
           </div>
         </div>
 
         <!-- ══ NEW: Tradeoff Visibility ══ -->
-        <div class="sec">Policy Tradeoffs — Hopkins St example</div>
+        <div class="sec">Policy tradeoff (example: bike lanes)</div>
         <div class="tradeoff-card">
-          <div class="tradeoff-title">Bike Lane Proposal: What's gained vs what's lost</div>
+          <div class="tradeoff-title">Bike lanes: wins vs. tradeoffs</div>
           <div class="tradeoff-grid">
             <div class="tradeoff-col gains">
-              <div class="tc-header gains">✅ What we gain</div>
-              <div class="tc-item">🚲 More protected bike lanes → safer cycling to school</div>
-              <div class="tc-item">📉 Estimated 8% VMT reduction on this corridor</div>
-              <div class="tc-item">😷 Lower NO₂ near the two schools</div>
-              <div class="tc-item">❤️ Health benefits from active transport</div>
+              <div class="tc-header gains">Gains</div>
+              <div class="tc-item">🚲 Safer bike route to school</div>
+              <div class="tc-item">📉 ~8% less driving* on this street</div>
+              <div class="tc-item">😷 Less NO₂ near schools</div>
             </div>
             <div class="tradeoff-col costs">
-              <div class="tc-header costs">⚠️ What we give up</div>
-              <div class="tc-item">🅿️ ~40 parking spots removed</div>
-              <div class="tc-item">🚗 Longer drive times for hills residents</div>
-              <div class="tc-item">🏪 Reduced foot traffic for some businesses</div>
-              <div class="tc-item">⏱️ 3–5 min longer commute for some</div>
+              <div class="tc-header costs">Tradeoffs</div>
+              <div class="tc-item">🅿️ Some parking loss</div>
+              <div class="tc-item">🚗 Longer detours for a few drivers</div>
             </div>
           </div>
-          <div style="font-size:9px;color:var(--muted);margin-top:8px;font-style:italic">Tradeoff data helps make policy
-            debates more honest. Source: Lunaparra interview.</div>
+          <div style="font-size:8.5px;color:var(--muted);margin-top:6px">*<strong>VMT</strong> = all miles cars drive;
+            see <a href="#sources-footnotes">footnotes</a>. Illustration from Lunaparra interview (qualitative).</div>
         </div>
 
         <!-- Personal Impact Calculator -->
@@ -1975,8 +2124,8 @@
               </svg>Forest Builder
             </div>
           </div>
-          <div style="font-size:11px;font-weight:600;color:var(--forest);margin-bottom:8px">If I do this every day for a
-            month...</div>
+          <div style="font-size:11px;font-weight:600;color:var(--forest);margin-bottom:8px">If you do this all month…
+          </div>
           <div class="act-row">
             <button class="ab on" onclick="setAct(this,'bus')">🚌 Take the bus</button>
             <button class="ab" onclick="setAct(this,'utensils')">♻️ Reusable utensils</button>
@@ -2004,34 +2153,63 @@
               <div class="ic-lbl" id="extraL">not burned</div>
             </div>
           </div>
+          <div class="co2-compare-diag" id="co2CompareDiag" aria-label="Size comparison: CO2">
+            <div class="ccd-title">Size check (pictures, not more numbers)</div>
+            <div class="ccd-pairs">
+              <div class="ccd-col">
+                <svg class="ccd-sico" viewBox="0 0 160 80" fill="none" aria-hidden="true">
+                  <rect x="8" y="40" width="100" height="24" rx="4" fill="#E8F4EC" stroke="#1f6b4d" stroke-width="2" />
+                  <circle cx="32" cy="70" r="5" fill="#1f6b4d" />
+                  <circle cx="86" cy="70" r="5" fill="#1f6b4d" />
+                  <text x="58" y="32" text-anchor="middle" font-size="8" fill="#1f6b4d" font-family="DM Sans">~8.9 kg CO₂
+                    / gal gas (EPA)</text>
+                  <path d="M 108 20 Q 120 4 128 8 Q 130 20 120 32" fill="#ccc" />
+                  <text x="132" y="14" font-size="7" fill="#888">exhaust</text>
+                </svg>
+                <div class="ccd-cap">~36 kg for one 9-gal “fill-up” (order of magnitude)</div>
+              </div>
+              <div class="ccd-vs" aria-hidden="true">|</div>
+              <div class="ccd-col">
+                <svg class="ccd-sico" viewBox="0 0 160 80" fill="none" aria-hidden="true">
+                  <rect x="20" y="30" width="120" height="40" rx="6" fill="#B8D4E8" stroke="#256d7a" stroke-width="2" />
+                  <path d="M 30 32 Q 50 20 80 20 Q 120 20 130 32" fill="none" stroke="#3b82f6" stroke-width="1.2" />
+                  <text x="80" y="16" text-anchor="middle" font-size="8" fill="#256d7a" font-family="DM Sans">Pool heat
+                    (illustrative)</text>
+                </svg>
+                <div class="ccd-cap">Heating a pool 1 day can be <strong>~100s of kg</strong> CO₂ (method &amp; mix
+                  vary) — a big “chunk,” like many car tanks.</div>
+              </div>
+            </div>
+            <p class="ccd-you" id="co2YouLine" style="min-height:2.5em"></p>
+          </div>
           <div class="impact-vis">
-            <div class="vis-title">What does this CO₂ look like?</div>
+            <div class="vis-title">Stack of the same action (icons)</div>
             <div class="vis-row" id="visIcons"></div>
             <div class="vis-caption" id="visCaption"></div>
           </div>
-          <div class="calc-note">EPA emission factors · CalEnviroScreen data · Lunaparra interview methodology</div>
+          <div class="calc-note">Method: EPA g CO₂e / gal, rough tree equiv., interview notes. <a
+              href="#sources-footnotes">Full citations</a></div>
         </div>
 
-        <div class="sec">Policies YOU can influence</div>
+        <div class="sec">State / local levers (examples)</div>
         <div class="pol-row">
           <div class="pc">
-            <div class="pc-m">Clean Energy</div>
+            <div class="pc-m">Power mix</div>
             <div class="pc-v">SB 100</div>
-            <div class="pc-d">100% clean electricity by 2045</div>
-            <div class="pc-a" style="cursor:pointer;" onclick="alert('Action taken!')">→ Tell your rep to push faster
-            </div>
+            <div class="pc-d">Path to 100% clean power</div>
+            <div class="pc-a" style="cursor:pointer;" onclick="alert('Action taken!')">→ Nudge your rep</div>
           </div>
           <div class="pc">
             <div class="pc-m">Buildings</div>
             <div class="pc-v">Reach Code</div>
-            <div class="pc-d">New buildings must go electric</div>
-            <div class="pc-a" style="cursor:pointer;" onclick="alert('Action taken!')">→ Support local ordinance</div>
+            <div class="pc-d">All-electric new construction</div>
+            <div class="pc-a" style="cursor:pointer;" onclick="alert('Action taken!')">→ Council / hearings</div>
           </div>
           <div class="pc">
-            <div class="pc-m">Getting Around</div>
-            <div class="pc-v">EVSE Grant</div>
-            <div class="pc-d">500 new EV chargers coming</div>
-            <div class="pc-a" style="cursor:pointer;" onclick="alert('Action taken!')">→ Request charger near you</div>
+            <div class="pc-m">Driving</div>
+            <div class="pc-v">Charger $</div>
+            <div class="pc-d">More plugs in the region (programs vary)</div>
+            <div class="pc-a" style="cursor:pointer;" onclick="alert('Action taken!')">→ Ask for a site</div>
           </div>
         </div>
       </div>
@@ -2040,6 +2218,9 @@
 
   <!-- ══ EXPERT MODE ══ -->
   <div id="xMode" style="display:none">
+    <p class="expert-cite-prompt" style="font-size:9px;color:var(--muted);padding:8px 20px 0;margin:0;max-width:900px">Expert
+      mode: <strong>Sources &amp; terms</strong> in <a href="#sources-footnotes" style="color:var(--moss)">small print
+        at bottom</a>.</p>
     <div class="x-tabs">
       <button class="x-tab on" onclick="setXTab('overview',this)">Why we're behind</button>
       <button class="x-tab" onclick="setXTab('ej',this)">Environmental Justice</button>
@@ -2055,8 +2236,9 @@
         <div>
           <h4>of urban heat in extreme events comes from waste heat — buildings & vehicles, not climate change alone
           </h4>
-          <p>2018 LA Heat Wave study. Cool roofs and EV adoption are highest-impact local adaptation strategies. — Dr.
-            Vahmani, LBNL</p>
+          <p>2018 L.A. heat context: waste heat from buildings and vehicles. Cool roofs + EVs = strong local levers. Dr.
+            Vahmani, LBNL. <a href="#fn-lbnl" style="color:#B8EBD4;text-decoration:underline">Source<sup>5</sup></a>
+          </p>
         </div>
       </div>
       <div style="font-size:11px;font-weight:600;color:var(--forest);margin-bottom:8px">Why <span
@@ -2326,7 +2508,7 @@
           <div class="policy-toggle" id="pol-transit" onclick="togglePolicy('transit')">
             <div class="policy-left">
               <div class="policy-name" id="pn-transit">Public Transit Frequency Boost</div>
-              <div class="policy-impact">+40% BART/bus frequency → -3% VMT, -2% transport GHG</div>
+              <div class="policy-impact">+40% BART/bus → fewer road miles* · less transport CO₂e</div>
               <div class="policy-tradeoffs">
                 <div class="pt-gain">✅ Benefits lower-income riders most · reduces road congestion · catalyzes density
                 </div>
@@ -2422,8 +2604,32 @@
     </div>
   </div>
 
-  <div class="footer">Bay Area Air Quality Management District — 9 Counties · Data: CARB, CalEnviroScreen · Feedback:
-    Councilmember Lunaparra, Fung Fellowship · April 2026</div>
+  <div class="page-foot">
+    <div class="footer-line">BAAQMD · 9 counties · Fung Fellowship · April 2026</div>
+    <aside class="footnotes" id="sources-footnotes" aria-label="Sources and footnotes">
+      <h3 class="fn-title">Sources &amp; footnotes</h3>
+      <ol class="fn-list">
+        <li id="fn-epa">U.S. EPA, <em>Greenhouse gas emissions from a typical passenger vehicle</em> (order-of-magnitude:
+          ~8,887 g CO₂ per gallon of gasoline). <a href="https://www.epa.gov/greenvehicles/greenhouse-gas-emissions-typical-passenger-vehicle"
+            target="_blank" rel="noopener">epa.gov</a>
+        </li>
+        <li id="fn-oehha">California OEHHA, <em>CalEnviroScreen 4.0</em> (pollution burden, demographics). <a
+            href="https://oehha.ca.gov/calenviroscreen" target="_blank" rel="noopener">oehha.ca.gov</a></li>
+        <li>CARB, <em>Climate change Scoping Plan</em> and statewide GHG policy context. <a
+            href="https://ww2.arb.ca.gov/our-work/programs/climate-change-scoping-plan" target="_blank"
+            rel="noopener">arb.ca.gov</a></li>
+        <li>Bay Area Air Quality Management District (BAAQMD), jurisdiction. <a href="https://www.baaqmd.gov"
+            target="_blank" rel="noopener">baaqmd.gov</a></li>
+        <li id="fn-lbnl">LBNL / urban heat &amp; building energy research (e.g. waste heat in heat waves, cool roofs) —
+          context for the “60%” expert callout; see LBNL publications. <a href="https://www.lbl.gov" target="_blank"
+            rel="noopener">lbl.gov</a>
+        </li>
+      </ol>
+      <p class="fn-abbr"><strong>Terms:</strong> <strong>VMT</strong> = vehicle miles traveled (all driving on roads).
+        <strong>CES</strong> = CalEnviroScreen 0–100 score. <strong>GHG</strong> = greenhouse gases. <strong>EJ</strong> =
+        environmental justice. <strong>CARB</strong> = California Air Resources Board.</p>
+    </aside>
+  </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
   <script>
@@ -2431,8 +2637,8 @@
     const cData = {
       'Alameda': { pop: 1682353, e: '68%', b: '41%', t: '18%', eb: 68, bb: 41, tb: 18, rank: '4th of 9', fill: '#6aaf72', since90: { e: -22, b: -14, t: -8 }, eLbl: 'clean energy — above avg', bLbl: 'homes off gas — room to grow', tLbl: 'cars electric — catching up', density: 3200, car: 1.4, green: 62, transit: 18, ces: 62, pollute: 'High', income: '$74k', ejClass: 'bad' },
       'San Francisco': { pop: 873965, e: '82%', b: '52%', t: '11%', eb: 82, bb: 52, tb: 11, rank: '1st of 9', fill: '#1f6b4d', since90: { e: -38, b: -29, t: -31 }, eLbl: 'clean energy — regional leader', bLbl: 'homes off gas — leading region', tLbl: 'low car use — dense transit', density: 17000, car: 0.6, green: 85, transit: 8, ces: 28, pollute: 'Low', income: '$130k', ejClass: 'good' },
-      'Santa Clara': { pop: 1936259, e: '71%', b: '38%', t: '22%', eb: 71, bb: 38, tb: 22, rank: '2nd of 9', fill: '#4d9a62', since90: { e: -26, b: -16, t: -12 }, eLbl: 'clean energy — strong', bLbl: 'homes off gas — progressing', tLbl: 'EV leader — high VMT still', density: 1800, car: 1.7, green: 58, transit: 25, ces: 41, pollute: 'Med', income: '$128k', ejClass: 'ok' },
-      'Contra Costa': { pop: 1165927, e: '54%', b: '29%', t: '13%', eb: 54, bb: 29, tb: 13, rank: '7th of 9', fill: '#c9e0a8', since90: { e: -11, b: -7, t: -4 }, eLbl: 'clean energy — below average', bLbl: 'homes off gas — needs work', tLbl: 'high VMT — suburban sprawl', density: 800, car: 1.9, green: 40, transit: 35, ces: 71, pollute: 'High', income: '$96k', ejClass: 'bad' },
+      'Santa Clara': { pop: 1936259, e: '71%', b: '38%', t: '22%', eb: 71, bb: 38, tb: 22, rank: '2nd of 9', fill: '#4d9a62', since90: { e: -26, b: -16, t: -12 }, eLbl: 'clean energy — strong', bLbl: 'homes off gas — progressing', tLbl: 'EVs up, long commutes still', density: 1800, car: 1.7, green: 58, transit: 25, ces: 41, pollute: 'Med', income: '$128k', ejClass: 'ok' },
+      'Contra Costa': { pop: 1165927, e: '54%', b: '29%', t: '13%', eb: 54, bb: 29, tb: 13, rank: '7th of 9', fill: '#c9e0a8', since90: { e: -11, b: -7, t: -4 }, eLbl: 'clean energy — below average', bLbl: 'homes off gas — needs work', tLbl: 'sprawl — lots of driving', density: 800, car: 1.9, green: 40, transit: 35, ces: 71, pollute: 'High', income: '$96k', ejClass: 'bad' },
       'Marin': { pop: 258826, e: '76%', b: '45%', t: '21%', eb: 76, bb: 45, tb: 21, rank: '3rd of 9', fill: '#8bb85c', since90: { e: -28, b: -20, t: -18 }, eLbl: 'clean energy — well above avg', bLbl: 'homes off gas — strong', tLbl: 'EV progress — good', density: 400, car: 1.6, green: 90, transit: 30, ces: 18, pollute: 'Low', income: '$158k', ejClass: 'good' },
       'San Mateo': { pop: 764442, e: '79%', b: '48%', t: '24%', eb: 79, bb: 48, tb: 24, rank: '2nd of 9', fill: '#58a064', since90: { e: -32, b: -24, t: -21 }, eLbl: 'clean energy — near top', bLbl: 'homes off gas — leading', tLbl: 'EV leader — Bay Area top', density: 2100, car: 1.5, green: 70, transit: 20, ces: 33, pollute: 'Low', income: '$120k', ejClass: 'good' },
       'Sonoma': { pop: 488863, e: '65%', b: '35%', t: '16%', eb: 65, bb: 35, tb: 16, rank: '5th of 9', fill: '#85b456', since90: { e: -19, b: -12, t: -9 }, eLbl: 'clean energy — above avg', bLbl: 'homes off gas — progressing', tLbl: 'on track — rural mix', density: 300, car: 1.8, green: 75, transit: 40, ces: 44, pollute: 'Med', income: '$82k', ejClass: 'ok' },
@@ -2576,9 +2782,8 @@
       const label = document.getElementById('mapLabel');
       if (g === 'zip') {
         hint.style.display = 'block';
-        hint.innerHTML = '🔍 <strong>ZIP / neighborhood samples</strong> (demo areas, not every block). Policy context — Councilmember Lunaparra\'s recommendation.'
-          + '<div class="zip-finder"><strong>Where to tap:</strong> <strong>Berkeley</strong> → open <strong>Alameda</strong> County on the map first.'
-          + ' <strong>Milpitas</strong> &amp; <strong>San José</strong> (Downtown / East) → open <strong>Santa Clara</strong> County. Breadcrumb: Bay Area → County → pick a cell.</div>';
+        hint.innerHTML = '🔍 <strong>ZIP samples</strong> (not all blocks). Lunaparra context.'
+          + '<div class="zip-finder"><strong>Find areas:</strong> <strong>Berkeley</strong> = click <strong>Alameda</strong> first. <strong>Milpitas / San José</strong> = <strong>Santa Clara</strong>. <a href="#sources-footnotes" style="color:var(--moss)">Sources</a></div>';
         hint.style.background = 'var(--lite)'; hint.style.borderColor = 'var(--moss)';
         label.textContent = 'Select a neighborhood';
 
@@ -2636,7 +2841,7 @@
       document.getElementById('cName').textContent = n.name;
       document.getElementById('cRank').textContent = 'ZIP in ' + county + ' County';
       // Update EJ panel
-      document.getElementById('ejTitle').textContent = 'Pollution Burden vs Emissions — ' + n.name;
+      document.getElementById('ejTitle').textContent = 'Who breathes what — ' + n.name;
       document.getElementById('ejCES').textContent = n.ces;
       document.getElementById('ejCES').style.color = n.ces > 70 ? 'var(--ej-bad)' : n.ces > 40 ? 'var(--ej-mid)' : 'var(--ej-good)';
       document.getElementById('ejPollute').textContent = n.ces > 70 ? 'High' : n.ces > 40 ? 'Medium' : 'Low';
@@ -2755,22 +2960,22 @@
       document.getElementById('ctxTransitSub').textContent = 'avg min between buses/trains';
 
       // EJ panel
-      document.getElementById('ejTitle').textContent = 'Pollution Burden vs Emissions — ' + name + ' County';
+      document.getElementById('ejTitle').textContent = 'Pollution load vs. driving — ' + name;
       document.getElementById('ejCES').textContent = d.ces;
       document.getElementById('ejCES').style.color = d.ces > 60 ? 'var(--ej-bad)' : d.ces > 35 ? 'var(--ej-mid)' : 'var(--ej-good)';
       document.getElementById('ejPollute').textContent = d.pollute;
       document.getElementById('ejIncome').textContent = d.income;
       document.getElementById('ejPanel').className = 'ej-panel ' + (d.ejClass === 'bad' ? '' : '') + d.ejClass;
       const ejInsights = {
-        'Alameda': '⚠️ <strong>EJ Gap:</strong> East Oakland and Fruitvale have high CES scores (70–85) from port/highway pollution, yet lower car ownership. Residents produce fewer transport emissions but suffer worse air quality.',
-        'San Francisco': '✅ <strong>Better equity:</strong> SF has the lowest car ownership + improving EJ conditions in historically overburdened areas like Bayview-Hunters Point. Ongoing vigilance needed.',
-        'Contra Costa': '🚨 <strong>Severe EJ concern:</strong> Richmond and North Richmond face some of the highest pollution burdens in the Bay Area from Chevron refinery, yet are low-income communities with lower emissions per capita.',
-        'Santa Clara': '⚠️ <strong>EJ Gap:</strong> East San José and Alviso bear heavy pollution loads from industrial corridors, while Palo Alto/Saratoga enjoy cleaner air despite high car ownership.',
-        'Marin': '⚠️ <strong>Income-equity gap:</strong> Marin City and Canal District in San Rafael face higher burdens than wealthy hillside towns. Small county but the disparity is sharp.',
-        'San Mateo': '⚠️ <strong>EJ concern:</strong> East Palo Alto has CES 72 — one of the highest in the county — surrounded by wealthy low-burden cities.',
-        'Sonoma': '🟡 <strong>Moderate:</strong> Roseland neighborhood in Santa Rosa has higher burden from agricultural pesticides and lower incomes. Farmworker communities are most vulnerable.',
-        'Napa': '🟡 <strong>Moderate:</strong> Agricultural worker communities in South Napa face pesticide and wildfire smoke exposure disproportionately.',
-        'Solano': '🚨 <strong>Severe EJ concern:</strong> Vallejo and Suisun City have high CES scores and lower incomes, yet face significant pollution from refinery corridors.',
+        'Alameda': '⚠️ Heavier pollution by freight/port; often less $ &amp; fewer cars. <a href="#fn-oehha" style="color:var(--moss)">OEHHA</a>.',
+        'San Francisco': '✅ Dense + transit; still watch overburdened tracts. <a href="#fn-oehha" style="color:var(--moss)">CES</a>.',
+        'Contra Costa': '🚨 Big industry + long drives; some tracts get hit hardest.',
+        'Santa Clara': '⚠️ East vs. west valley = very different air + income.',
+        'Marin': '⚠️ Hills vs. flat towns — not the same air story.',
+        'San Mateo': '⚠️ One small city, high burden; neighbors, low. Side-by-side.',
+        'Sonoma': '🟡 Ag + fire smoke hit workers first.',
+        'Napa': '🟡 Ag work + smoke — not equal risk for everyone.',
+        'Solano': '🚨 Refinery line + some low-$ tracts; big burdens.',
       };
       document.getElementById('paradoxText').innerHTML = ejInsights[name] || 'Select a county to see its EJ analysis.';
 
@@ -2781,14 +2986,14 @@
       const tkGap = document.getElementById('cGapText');
       const tkBar = document.getElementById('cGapBarTop');
       if (cGap < 0) {
-        tkAlert.textContent = '🚨 NOT on track for 2030 climate goals';
-        tkGap.textContent = Math.abs(cGap).toFixed(1) + '%';
+        tkAlert.textContent = 'Not on track (2030)';
+        tkGap.textContent = Math.abs(cGap).toFixed(1) + '% more cuts';
         tkGap.style.color = '#B85042';
         tkBar.style.width = Math.min(100, Math.abs(sTot) / 40 * 100) + '%';
         tkBar.style.background = '#B85042';
       } else {
-        tkAlert.textContent = '✅ On track for 2030 climate goals';
-        tkGap.textContent = '0%';
+        tkAlert.textContent = 'On track (2030)';
+        tkGap.textContent = '0% gap';
         tkBar.style.width = '100%';
         tkBar.style.background = 'var(--forest)';
       }
@@ -3066,7 +3271,16 @@
         const svg = svgMap[curAct] || svgMap.bus;
         visIcons.innerHTML = Array(iconCount).fill(`<span class="vis-icon" style="display:inline-block">${svg}</span>`).join('');
         const caption = document.getElementById('visCaption');
-        if (caption) caption.textContent = `${iconCount} × ~${Math.round(m / iconCount)}kg CO₂ = ${m}kg saved this month`;
+        if (caption) caption.textContent = `${iconCount} icons × ~${Math.round(m / Math.max(1, iconCount))} kg = ${m} kg this month`;
+      }
+      const co2YouLine = document.getElementById('co2YouLine');
+      if (co2YouLine) {
+        const gals = m / 8.887;
+        const tankP = Math.min(100, Math.round(m / 36 * 100));
+        const poolP = Math.min(100, Math.round(m / 120 * 100));
+        co2YouLine.innerHTML = `<strong>${m} kg</strong> this month ≈ <strong>${gals.toFixed(1)} gal</strong> not burned. `
+          + `~<strong>${tankP}%</strong> of one 9-gal fill-up, ~<strong>${poolP}%</strong> of a 120 kg “1 pool-heat day” (illustrative). `
+          + `<a href="#fn-epa" style="color:var(--moss)">EPA</a>`;
       }
     }
 
