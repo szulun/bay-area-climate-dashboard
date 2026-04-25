@@ -274,6 +274,28 @@
       margin-bottom: 6px;
     }
 
+    .map-county-sel {
+      display: none;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--forest);
+      line-height: 1.35;
+      margin: 0 0 8px;
+      padding: 8px 10px;
+      background: #fefce8;
+      border: 1px solid #facc15;
+      border-radius: 7px;
+      box-shadow: 0 1px 0 rgba(15, 23, 42, 0.06);
+    }
+
+    .map-county-sel .map-county-sel-sub {
+      display: block;
+      font-size: 8.5px;
+      font-weight: 500;
+      color: var(--mid);
+      margin-top: 3px;
+    }
+
     .ces-zip-explainer {
       font-size: 9.5px;
       line-height: 1.45;
@@ -332,12 +354,17 @@
     }
 
     .cp:hover {
-      opacity: 0.8
+      opacity: 0.85
+    }
+
+    .cp.sel:hover {
+      opacity: 1;
     }
 
     .cp.sel {
-      stroke: #1a3d1b;
-      stroke-width: 2.5
+      stroke: #facc15;
+      stroke-width: 4;
+      filter: drop-shadow(0 0 1px #0f172a) drop-shadow(0 0 0.5px #0f172a) drop-shadow(0 0 4px rgba(250, 204, 21, 0.85));
     }
 
     .inactive {
@@ -348,17 +375,16 @@
     }
 
     .map-county-label {
-      font-size: 6px;
+      font-size: 6.5px;
       fill: #fff;
+      stroke: #0f172a;
+      stroke-width: 0.45;
+      paint-order: stroke fill;
       font-family: 'DM Sans', sans-serif;
       font-weight: 600;
       pointer-events: none;
       text-anchor: middle;
-      dominant-baseline: middle
-    }
-
-    .map-county-label.dk {
-      fill: var(--ej-good)
+      dominant-baseline: middle;
     }
 
     /* zip labels smaller */
@@ -1501,6 +1527,31 @@
       margin-bottom: 10px
     }
 
+    .comp-spotlight {
+      font-size: 9.5px;
+      line-height: 1.5;
+      color: var(--mid);
+      background: #f4faf6;
+      border: 1px solid rgba(46, 92, 71, 0.22);
+      border-radius: 8px;
+      padding: 11px 13px;
+      margin-bottom: 12px;
+    }
+
+    .comp-spotlight h4 {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--forest);
+      margin: 0 0 6px;
+    }
+
+    .comp-table-hint {
+      font-size: 8.5px;
+      color: var(--muted);
+      margin: 0 0 8px;
+      line-height: 1.45;
+    }
+
     .ctable {
       width: 100%;
       border-collapse: collapse;
@@ -2144,12 +2195,15 @@
               <span class="bc-item bc-active" id="bcZip" style="display:none;">ZIP Code</span>
             </div>
             <div class="map-lbl" id="mapLabel">Select a county</div>
+            <div class="map-county-sel" id="mapCountySelHint" role="status" aria-live="polite" style="display:none">
+            </div>
             <div class="ces-zip-explainer" id="cesZipExplainer" style="display:none" role="note"
               aria-label="What CES means on the neighborhood map">
               <strong>CalEnviroScreen (CES) score</strong> (0–100) combines exposure to pollution and community
               vulnerability. <strong>Lower is better</strong> (less total burden in this index). <span
-                style="color:var(--forest)">Each square = that score for a sample block.</span> Full area names on
-              hover. <a href="#fn-oehha" style="color:var(--moss)">OEHHA</a>
+                style="color:var(--forest)">Each square is labeled with a sample place name, ZIP where available, and
+                its CES number.</span> <strong>Selected</strong> block has a gold outline; details also in the
+              breadcrumb. <a href="#fn-oehha" style="color:var(--moss)">OEHHA</a>
             </div>
             <div class="gran-hint" id="granHint" style="display:none;">💡 <strong>ZIP / neighborhood</strong> (sample
               areas) — use for local policy. See <a href="#sources-footnotes" style="color:var(--moss)">sources</a></div>
@@ -2891,9 +2945,31 @@
     <!-- COMPARE TAB -->
     <div id="x-compare" class="x-content">
       <div class="comp-card">
-        <div class="comp-title">What are other counties doing? — Policy Learning Tool</div>
-        <div style="font-size:9.5px;color:var(--muted);margin-bottom:10px;line-height:1.5">Find policies your county
-          could replicate. Includes housing density and car ownership context per Lunaparra's recommendation.</div>
+        <div class="comp-title">他山之石 · What works elsewhere (lessons, not just ranks)</div>
+        <p style="font-size:9.5px;color:var(--mid);line-height:1.55;margin:0 0 12px"><strong>他山之石</strong> = borrow
+          ideas from peers, then <strong>adapt</strong> them. Programs actually land at <strong>city &amp; ZIP /
+            neighborhood</strong> scale (use <strong>Simple</strong> mode to drill down). The nine-county table below is
+          only for <strong>orientation</strong> — the “so what” is the <strong>replicable lesson</strong> when you
+          <strong>click a row</strong>.</p>
+        <div class="comp-spotlight">
+          <h4>Case: Berkeley — Building Emissions Saving Ordinance (BESO, rolling 2025+)</h4>
+          <p style="margin:0 0 6px">Berkeley’s <strong>BESO</strong> targets <strong>operational building
+              emissions</strong> (assessments, upgrades, compliance paths). <strong>2024–25 Council</strong> action
+            added <strong>sale-tied</strong> requirements for many small (1–4 unit) homes — a concrete “existing
+            stock” lever beyond <strong>Reach Code</strong> (which often focuses on new work). <strong>Together</strong>
+            they show how <strong>electrification + disclosure + timing of sale</strong> can be packaged for
+            <strong>rental &amp; equity</strong> tradeoffs. <a href="https://www.bayareareachcodes.org/" target="_blank"
+              rel="noopener noreferrer" style="color:var(--moss)">Reach Code hub (region)</a></p>
+          <p style="margin:0;font-size:8.5px;color:var(--muted)">
+            <a href="https://www.cityofberkeley.info/BESO/" target="_blank" rel="noopener noreferrer" style="color:var(--moss)">City
+              of Berkeley — BESO</a>
+            · <a href="https://berkeleyside.org/2025/04/17/berkeley-city-council-proposed-beso-amendments" target="_blank" rel="noopener noreferrer" style="color:var(--moss)">2025
+              Council &amp; sale rules (explainer)</a>
+            · <a href="#fn-berkeley-beso" style="color:var(--moss)">Abbrev. note</a>
+          </p>
+        </div>
+        <p class="comp-table-hint" id="compTableHint">Rows are a quick 9-county scoreboard. Click any county to load a
+          takeaway you can copy or adapt in the card below — not a final ranking of “best region.”</p>
         <table class="ctable">
           <thead>
             <tr>
@@ -2912,10 +2988,12 @@
         </table>
       </div>
       <div class="comp-card" style="background:var(--lite);border-color:var(--moss)">
-        <div style="font-size:11px;font-weight:600;color:var(--forest);margin-bottom:6px">📚 What can your county learn
-          from this one?</div>
-        <div style="font-size:11px;color:var(--mid);line-height:1.6" id="compareInsight">Click any county above to
-          explore the policies driving their progress.</div>
+        <div style="font-size:11px;font-weight:600;color:var(--forest);margin-bottom:6px">📚 What can you borrow or adapt
+          from this county?</div>
+        <div style="font-size:10px;color:var(--muted);margin-bottom:6px;line-height:1.45">Tie to your own ZIP —
+          which neighborhoods look like a good “peer” for piloting?</div>
+        <div style="font-size:11px;color:var(--mid);line-height:1.6" id="compareInsight">Click any county in the table
+          above to load a replicable angle — e.g. buildings, CCA, VMT, or governance.</div>
       </div>
     </div>
   </div>
@@ -2931,6 +3009,16 @@
         </li>
         <li id="fn-oehha">California OEHHA, <em>CalEnviroScreen 4.0</em> (pollution burden, demographics). <a
             href="https://oehha.ca.gov/calenviroscreen" target="_blank" rel="noopener">oehha.ca.gov</a></li>
+        <li id="fn-berkeley-beso"><strong>Berkeley BESO (summary for this dashboard):</strong> the city’s
+          <em>Building Emissions Saving Ordinance</em> and amendments phase in <strong>energy/emissions
+            assessments</strong>, <strong>upgrade</strong> expectations, and (for many small homes, as of 2024–25
+          Council action) <strong>sale-related</strong> compliance paths — intended to address <strong>existing
+            building stock</strong>, complementing state code and local <a href="https://www.bayareareachcodes.org/"
+            target="_blank" rel="noopener">Reach Code</a>-style rules. This page does not offer legal compliance advice.
+          Official: <a href="https://www.cityofberkeley.info/BESO/" target="_blank" rel="noopener">cityofberkeley.info
+            — BESO</a> · context: <a
+            href="https://berkeleyside.org/2025/04/17/berkeley-city-council-proposed-beso-amendments" target="_blank"
+            rel="noopener">Berkeleyside, April 2025</a> (journalism, not a legal source).</li>
         <li id="fn-scale-bridge"><strong>Why we compare “you” to “a county rule” (illustrative, not a government forecast):</strong>
           <strong>Your kg</strong> = 30 days × the daily action you pick (bus, reusables, or a bit less home energy) × how many times
           a day the slider says. <strong>Trees</strong> = a rough carbon analogy used on the same card. <strong>“All-electric
@@ -2955,7 +3043,9 @@
         environmental justice. <strong>CARB</strong> = California Air Resources Board.
         <strong>Off gasoline</strong> in the compare table = share of households not mainly using a gasoline-only car (incl. car-free, transit, EV); illustrative.
         <strong>Reach Code</strong> = optional local building rules (often: new construction all-electric / no new gas), on top
-        of state code—see <a href="https://www.bayareareachcodes.org/" target="_blank" rel="noopener">bayareareachcodes.org</a>.</p>
+        of state code—see <a href="https://www.bayareareachcodes.org/" target="_blank" rel="noopener">bayareareachcodes.org</a>.
+        <strong>BESO</strong> = Berkeley <em>Building Emissions Saving Ordinance</em> (existing-building focus + phased rules);
+        <a href="#fn-berkeley-beso">short note</a>.</p>
     </aside>
   </div>
 
@@ -3069,6 +3159,7 @@
     const policies = { reach: false, ev: false, transit: false, solar: false, roof: false };
     const acts = { bus: [4.6, 'gallons gas', 0.11, 'not burned'], utensils: [0.05, 'g plastic', 11, 'not used'], energy: [0.4, 'kWh', 8, 'saved at home'] };
     let curAct = 'bus', selCounty = 'Alameda', curGran = 'county';
+    let selNeighborhoodName = null;
     /** County map: fill scale — 'progress' | 'ces' | 'ghg' */
     let mapColorMode = 'progress';
 
@@ -3131,6 +3222,15 @@
         if (g) g.style.display = 'none';
         if (zipEj) zipEj.style.display = 'block';
       }
+      const cHint = document.getElementById('mapCountySelHint');
+      if (cHint) {
+        if (isBay) {
+          cHint.style.display = 'block';
+          cHint.innerHTML = 'Selected: <strong>' + selCounty + ' County</strong><span class="map-county-sel-sub">Look for the <strong>gold</strong> border on the map. Colors follow the layer on the right. Click a county to change focus.</span>';
+        } else {
+          cHint.style.display = 'none';
+        }
+      }
     }
 
     // ── GAMIFICATION ──
@@ -3176,6 +3276,9 @@
       const hint = document.getElementById('granHint');
       const label = document.getElementById('mapLabel');
       if (g === 'zip') {
+        selNeighborhoodName = null;
+        const bcZ = document.getElementById('bcZip');
+        if (bcZ) { bcZ.classList.remove('bc-active'); }
         hint.style.display = 'block';
         hint.innerHTML = '🔍 <strong>ZIP samples</strong> (not all blocks). Lunaparra context.'
           + '<div class="zip-finder"><strong>Find areas:</strong> <strong>Berkeley</strong> = click <strong>Alameda</strong> first. <strong>Milpitas / San José</strong> = <strong>Santa Clara</strong>. <a href="#sources-footnotes" style="color:var(--moss)">Sources</a></div>';
@@ -3224,14 +3327,30 @@
         // color by CES score
         const c = n.ces > 70 ? '#b83228' : n.ces > 50 ? '#b8890c' : n.ces > 30 ? '#2a9d6f' : '#1f6b4d';
         const opacity = 0.5 + n.ces / 200;
+        const isSel = selNeighborhoodName && n.name === selNeighborhoodName;
+        const mzip = n.name.match(/\((\d{4,5})\)/);
+        const placeLine = n.name.split('(')[0].trim() || n.name;
+        const zipLine = mzip ? mzip[1] : '';
+        const label1 = placeLine.length > 22 ? placeLine.slice(0, 20) + '…' : placeLine;
         const g = svg.append('g').style('cursor', 'pointer').on('click', () => selectNeighborhood(n, selCounty));
-        g.append('title').text(n.name + ' — CES ' + n.ces + ' (lower = better on this 0–100 index)');
+        g.append('title').text(n.name + ' — CES ' + n.ces + ' (lower = better on this 0–100 index). Click to select.');
         g.append('rect').attr('x', x).attr('y', y).attr('width', w).attr('height', h)
           .attr('rx', 5).attr('fill', c).attr('opacity', opacity)
-          .attr('stroke', '#fff').attr('stroke-width', 1.5);
-        g.append('text').attr('x', x + w / 2).attr('y', y + h / 2 + 1).attr('text-anchor', 'middle')
-          .attr('dominant-baseline', 'middle').attr('font-size', h > 48 ? 16 : 14).attr('fill', '#fff')
-          .attr('font-family', 'DM Sans, sans-serif').attr('font-weight', '700').text(String(n.ces));
+          .attr('stroke', isSel ? '#fbbf24' : '#fff').attr('stroke-width', isSel ? 3.2 : 1.5);
+        const nameFill = n.ces > 55 ? 'rgba(17,24,39,0.92)' : '#fff';
+        const nameStroke = n.ces > 55 ? 'none' : 'rgba(0,0,0,0.35)';
+        g.append('text').attr('x', x + w / 2).attr('y', y + 9).attr('text-anchor', 'middle')
+          .attr('font-size', '5.5px').attr('fill', nameFill).attr('font-family', 'DM Sans, sans-serif')
+          .attr('font-weight', '600').attr('stroke', nameStroke).attr('stroke-width', 0.2).text(label1);
+        if (zipLine) {
+          g.append('text').attr('x', x + w / 2).attr('y', y + 16).attr('text-anchor', 'middle')
+            .attr('font-size', '5px').attr('fill', nameFill).attr('font-family', 'DM Sans, sans-serif')
+            .attr('opacity', 0.9).text('ZIP ' + zipLine);
+        }
+        g.append('text').attr('x', x + w / 2).attr('y', y + h / 2 + (zipLine ? 5 : 2)).attr('text-anchor', 'middle')
+          .attr('dominant-baseline', 'middle').attr('font-size', h > 48 ? 15 : 13).attr('fill', '#fff')
+          .attr('font-family', 'DM Sans, sans-serif').attr('font-weight', '700')
+          .attr('stroke', 'rgba(0,0,0,0.25)').attr('stroke-width', 0.3).text(String(n.ces));
       });
       syncMapUi();
     }
@@ -3271,6 +3390,9 @@
       document.getElementById('bcSepZ').style.display = 'inline';
       document.getElementById('bcZip').style.display = 'inline';
       document.getElementById('bcZip').textContent = n.name;
+      document.getElementById('bcZip').classList.add('bc-active');
+      selNeighborhoodName = n.name;
+      drawZipMap();
     }
 
     // ── MAP INIT (embedded GeoJSON, no network) ──
@@ -3311,7 +3433,7 @@
           })
           .on('click', function (e, d) { selectCounty(bayFIPS[idStr(d)]); });
         svg.selectAll('.clab').data(bayF).enter().append('text')
-          .attr('class', d => { const n = bayFIPS[idStr(d)]; return 'map-county-label' + (n === 'Marin' || n === 'Napa' ? ' dk' : '') })
+          .attr('class', 'map-county-label')
           .attr('x', d => path.centroid(d)[0]).attr('y', d => path.centroid(d)[1])
           .text(d => { const n = bayFIPS[idStr(d)]; const s = { 'San Francisco': 'SF', 'Contra Costa': 'C.Costa', 'Santa Clara': 'S.Clara', 'San Mateo': 'S.Mateo' }; return s[n] || n; });
         d3.select('#mp-' + selCounty.replace(/ /g, '_')).classed('sel', true);
@@ -3331,6 +3453,7 @@
     // ── SELECT COUNTY ──
     function selectCounty(name) {
       if (!name || !cData[name]) return;
+      selNeighborhoodName = null;
       selCounty = name;
       d3.selectAll('.cp').classed('sel', false);
       d3.select('#mp-' + name.replace(/ /g, '_')).classed('sel', true);
@@ -3634,7 +3757,7 @@
         'San Mateo': '<strong>What San Mateo does well:</strong> High EV adoption via tech employer programs + workplace charging. <strong>Replicable?</strong> Partner with major employers + HOV lane access incentives.',
         'Marin': '<strong>What Marin does well:</strong> City-level GHG tracking via Marin Climate & Energy Partnership creates accountability. <strong>Replicable?</strong> City-by-city tracking + community engagement.',
         'Santa Clara': '<strong>What Santa Clara does well:</strong> High EV share from tech culture + utility EV rebates. <strong>Replicable?</strong> Utility partnerships + income-based EV rebates.',
-        'Alameda': '<strong>What Alameda does well:</strong> Above-average clean energy from community solar. <strong>Opportunity:</strong> Building electrification lagging — Reach Code not countywide yet.',
+        'Alameda': '<strong>Within-county:</strong> <strong>Berkeley’s BESO</strong> (building emissions, including sale-tied steps for small homes) is a <strong>city</strong> package other East Bay cities can study first — <a href="#fn-berkeley-beso" style="color:var(--moss)">note</a>. <strong>Countywide:</strong> strong community solar; building electrification uneven; <a href="https://www.bayareareachcodes.org/" target="_blank" rel="noopener" style="color:var(--moss)">Reach Code</a> not everywhere yet.',
         'Sonoma': '<strong>What Sonoma does well:</strong> Strong clean energy despite rural character via Sonoma Clean Power CCA. <strong>Replicable?</strong> Community choice aggregation model for other rural counties.',
         'Napa': '<strong>Opportunity:</strong> Wine tourism sustainability partnerships show business case for climate action. <strong>Key lever:</strong> Agricultural emissions + rural EV charging.',
         'Contra Costa': '<strong>Opportunity:</strong> Highest VMT from suburban sprawl. <strong>Key lever:</strong> Transit-oriented development near BART + Reach Code adoption.',
