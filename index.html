@@ -1037,6 +1037,23 @@
       margin-bottom: 2px
     }
 
+    .pc-a a {
+      color: var(--teal);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .pc-a a:hover {
+      opacity: 0.88;
+    }
+
+    .pc-a-sub {
+      font-size: 7.5px;
+      color: var(--muted);
+      line-height: 1.35;
+      margin-top: 3px;
+    }
+
     /* ── EXPERT ── */
     .x-tabs {
       display: flex;
@@ -2342,19 +2359,26 @@
             <div class="pc-m">Power mix</div>
             <div class="pc-v">SB 100</div>
             <div class="pc-d">Path to 100% clean power</div>
-            <div class="pc-a" style="cursor:pointer;" onclick="alert('Action taken!')">→ Nudge your rep</div>
+            <div class="pc-a"><a href="https://findyourrep.legislature.ca.gov/" target="_blank" rel="noopener noreferrer"
+                title="California Legislature — look up your state Senate &amp; Assembly members">→ Nudge your rep</a></div>
+            <div class="pc-a-sub">Opens: state legislator lookup (SB 100 &amp; energy policy is decided in part here)</div>
           </div>
           <div class="pc">
             <div class="pc-m">Buildings</div>
             <div class="pc-v">Reach Code</div>
             <div class="pc-d">All-electric new construction</div>
-            <div class="pc-a" style="cursor:pointer;" onclick="alert('Action taken!')">→ Council / hearings</div>
+            <div class="pc-a"><a href="https://www.bayareareachcodes.org/" target="_blank" rel="noopener noreferrer"
+                title="Bay Area — Reach Code resources, what cities have adopted, how to get involved">→ Council / hearings</a></div>
+            <div class="pc-a-sub">Hub for local building codes; your city council sets hearings &amp; adoption</div>
           </div>
           <div class="pc">
             <div class="pc-m">Driving</div>
             <div class="pc-v">Charger $</div>
             <div class="pc-d">More plugs in the region (programs vary)</div>
-            <div class="pc-a" style="cursor:pointer;" onclick="alert('Action taken!')">→ Ask for a site</div>
+            <div class="pc-a"><a href="https://www.baaqmd.gov/funding-and-incentives" target="_blank"
+                rel="noopener noreferrer" title="BAAQMD — grants &amp; incentives (EV, charging, air quality)">→ Ask for a
+                site</a></div>
+            <div class="pc-a-sub">Air district funding page; real charger projects often need city + utility too</div>
           </div>
         </div>
       </div>
@@ -2483,7 +2507,9 @@
         <div class="ej-expert-title">Who Pollutes vs Who Suffers — Environmental Justice Analysis</div>
         <div class="ej-expert-sub">Councilmember Lunaparra: <em>"Are the people who produce the least emissions still
             living in the most polluted areas?"</em> This chart answers that question. Each dot is a neighborhood. Size
-          = population.</div>
+          = population. <a href="https://oehha.ca.gov/calenviroscreen" target="_blank" rel="noopener noreferrer"
+            style="color:var(--moss)">CalEnviroScreen (OEHHA) ↗</a> · <a href="#fn-oehha" style="color:var(--moss)">Local
+            note in sources</a></div>
 
         <!-- Scatter plot: X = car ownership (proxy for emissions), Y = pollution burden -->
         <div style="margin-bottom:8px;font-size:10px;font-weight:600;color:var(--mid)">
@@ -3156,6 +3182,23 @@
       document.getElementById('b90e').className = 'baseline-pct ' + (s.e < -25 ? 'good' : s.e < -15 ? 'ok' : 'bad');
       document.getElementById('b90b').className = 'baseline-pct ' + (s.b < -20 ? 'good' : s.b < -12 ? 'ok' : 'bad');
       document.getElementById('b90t').className = 'baseline-pct ' + (s.t < -20 ? 'good' : s.t < -10 ? 'ok' : 'bad');
+
+      // Keep Expert tabs in sync with county picked on the map (EJ / trends / simulator)
+      const ejSel = document.getElementById('ejCountySel');
+      if (ejSel) {
+        ejSel.value = name;
+        drawEJScatter();
+      }
+      const trendSel = document.getElementById('trendCountySel');
+      if (trendSel) {
+        trendSel.value = name;
+        drawTrendChart();
+      }
+      const simSel = document.getElementById('simCounty');
+      if (simSel) {
+        simSel.value = name;
+        updateSim();
+      }
     }
 
     // ── EJ SCATTER ──
@@ -3255,7 +3298,8 @@
       histPts.forEach(p => { ctx.beginPath(); ctx.arc(p[0], p[1], 3, 0, Math.PI * 2); ctx.fillStyle = '#1f6b4d'; ctx.fill(); });
       const pace = (lastVal - hist[0]) / (2024 - 2005);
       const needed = (-40 - lastVal) / (2030 - 2024);
-      const onTrack = pace >= needed;
+      // Both pace & needed are ≤0: need annual deepening of cuts to be as fast (or faster) as straight-line to −40% by 2030 → pace <= needed
+      const onTrack = pace <= needed;
       document.getElementById('onTrackText').innerHTML = `<strong>${county}</strong> reduced GHG by <strong style="color:var(--forest)">${Math.abs(lastVal)}%</strong> since 1990.<br>Pace: <strong>${pace.toFixed(1)}%/yr</strong> · Needed: <strong>${needed.toFixed(1)}%/yr</strong><br><span style="color:${onTrack ? '#1f6b4d' : '#B85042'};font-weight:600">${onTrack ? '✓ On track' : '✗ Needs to accelerate'}</span>`;
       document.getElementById('policyInsight').innerHTML = {
         'San Francisco': 'Dense transit + housing = lowest VMT in region. Reach Code adopted 2019. Model for other counties.',
@@ -3328,7 +3372,7 @@
         const since90 = hist[hist.length - 1];
         const pace = (since90 - hist[0]) / (2024 - 2005);
         const needed = (-40 - since90) / (2030 - 2024);
-        const onTrack = pace >= needed;
+        const onTrack = pace <= needed;
         const badgeClass = i < 3 ? 'bg2' : i < 6 ? 'bm' : 'br2';
         html += `<tr style="cursor:pointer" onclick="highlightCounty('${name}')">
       <td><span class="badge ${badgeClass}">${i + 1}</span></td>
