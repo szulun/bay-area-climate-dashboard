@@ -15,6 +15,16 @@
       padding: 0
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+    }
+
     :root {
       /* Ink & surfaces — contrast targets: body ≥4.5:1 on cream; links ≥4.5:1; UI borders ≈3:1 on white (WCAG 1.4.11) */
       --forest: #0c2621;
@@ -827,26 +837,198 @@
     /* "Why this matters to me" + next steps (Simple mode) */
     .act-bridge {
       margin: 0 0 12px 0;
-      padding: 11px 12px;
-      background: linear-gradient(180deg, #f9fcf8 0%, #f1f6f0 100%);
+      padding: 12px 12px 13px 14px;
+      background: linear-gradient(145deg, #f8fdf9 0%, #eef5f0 55%, #f2f7f3 100%);
       border: 1px solid var(--border);
+      border-left: 4px solid var(--moss);
       border-radius: var(--radius-md);
       box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes act-bridge-ring {
+      0%, 100% {
+        box-shadow: var(--shadow-sm), 0 0 0 0 rgba(36, 90, 75, 0);
+      }
+
+      50% {
+        box-shadow: var(--shadow-sm), 0 0 0 1px rgba(36, 90, 75, 0.12);
+      }
+    }
+
+    @keyframes act-bridge-nudge {
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      50% {
+        transform: translateX(3px);
+      }
+    }
+
+    .act-bridge--live {
+      animation: act-bridge-ring 5s ease-in-out infinite;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .act-bridge--live {
+        animation: none;
+      }
+
+      .abf-arrow svg {
+        animation: none !important;
+      }
+    }
+
+    .act-bridge-eyebrow {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--moss);
+      margin: 0 0 4px 0;
     }
 
     .act-bridge-k {
       font-size: 10.5px;
       font-weight: 600;
       color: var(--forest);
-      margin: 0 0 5px 0;
+      margin: 0 0 8px 0;
       letter-spacing: 0.01em;
+      line-height: 1.35;
+    }
+
+    .act-bridge-flow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
+      justify-content: space-between;
+      gap: 6px 4px;
+      margin: 0 0 10px 0;
+      padding: 8px 8px 9px;
+      background: rgba(255, 255, 255, 0.65);
+      border: 1px solid rgba(36, 90, 75, 0.12);
+      border-radius: 8px;
+    }
+
+    .abf-step {
+      flex: 1 1 88px;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 4px;
+    }
+
+    .abf-ic {
+      width: 28px;
+      height: 28px;
+      color: var(--moss);
+      flex-shrink: 0;
+    }
+
+    .abf-lbl {
+      font-size: 8.5px;
+      font-weight: 600;
+      color: var(--forest);
+      line-height: 1.25;
+    }
+
+    .abf-sub {
+      font-size: 7.5px;
+      color: var(--muted);
+      line-height: 1.3;
+    }
+
+    .abf-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--moss-muted);
+      flex: 0 0 18px;
+      align-self: center;
+    }
+
+    .abf-arrow svg {
+      width: 14px;
+      height: 14px;
+      animation: act-bridge-nudge 2.2s ease-in-out infinite;
     }
 
     .act-bridge p {
       font-size: 9.5px;
       line-height: 1.55;
       color: var(--mid);
+      margin: 0 0 10px 0;
+    }
+
+    /* One primary “next” CTA: verb + clear destination; secondary stays in-paragraph (EJ, Expert) */
+    .act-bridge-cta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 12px;
       margin: 0;
+    }
+
+    a.act-bridge-jump {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 9.5px;
+      font-weight: 600;
+      color: #fff !important;
+      background: var(--moss);
+      padding: 7px 12px 7px 11px;
+      border-radius: 7px;
+      text-decoration: none !important;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+    }
+
+    a.act-bridge-jump:hover {
+      filter: brightness(1.07);
+    }
+
+    a.act-bridge-jump:focus-visible {
+      outline: none;
+      box-shadow: var(--ring-focus), 0 1px 2px rgba(0, 0, 0, 0.08);
+    }
+
+    a.act-bridge-skip {
+      font-size: 8.5px;
+      color: var(--muted) !important;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    a.act-bridge-skip:hover {
+      color: var(--forest) !important;
+    }
+
+    a.act-bridge-skip:focus-visible {
+      outline: none;
+      color: var(--forest) !important;
+      box-shadow: 0 0 0 2px var(--cream), 0 0 0 4px var(--moss);
+      border-radius: 4px;
+    }
+
+    #personalImpact,
+    #collectiveBridge,
+    #ejPanel {
+      scroll-margin-top: 1rem;
+    }
+
+    #personalImpact:focus,
+    #collectiveBridge:focus,
+    #ejPanel:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--cream), 0 0 0 4px var(--moss);
+      border-radius: 6px;
     }
 
     .btn-link-inline {
@@ -2492,8 +2674,46 @@
           </div>
         </div>
 
-        <div class="act-bridge" id="actBridge" role="region" aria-label="Why this view">
+        <div class="act-bridge act-bridge--live" id="actBridge" role="region"
+          aria-label="Translating education into action">
+          <div class="act-bridge-eyebrow">Translating education into action</div>
           <div class="act-bridge-k">The gap: awareness → a next step (not more charts for their own sake)</div>
+          <div class="act-bridge-flow" aria-hidden="true">
+            <div class="abf-step">
+              <svg class="abf-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 21s7-4.5 7-11a7 7 0 1 0-14 0c0 6.5 7 11 7 11z" />
+                <circle cx="12" cy="10" r="2.2" />
+              </svg>
+              <span class="abf-lbl">Ground it</span>
+              <span class="abf-sub">County &amp; ZIP — your place on the map</span>
+            </div>
+            <div class="abf-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg></div>
+            <div class="abf-step">
+              <svg class="abf-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 20V11M9 20V7M14 20V15M19 20V4" />
+              </svg>
+              <span class="abf-lbl">See the split</span>
+              <span class="abf-sub">EJ — who carries more burden</span>
+            </div>
+            <div class="abf-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg></div>
+            <div class="abf-step">
+              <svg class="abf-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 20V10l8-5 8 5v10" />
+                <path d="M9 20v-6h6v6" />
+              </svg>
+              <span class="abf-lbl">Act &amp; push</span>
+              <span class="abf-sub">Habits + policy &amp; peers</span>
+            </div>
+          </div>
           <p>People often <em>agree</em> climate is urgent and still <strong>resist</strong> changes that hit daily
             convenience. This page is built for a different question: <strong>Why my place, why now, and what can I
               actually do?</strong> Use <strong>your county and ZIP</strong> for place, the <a href="#ejPanel"
@@ -2501,6 +2721,12 @@
             and calculator for <strong>household levers</strong>, and—when policy is the lever—<button type="button"
               class="btn-link-inline" onclick="openExpertTab('compare')">Expert → What works elsewhere</button> to scan
             <strong>peer ideas</strong> to borrow or adapt (lessons, not a beauty contest).</p>
+          <p class="act-bridge-cta">
+            <a class="act-bridge-jump" href="#personalImpact" id="actBridgeToImpact">Next: try your personal impact
+              (calculator) ↓</a>
+            <a class="act-bridge-skip" href="#ejPanel">EJ first</a>
+            <a class="act-bridge-skip" href="#collectiveBridge">From “we” to policy ↓</a>
+          </p>
         </div>
 
         <!-- Hero metrics -->
@@ -2576,7 +2802,7 @@
 
         <!-- ══ NEW: Environmental Justice Panel ══ -->
         <div class="sec">Environmental justice (EJ)</div>
-        <div class="ej-panel" id="ejPanel">
+        <div class="ej-panel" id="ejPanel" tabindex="-1">
           <div class="ej-title" id="ejTitle">Breathe: Alameda</div>
           <div class="ej-subtitle" id="ejSubtitle">OEHHA index for this area. <a href="#fn-oehha"
               style="color:var(--moss)">Source</a></div>
@@ -2668,7 +2894,7 @@
         </div>
 
         <!-- Personal Impact Calculator -->
-        <div class="sec">Your personal impact</div>
+        <div class="sec" id="personalImpact" tabindex="-1">Your personal impact</div>
         <div class="calc">
           <div class="streak-bar">
             <svg width="20" height="24" viewBox="0 0 20 24" fill="none" style="flex-shrink:0">
@@ -2803,7 +3029,8 @@
           </div>
         </div>
 
-        <div class="collective-bridge" id="collectiveBridge" role="region" aria-label="From personal to collective action">
+        <div class="collective-bridge" id="collectiveBridge" role="region" tabindex="-1"
+          aria-label="From personal to collective action">
           <div class="collective-bridge-k">After this habit: where “I” turns into “we”</div>
           <p>The savings above are <strong>one household</strong>—worth doing. The Bay Area gap is still mostly shaped by
             <strong>infrastructure, codes, and public budgets</strong> (transit, bike lanes, reach codes, who breathes
@@ -4170,11 +4397,30 @@
       }
     }
 
+    /** In-page jumps from act-bridge: move focus to target for keyboard / SR users (WCAG 2.4.3). */
+    function initActBridgeAnchors() {
+      document.querySelectorAll('.act-bridge-cta a[href^="#"]').forEach(function (a) {
+        a.addEventListener('click', function () {
+          const id = this.getAttribute('href').slice(1);
+          const el = document.getElementById(id);
+          if (!el) return;
+          if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '-1');
+          const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          setTimeout(function () {
+            try {
+              el.focus({ preventScroll: true });
+            } catch (e) { /* noop */ }
+          }, reduce ? 0 : 400);
+        });
+      });
+    }
+
     // ── INIT (map embedded; no topojson script) ──
     initMap();
     buildCompareTable();
     selectCounty('Alameda');
     updateCalc();
+    initActBridgeAnchors();
   </script>
 </body>
 
