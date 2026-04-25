@@ -242,9 +242,13 @@
     }
 
     .map-svg-wrap {
-      max-width: min(100%, 520px);
-      width: 100%;
-      margin: 0 auto;
+      /* Don’t use width:100% here: in a flex column it stretches the box to the full
+         column, so the map panel stays left even with margin:auto. */
+      width: min(100%, 520px);
+      box-sizing: border-box;
+      margin-left: auto;
+      margin-right: auto;
+      align-self: center;
     }
 
     .map-legend-col {
@@ -2192,6 +2196,7 @@
           </div>
           <div class="co2-compare-diag" id="co2CompareDiag" aria-label="Size comparison: CO2">
             <div class="ccd-title">How big is that CO₂? (taller = more)</div>
+            <p class="ccd-cap" style="text-align:center;margin:0 0 6px;font-size:8.5px">Same weight can feel <strong>small</strong> (driving) or <strong>huge</strong> (heating a pool) — the bars are only a scale hint, not exact science.</p>
             <svg class="ccd-tower-svg" viewBox="0 0 300 128" role="img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
               <text x="150" y="13" text-anchor="middle" font-size="8" fill="var(--forest)" font-family="DM Sans" font-weight="600">Visual scale — rough orders of magnitude</text>
               <line x1="16" y1="108" x2="284" y2="108" stroke="var(--border)" stroke-width="1.2" />
@@ -2203,15 +2208,14 @@
               <text x="46" y="100" text-anchor="middle" font-size="5.5" fill="var(--muted)">~40 kg</text>
               <rect x="110" y="50" width="50" height="58" rx="4" fill="#5a9d6f" stroke="#0e2f28" stroke-width="1" />
               <text x="135" y="44" text-anchor="middle" font-size="7" fill="var(--mid)" font-family="DM Sans" font-weight="600">9-gal fill</text>
-              <text x="135" y="100" text-anchor="middle" font-size="5.5" fill="var(--muted)">~36 kg</text>
+              <text x="135" y="100" text-anchor="middle" font-size="5.5" fill="var(--muted)">~80 kg</text>
               <rect x="200" y="8" width="80" height="100" rx="6" fill="#7eb3d4" fill-opacity="0.55" stroke="#256d7a" stroke-width="2" />
               <path d="M 210 18 Q 240 6 270 20" fill="none" stroke="#3b82f6" stroke-width="1" opacity="0.7" />
               <text x="240" y="22" text-anchor="middle" font-size="7" fill="var(--mid)" font-family="DM Sans" font-weight="600">Heated pool</text>
               <text x="240" y="32" text-anchor="middle" font-size="6" fill="var(--muted)">(1 day, illustr.)</text>
               <text x="240" y="100" text-anchor="middle" font-size="5.5" fill="var(--muted)">can be 100s kg</text>
             </svg>
-            <p class="ccd-cap" style="text-align:center;margin-top:0">A pool day can be a <strong>skyscraper</strong> of CO₂
-              next to a <strong>stoop</strong> of tailpipe — same gas, very different “size.”</p>
+            <p class="ccd-cap" style="text-align:center;margin-top:0">Same molecule (CO₂), different <strong>story</strong>: a pool is often many times heavier than a day of tailpipe. Your line below = your savings vs. those “chunks.”</p>
             <p class="ccd-you" id="co2YouLine" style="min-height:2.2em"></p>
           </div>
           <div class="impact-vis">
