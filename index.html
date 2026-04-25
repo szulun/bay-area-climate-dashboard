@@ -255,7 +255,7 @@
       font-size: 11px;
     }
 
-    .map-legend-col .legend,
+    .map-legend-col .map-county-legend-stack,
     .map-legend-col .ej-legend {
       margin-top: 0;
     }
@@ -421,6 +421,75 @@
       justify-content: space-between;
       font-size: 8px;
       color: var(--muted)
+    }
+
+    .map-layer-toggle-wrap {
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .map-layer-toggle-hd {
+      font-size: 8.5px;
+      font-weight: 600;
+      color: var(--forest);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 6px;
+    }
+
+    .map-layer-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .map-layer-btn {
+      font-size: 8.5px;
+      line-height: 1.2;
+      padding: 5px 7px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--mid);
+      cursor: pointer;
+      text-align: left;
+      font-family: inherit;
+      transition: background .12s, border-color .12s, color .12s
+    }
+
+    .map-layer-btn:hover {
+      border-color: var(--moss);
+      color: var(--forest);
+    }
+
+    .map-layer-btn.on {
+      background: #e8f4ec;
+      border-color: var(--moss);
+      color: var(--forest);
+      font-weight: 600
+    }
+
+    .map-grad-ghg {
+      height: 8px;
+      border-radius: 4px;
+      margin: 4px 0;
+      background: linear-gradient(90deg, #b91c1c, #f59e0b, #1f6b4d, #0f2d1e)
+    }
+
+    .map-leg-foot {
+      font-size: 8px;
+      color: var(--muted);
+      line-height: 1.35;
+      margin-top: 4px
+    }
+
+    .map-county-legend-stack {
+      min-height: 0;
+    }
+
+    .map-leg-pane .legend-title {
+      font-size: 9.5px;
     }
 
     /* ── METRICS PANEL ── */
@@ -2089,16 +2158,43 @@
             </div>
           </div>
           <div class="map-legend-col">
-            <div class="legend">
-              <div class="legend-title">Progress toward 2030 goal</div>
-              <div class="leg-row">
-                <div class="leg-dot" style="background:var(--ej-good)"></div>On track
+            <div class="map-layer-toggle-wrap" id="mapLayerToggle" style="display:none">
+              <div class="map-layer-toggle-hd">9-county map — colors show</div>
+              <div class="map-layer-btns" role="tablist" aria-label="County map layer">
+                <button type="button" class="map-layer-btn on" data-mode="progress" role="tab" aria-selected="true"
+                  onclick="setMapColorMode('progress',this)">2030 climate goal (pace vs −40%)</button>
+                <button type="button" class="map-layer-btn" data-mode="ces" role="tab" aria-selected="false"
+                  onclick="setMapColorMode('ces',this)">Pollution burden (CES, 0–100)</button>
+                <button type="button" class="map-layer-btn" data-mode="ghg" role="tab" aria-selected="false"
+                  onclick="setMapColorMode('ghg',this)">CO₂ change since 1990 (total)</button>
               </div>
-              <div class="leg-row">
-                <div class="leg-dot" style="background:#6cad7a"></div>Progressing
+            </div>
+            <div class="map-county-legend-stack" id="mapCountyLegendStack" style="display:none">
+              <div class="map-leg-pane" id="mapLegProgress">
+                <div class="legend-title">2030 climate pace (illustrative)</div>
+                <div class="leg-row">
+                  <div class="leg-dot" style="background:#1f6b4d"></div>Strong (about on track for −40%)
+                </div>
+                <div class="leg-row">
+                  <div class="leg-dot" style="background:#6cad7a"></div>Progressing
+                </div>
+                <div class="leg-row">
+                  <div class="leg-dot" style="background:#e8c4a0"></div>Needs faster cuts
+                </div>
+                <p class="map-leg-foot">Based on the same county trend as “County Trends.” Not a regulatory forecast.</p>
               </div>
-              <div class="leg-row">
-                <div class="leg-dot" style="background:#d0e4b8"></div>Needs action
+              <div class="map-leg-pane" id="mapLegCES" style="display:none">
+                <div class="legend-title">CalEnviroScreen — burden</div>
+                <div class="ej-grad"></div>
+                <div class="ej-labels"><span>Lower (better)</span><span>Higher (worse)</span></div>
+                <p class="map-leg-foot">County-level CES proxy in this demo. For tracts, see <a href="#fn-oehha"
+                    style="color:var(--moss)">OEHHA</a>.</p>
+              </div>
+              <div class="map-leg-pane" id="mapLegGHG" style="display:none">
+                <div class="legend-title">Total GHG vs. 1990 (chart %)</div>
+                <div class="map-grad-ghg"></div>
+                <div class="ej-labels"><span>Closer to 0% (less cut)</span><span>More negative (deeper cut)</span></div>
+                <p class="map-leg-foot">Continuous color from county history line. Same units as County Trends.</p>
               </div>
             </div>
             <div class="ej-legend" id="ejLegend" style="display:none">
@@ -2973,6 +3069,69 @@
     const policies = { reach: false, ev: false, transit: false, solar: false, roof: false };
     const acts = { bus: [4.6, 'gallons gas', 0.11, 'not burned'], utensils: [0.05, 'g plastic', 11, 'not used'], energy: [0.4, 'kWh', 8, 'saved at home'] };
     let curAct = 'bus', selCounty = 'Alameda', curGran = 'county';
+    /** County map: fill scale — 'progress' | 'ces' | 'ghg' */
+    let mapColorMode = 'progress';
+
+    function getCountyMapFill(name) {
+      const sTot = histData[name][histData[name].length - 1];
+      const iRgb = d3.interpolateRgb;
+      if (mapColorMode === 'ghg') {
+        const t = Math.max(0, Math.min(1, (sTot + 40) / 40));
+        return iRgb('#c2410c', '#0d4f2a')(t);
+      }
+      if (mapColorMode === 'ces') {
+        const ces = cData[name].ces;
+        return iRgb('#d1fae5', '#7f1d1d')(Math.max(0, Math.min(1, ces / 100)));
+      }
+      if (sTot <= -30) return '#1f6b4d';
+      if (sTot <= -18) return '#6cad7a';
+      return '#e8c4a0';
+    }
+
+    function getCountyMapTitle(name) {
+      const sTot = histData[name][histData[name].length - 1];
+      const ces = cData[name].ces;
+      if (mapColorMode === 'ces') {
+        return name + ' County — CES (burden) ' + ces + ' / 100. Lower is better. Illustrative county value.';
+      }
+      if (mapColorMode === 'ghg') {
+        return name + ' County — total change vs. 1990: ' + sTot + '%, More negative = larger cuts (chart line).';
+      }
+      return name + ' County — 2030 pace: ' + (sTot <= -30 ? 'strong' : sTot <= -18 ? 'progressing' : 'needs faster action') + ' (' + sTot + '% vs. 1990 on chart).';
+    }
+
+    function setMapColorMode(mode, btn) {
+      mapColorMode = mode;
+      document.querySelectorAll('.map-layer-btn').forEach(b => {
+        b.classList.toggle('on', b.getAttribute('data-mode') === mode);
+        b.setAttribute('aria-selected', b.getAttribute('data-mode') === mode ? 'true' : 'false');
+      });
+      syncMapUi();
+      if (curGran === 'county') initMap();
+    }
+
+    function syncMapUi() {
+      const isBay = curGran === 'county';
+      const toggle = document.getElementById('mapLayerToggle');
+      const stack = document.getElementById('mapCountyLegendStack');
+      const p = document.getElementById('mapLegProgress');
+      const c = document.getElementById('mapLegCES');
+      const g = document.getElementById('mapLegGHG');
+      const zipEj = document.getElementById('ejLegend');
+      if (toggle) toggle.style.display = isBay ? 'block' : 'none';
+      if (stack) stack.style.display = isBay ? 'block' : 'none';
+      if (isBay) {
+        if (zipEj) zipEj.style.display = 'none';
+        [p, c, g].forEach(el => { if (el) el.style.display = 'none'; });
+        const show = { progress: p, ces: c, ghg: g }[mapColorMode];
+        if (show) show.style.display = 'block';
+      } else {
+        if (p) p.style.display = 'none';
+        if (c) c.style.display = 'none';
+        if (g) g.style.display = 'none';
+        if (zipEj) zipEj.style.display = 'block';
+      }
+    }
 
     // ── GAMIFICATION ──
     let gameState = { xp: 0, streak: 0, actCounts: { bus: 0, utensils: 0, energy: 0 }, lastAct: null };
@@ -3074,6 +3233,7 @@
           .attr('dominant-baseline', 'middle').attr('font-size', h > 48 ? 16 : 14).attr('fill', '#fff')
           .attr('font-family', 'DM Sans, sans-serif').attr('font-weight', '700').text(String(n.ces));
       });
+      syncMapUi();
     }
 
     function selectNeighborhood(n, county) {
@@ -3139,13 +3299,23 @@
         svg.selectAll('.bgc').data(bgF).enter().append('path').attr('class', 'inactive').attr('d', path);
         svg.selectAll('.cp').data(bayF).enter().append('path')
           .attr('class', 'cp').attr('id', d => 'mp-' + bayFIPS[idStr(d)].replace(/ /g, '_'))
-          .attr('fill', d => cData[bayFIPS[idStr(d)]]?.fill || '#aaa').attr('d', path)
+          .attr('fill', d => {
+            const n = bayFIPS[idStr(d)];
+            return getCountyMapFill(n);
+          })
+          .attr('d', path)
+          .each(function (d) {
+            const n = bayFIPS[idStr(d)];
+            d3.select(this).selectAll('title').remove();
+            d3.select(this).append('title').text(getCountyMapTitle(n));
+          })
           .on('click', function (e, d) { selectCounty(bayFIPS[idStr(d)]); });
         svg.selectAll('.clab').data(bayF).enter().append('text')
           .attr('class', d => { const n = bayFIPS[idStr(d)]; return 'map-county-label' + (n === 'Marin' || n === 'Napa' ? ' dk' : '') })
           .attr('x', d => path.centroid(d)[0]).attr('y', d => path.centroid(d)[1])
           .text(d => { const n = bayFIPS[idStr(d)]; const s = { 'San Francisco': 'SF', 'Contra Costa': 'C.Costa', 'Santa Clara': 'S.Clara', 'San Mateo': 'S.Mateo' }; return s[n] || n; });
         d3.select('#mp-' + selCounty.replace(/ /g, '_')).classed('sel', true);
+        syncMapUi();
       } catch (e) {
         svg.selectAll('*').remove();
         svg.attr('viewBox', '0 0 220 260');
