@@ -2005,6 +2005,21 @@
     .ccd-foot a {
       color: var(--moss);
     }
+
+    .scale-bridge {
+      font-size: 9.5px;
+      line-height: 1.5;
+      color: var(--mid);
+      margin: 12px 0 0;
+      padding: 9px 10px;
+      background: #f7faf7;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+    }
+
+    .scale-bridge a {
+      color: var(--moss);
+    }
   </style>
 </head>
 
@@ -2343,6 +2358,7 @@
               </div>
             </div>
             <p class="ccd-foot" id="co2YouLine"></p>
+            <p class="scale-bridge" id="scaleBridgeLine" aria-live="polite"></p>
           </div>
           <div class="impact-vis">
             <div class="vis-title">Stack of the same action (icons)</div>
@@ -2786,6 +2802,14 @@
         </li>
         <li id="fn-oehha">California OEHHA, <em>CalEnviroScreen 4.0</em> (pollution burden, demographics). <a
             href="https://oehha.ca.gov/calenviroscreen" target="_blank" rel="noopener">oehha.ca.gov</a></li>
+        <li id="fn-scale-bridge"><strong>Why we compare “you” to “a county rule” (illustrative, not a government forecast):</strong>
+          <strong>Your kg</strong> = 30 days × the daily action you pick (bus, reusables, or a bit less home energy) × how many times
+          a day the slider says. <strong>Trees</strong> = a rough carbon analogy used on the same card. <strong>“All-electric
+          new construction” / no new gas hookups for new buildings</strong> is the plain-English idea; in the Bay Area, extra
+          local rules on top of state code are often called a <a href="https://www.bayareareachcodes.org/" target="_blank"
+            rel="noopener">Reach Code</a>. In Expert &rarr; <strong>Policy Simulator</strong>, that lever is a <strong>4%</strong> slice
+          on the county chart; we put that in the same units as 12 months of <em>your</em> savings to show <em>scale</em>—round
+          numbers only.</li>
         <li>CARB, <em>Climate change Scoping Plan</em> and statewide GHG policy context. <a
             href="https://ww2.arb.ca.gov/our-work/programs/climate-change-scoping-plan" target="_blank"
             rel="noopener">arb.ca.gov</a></li>
@@ -2798,7 +2822,9 @@
       </ol>
       <p class="fn-abbr"><strong>Terms:</strong> <strong>VMT</strong> = vehicle miles traveled (all driving on roads).
         <strong>CES</strong> = CalEnviroScreen 0–100 score. <strong>GHG</strong> = greenhouse gases. <strong>EJ</strong> =
-        environmental justice. <strong>CARB</strong> = California Air Resources Board.</p>
+        environmental justice. <strong>CARB</strong> = California Air Resources Board.
+        <strong>Reach Code</strong> = optional local building rules (often: new construction all-electric / no new gas), on top
+        of state code—see <a href="https://www.bayareareachcodes.org/" target="_blank" rel="noopener">bayareareachcodes.org</a>.</p>
     </aside>
   </div>
 
@@ -3199,6 +3225,7 @@
         simSel.value = name;
         updateSim();
       }
+      updateCalc();
     }
 
     // ── EJ SCATTER ──
@@ -3476,6 +3503,16 @@
       if (co2YouLine) {
         const gals = m / 8.887;
         co2YouLine.innerHTML = `Same as not burning <strong>${gals.toFixed(1)} gal</strong> of gasoline (rough, <a href="#fn-epa" style="color:var(--moss)">EPA</a> factor). Compare the green “You” bar to the three rows above.`;
+      }
+      const scaleBridge = document.getElementById('scaleBridgeLine');
+      if (scaleBridge) {
+        const d = cData[selCounty];
+        const youY = m * 12;
+        const reachFrac = policyEffects.reach / 100;
+        const equivP = youY < 0.1 ? 0 : Math.round((reachFrac * d.pop * 10 * 1000) / youY);
+        const actHint = { bus: 'bus instead of a solo drive', utensils: 'skipping a bit of throwaway plastic', energy: 'using a little less home energy' }[curAct] || 'the habit you selected';
+        const multStr = equivP > 0 ? equivP.toLocaleString() : '—';
+        scaleBridge.innerHTML = `<strong>So what are these numbers?</strong> The <strong>${m} kg</strong> is <em>this month&rsquo;s</em> total from the buttons and slider above (${actHint}—rough). The tree icon is the same back-of-napkin idea: it&rsquo;s about <strong>~${trees} trees</strong> working for a year, not a lab test.<br><strong>Why mention policy?</strong> If a county required <strong>new homes to be all-electric and skip new gas lines</strong>, that one rule (we model a slice in Expert &rarr; Policy Simulator) is on the <em>rough order of</em> <strong>${multStr} people</strong> doing <em>your</em> full year of savings, in this demo&rsquo;s math&mdash;or about <strong>${multStr}×</strong> one household&rsquo;s year at this pace. <a href="#fn-scale-bridge">Plain words + how we get that</a>`;
       }
     }
 
