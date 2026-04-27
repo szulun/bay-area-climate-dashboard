@@ -3071,29 +3071,32 @@
           <button type="button" class="def-help" id="defHipOpen"
             onclick="document.getElementById('defHipDialog').showModal()">How we pick these</button>
         </div>
+        <p id="hipLead" style="font-size:9px;color:var(--mid);line-height:1.45;margin:0 0 8px 0;">Loading county story…
+        </p>
         <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
           <div
-            style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:10px;display:flex;justify-content:space-between;align-items:center;">
-            <div>
+            style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:10px;display:flex;justify-content:space-between;align-items:center;gap:10px;">
+            <div style="min-width:0;flex:1">
               <div style="font-size:11px;font-weight:600;color:var(--mid);">1. Fewer car miles</div>
-              <div style="font-size:9px;color:var(--muted);">Transport ≈ <span id="actTransPct">36%</span> of CO₂
-                (county mix, rough)</div>
+              <div id="hipR1Sub" style="font-size:9px;color:var(--muted);line-height:1.4">Transport ≈ <span
+                  id="actTransPct">36%</span> of CO₂ (illustrative county mix). Same
+                <em>demo</em> series: transport <strong id="hipR1T90">0</strong>% vs 1990.</div>
             </div>
-            <div style="text-align:right;max-width:48%">
-              <div style="font-size:10px;font-weight:600;color:var(--forest);line-height:1.25">~0.8 t CO₂/yr
-                (illustrative)</div>
-              <div style="font-size:7.5px;color:var(--muted);margin-top:2px">Not your household; not cost-optimized. <a
-                  href="#fn-high-impact" style="color:var(--moss)">Note</a></div>
+            <div style="text-align:right;max-width:48%;flex-shrink:0">
+              <div id="hipR1Right" style="font-size:8.5px;font-weight:500;color:var(--forest);line-height:1.35">Household
+                scale: <a href="#personalImpact" style="color:var(--moss)">calculator below</a> · <a
+                  href="#fn-high-impact" style="color:var(--moss)">data note</a></div>
             </div>
           </div>
           <div
-            style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:10px;display:flex;justify-content:space-between;align-items:center;">
-            <div>
-              <div style="font-size:11px;font-weight:600;color:var(--mid);">2. Electrify home</div>
-              <div style="font-size:9px;color:var(--muted);">Largest 2030 gap in many places</div>
+            style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:10px;display:flex;justify-content:space-between;align-items:center;gap:10px;">
+            <div style="min-width:0;flex:1">
+              <div style="font-size:11px;font-weight:600;color:var(--mid);">2. Electrify home (buildings)</div>
+              <div id="hipR2Sub" style="font-size:9px;color:var(--muted);line-height:1.4">Buildings: <strong
+                  id="hipR2B90">0</strong>% vs 1990. <span id="hipR2Context"></span></div>
             </div>
-            <div style="text-align:right;">
-              <div style="font-size:10px;font-weight:600;color:var(--forest);">No gas in buildings</div>
+            <div style="text-align:right;flex-shrink:0">
+              <div style="font-size:9.5px;font-weight:600;color:var(--forest);">Code + retrofits, not $ ranked here</div>
             </div>
           </div>
         </div>
@@ -3794,14 +3797,15 @@
           rel="noopener">Reach Code</a>. In Expert &rarr; <strong>Policy Simulator</strong>, that lever is a <strong>4%</strong> slice
           on the county chart; we put that in the same units as 12 months of <em>your</em> savings to show <em>scale</em>—round
           numbers only.</li>
-        <li id="fn-high-impact"><strong>High-impact moves (Simple mode) —</strong> this is <strong>not</strong> an
-          automated optimizer and <strong>does not</strong> use dollar costs, bill savings, or payback time. <strong>Row
-            1</strong> uses a demo-only field
-          (<em>tShare</em>) in the page data: a rough, county-specific share of a <em>simplified</em> “community CO₂ mix”
-          attributed to on-road/transport, to explain why VMT and mode shift often matter. <strong>Row 2</strong> is a
-          fixed narrative (building electrification) for many Bay Area <em>stories of gap</em>, not a custom model
-          output for every county. <strong>“~0.8 t CO₂/yr”</strong> is a static order-of-magnitude example, not
-          calculated from your inputs or a live inventory.</li>
+        <li id="fn-high-impact"><strong>High-impact moves (Simple mode) —</strong> <strong>not</strong> an
+          automated optimizer: no $ costs, payback, or subsidies. <strong>Row 1</strong> uses
+          <em>tShare</em> (illustrative on-road share of a simplified mix) and the same county&rsquo;s mock
+          <em>since90</em> transport % vs. 1990. <strong>Row 2</strong> uses the mock buildings
+          <em>since90</em> and <em>bLbl</em> (same table as the sector bars). The lead sentence compares
+          <strong>transport vs. buildings</strong> cuts in that story so the pair of cards is internally consistent, not
+          a CalEPA-sourced rank. For household-scale numbers, use the
+          <a href="#personalImpact" style="color:var(--moss)">household impact</a> section — not a fixed
+          &ldquo;~0.8 t&rdquo; in the card text.</li>
         <li id="fn-ces-number"><strong>Numbers like 55 on a neighborhood square</strong> are <strong>CES (0–100)</strong> for
           that <em>sample</em> block in this demo, from the same OEHHA-style framing as the rest of the page. They are
           <strong>not</strong> a percent emissions cut, a population share, a grade out of 100 in school sense, or
@@ -3844,12 +3848,13 @@
         (<em>tShare</em>) in the page’s data. It stands in for “about what share of a <em>rough, illustrative</em> county
         CO₂ mix is tied to on-road/transport” — useful for <em>why VMT and mode</em> get attention. It is
         <strong>not</strong> pulled from a live CalEPA or MPO inventory in this prototype.</p>
-      <p><strong>Why two rows only?</strong> They repeat for every county: (1) transport lever, (2) buildings
-        electrification / gas hookups narrative. They are <strong>not</strong> a unique ranked list of “top 2 policies per
-        county” from a model.</p>
-      <p><strong>“~0.8 t CO₂/yr (illustrative)”</strong> is a <strong>static</strong> round number (order of magnitude) to
-        suggest that cutting drive-alone miles can matter; it is <strong>not</strong> recalculated per user or per county
-        in the code.</p>
+      <p><strong>Why two rows only?</strong> (1) transport lever, (2) building electrification / gas. The gray lead line
+        and sub-lines use each county&rsquo;s <em>since90</em> transport vs. buildings (mock % change vs. 1990) to
+        show <strong>which of those two is weaker in this demo story</strong> — still not a unique modelled “top 2
+        policies” list.</p>
+      <p><strong>Per-household t CO₂</strong> is <strong>not</strong> fixed in the cards anymore. Use the
+        <a href="#personalImpact">household impact calculator</a> (section below) for numbers tied to the sliders. Those
+        remain illustrative, not a certified inventory.</p>
       <p class="def-dlg-foot">Same detail for citations: <a href="#fn-high-impact" style="color:var(--moss)">Sources →
           High-impact footnote</a>.</p>
       <p><button type="button" class="def-dlg-bt" onclick="document.getElementById('defHipDialog').close()">Close</button></p>
@@ -4405,6 +4410,36 @@
       }
     }
 
+    function updateHighImpactUI(d) {
+      const s = d.since90;
+      if (!s) return;
+      const tShare = d.tShare ?? 35;
+      // Negative = cut vs 1990; higher (less negative) = weaker progress.
+      const transportLags = s.t > s.b;
+
+      const lead = document.getElementById('hipLead');
+      if (lead) {
+        const focus = transportLags
+          ? 'Between the two levers on this page, the <strong>smaller 1990→now cut in this story is transport</strong> (vs buildings).'
+          : 'Between the two levers on this page, the <strong>smaller 1990→now cut in this story is buildings</strong> (vs transport).';
+        lead.innerHTML =
+          '<strong>Illustrative (not $-ranked, not a live MPO/CalEPA book).</strong> ' +
+          focus +
+          ' <strong>Grid in the same mock:</strong> ' +
+          s.e +
+          '% vs 1990. The headline % uses <em>tShare</em> = ' +
+          tShare +
+          ' (on-road share of a simplified mix).';
+      }
+
+      const t90 = document.getElementById('hipR1T90');
+      if (t90) t90.textContent = s.t;
+      const b90 = document.getElementById('hipR2B90');
+      if (b90) b90.textContent = s.b;
+      const c2 = document.getElementById('hipR2Context');
+      if (c2) c2.textContent = d.bLbl || '';
+    }
+
     // ── SELECT COUNTY ──
     function selectCounty(name) {
       if (!name || !cData[name]) return;
@@ -4429,6 +4464,7 @@
       document.getElementById('tBar').style.width = d.tb + '%';
       document.getElementById('cNameAction').textContent = name;
       document.getElementById('actTransPct').textContent = (d.tShare ?? 35) + '%';
+      updateHighImpactUI(d);
 
       // Context cards
       document.getElementById('ctxDensity').textContent = d.density.toLocaleString();
