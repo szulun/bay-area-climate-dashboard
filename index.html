@@ -1017,6 +1017,122 @@
       border-radius: 4px;
     }
 
+    /* Data-definition dialogs (from stakeholder feedback) */
+    .def-help {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 8.5px;
+      font-weight: 600;
+      color: var(--moss);
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 3px 8px 4px;
+      cursor: pointer;
+      margin-left: 2px;
+      vertical-align: middle;
+    }
+
+    .def-help:hover {
+      background: var(--lite);
+    }
+
+    .def-help:focus-visible {
+      outline: none;
+      box-shadow: var(--ring-focus);
+    }
+
+    .def-dlg {
+      max-width: min(420px, 92vw);
+      width: 100%;
+      margin: auto;
+      padding: 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+    }
+
+    .def-dlg::backdrop {
+      background: rgba(15, 24, 20, 0.45);
+    }
+
+    .def-dlg-inner {
+      padding: 14px 16px 16px;
+      color: var(--mid);
+    }
+
+    .def-dlg-inner h2 {
+      font-size: 12px;
+      color: var(--forest);
+      margin: 0 0 8px 0;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    .def-dlg-inner p,
+    .def-dlg-inner li {
+      font-size: 9.5px;
+      line-height: 1.55;
+      margin: 0 0 6px 0;
+    }
+
+    .def-dlg-inner ul {
+      margin: 6px 0 8px 1.1em;
+      padding: 0;
+    }
+
+    .def-dlg-x {
+      float: right;
+      font-size: 18px;
+      line-height: 1;
+      border: none;
+      background: none;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 0 0 0 8px;
+      margin: -2px 0 0 0;
+    }
+
+    .def-dlg-x:hover,
+    .def-dlg-x:focus-visible {
+      color: var(--forest);
+    }
+
+    .def-dlg-foot {
+      font-size: 8.5px;
+      color: var(--muted);
+      margin: 8px 0 0 0;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+    }
+
+    .def-dlg-bt {
+      font-size: 9.5px;
+      font-weight: 600;
+      color: #fff;
+      background: var(--moss);
+      border: none;
+      border-radius: 6px;
+      padding: 6px 12px;
+      margin-top: 4px;
+      cursor: pointer;
+    }
+
+    .def-dlg-bt:hover {
+      filter: brightness(1.05);
+    }
+
+    .def-dlg-bt:focus-visible {
+      outline: none;
+      box-shadow: var(--ring-focus);
+    }
+
+    .hi-sec {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px 10px
+    }
+
     #personalImpact,
     #collectiveBridge,
     #ejPanel {
@@ -1903,6 +2019,113 @@
       line-height: 1.4
     }
 
+    .sim-scen {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    .sim-scen-title {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--forest);
+      margin-bottom: 4px
+    }
+
+    .sim-scen-sub {
+      font-size: 8.5px;
+      color: var(--muted);
+      line-height: 1.45;
+      margin-bottom: 8px
+    }
+
+    .sim-scen-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 8px;
+      align-items: center;
+      margin-bottom: 8px
+    }
+
+    .sim-scen-row input[type="text"] {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 9.5px;
+      padding: 5px 8px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      min-width: 180px;
+      flex: 1 1 160px
+    }
+
+    .sim-scen-save {
+      font-size: 9.5px;
+      font-weight: 600;
+      color: #fff;
+      background: var(--policy);
+      border: none;
+      border-radius: 6px;
+      padding: 5px 10px;
+      cursor: pointer
+    }
+
+    .sim-scen-save:hover {
+      filter: brightness(1.05);
+    }
+
+    .sim-scen-save:focus-visible {
+      outline: none;
+      box-shadow: var(--ring-focus);
+    }
+
+    .sim-scen-btn {
+      font-size: 9px;
+      font-weight: 600;
+      color: var(--moss);
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 8px;
+      cursor: pointer
+    }
+
+    .sim-scen-btn.danger {
+      color: #b91c1c;
+      border-color: #fecaca
+    }
+
+    .sim-scen-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8.5px
+    }
+
+    .sim-scen-table th,
+    .sim-scen-table td {
+      border: 1px solid var(--border);
+      padding: 4px 6px;
+      text-align: left
+    }
+
+    .sim-scen-table th {
+      background: var(--surface-muted);
+      color: var(--mid);
+      font-weight: 600
+    }
+
+    .sim-scen-note {
+      font-size: 8px;
+      color: var(--muted);
+      margin: 6px 0 0;
+      line-height: 1.4
+    }
+
+    .sim-scen-compare-hd {
+      font-size: 9px;
+      font-weight: 600;
+      color: var(--forest);
+      margin-top: 8px
+    }
+
     /* compare */
     .comp-card {
       background: var(--surface);
@@ -2597,6 +2820,8 @@
                 style="color:var(--forest)">Each square is labeled with a sample place name, ZIP where available, and
                 its CES number.</span> <strong>Selected</strong> block has a gold outline; details also in the
               breadcrumb. <a href="#fn-oehha" style="color:var(--moss)">OEHHA</a>
+              <button type="button" class="def-help" onclick="document.getElementById('defCesDialog').showModal()">Why
+                a number like “55”?</button>
             </div>
             <div class="gran-hint" id="granHint" style="display:none;">💡 <strong>ZIP / neighborhood</strong> (sample
               areas) — use for local policy. See <a href="#sources-footnotes" style="color:var(--moss)">sources</a></div>
@@ -2842,7 +3067,10 @@
         </div>
 
         <!-- ══ Biggest impact actions ══ -->
-        <div class="sec">High-impact moves · <span id="cNameAction">Alameda</span></div>
+        <div class="sec hi-sec">High-impact moves · <span id="cNameAction">Alameda</span>
+          <button type="button" class="def-help" id="defHipOpen"
+            onclick="document.getElementById('defHipDialog').showModal()">How we pick these</button>
+        </div>
         <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
           <div
             style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:10px;display:flex;justify-content:space-between;align-items:center;">
@@ -2851,8 +3079,11 @@
               <div style="font-size:9px;color:var(--muted);">Transport ≈ <span id="actTransPct">36%</span> of CO₂
                 (county mix, rough)</div>
             </div>
-            <div style="text-align:right;">
-              <div style="font-size:10px;font-weight:600;color:var(--forest);">~0.8 t CO₂/yr (order of magnitude)</div>
+            <div style="text-align:right;max-width:48%">
+              <div style="font-size:10px;font-weight:600;color:var(--forest);line-height:1.25">~0.8 t CO₂/yr
+                (illustrative)</div>
+              <div style="font-size:7.5px;color:var(--muted);margin-top:2px">Not your household; not cost-optimized. <a
+                  href="#fn-high-impact" style="color:var(--moss)">Note</a></div>
             </div>
           </div>
           <div
@@ -3424,6 +3655,40 @@
             <div id="simEquivalent" style="font-size:10px;font-weight:600;color:var(--forest);margin-top:4px;"></div>
           </div>
         </div>
+        <div class="sim-scen" id="simScenPanel" aria-label="Save and compare policy scenarios">
+          <div class="sim-scen-title">Save &amp; compare scenarios</div>
+          <p class="sim-scen-sub">Stored in <strong>this browser only</strong> (localStorage). Use <strong>Export
+              JSON</strong> to share files with colleagues—there is <strong>no</strong> cloud account or server sync
+            in this prototype. Clearing site data removes saved rows.</p>
+          <div class="sim-scen-row">
+            <input type="text" id="simScenName" placeholder="e.g. Transit + buildings, no solar" maxlength="100"
+              aria-label="Scenario name">
+            <button type="button" class="sim-scen-save" id="simScenSaveBtn">Save current</button>
+            <button type="button" class="sim-scen-btn" id="simScenExportBtn">Export JSON</button>
+            <label class="sim-scen-btn" style="cursor:pointer">Import JSON<input id="simScenImport" type="file"
+                accept="application/json,.json" style="display:none" aria-label="Import scenarios JSON"></label>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="sim-scen-table" aria-label="Saved scenarios and sector point totals">
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">County</th>
+                  <th scope="col">Bldg (pts)</th>
+                  <th scope="col">Trans (pts)</th>
+                  <th scope="col">Energy (pts)</th>
+                  <th scope="col">Total (pts)</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="simScenBody">
+              </tbody>
+            </table>
+          </div>
+          <p class="sim-scen-note" id="simScenSectorsNote">Sector groups in this demo: <strong>Buildings</strong> = Reach
+            + cool roofs · <strong>Transport</strong> = EV + transit · <strong>Energy</strong> = community solar. “pts”
+            = sum of the same policy toggle percentages used in the chart above, not dollars or live inventory.</p>
+        </div>
       </div>
       <div class="trend-card">
         <div class="trend-header">
@@ -3526,9 +3791,24 @@
           a day the slider says. <strong>Trees</strong> = a rough carbon analogy used on the same card. <strong>“All-electric
           new construction” / no new gas hookups for new buildings</strong> is the plain-English idea; in the Bay Area, extra
           local rules on top of state code are often called a <a href="https://www.bayareareachcodes.org/" target="_blank"
-            rel="noopener">Reach Code</a>. In Expert &rarr; <strong>Policy Simulator</strong>, that lever is a <strong>4%</strong> slice
+          rel="noopener">Reach Code</a>. In Expert &rarr; <strong>Policy Simulator</strong>, that lever is a <strong>4%</strong> slice
           on the county chart; we put that in the same units as 12 months of <em>your</em> savings to show <em>scale</em>—round
           numbers only.</li>
+        <li id="fn-high-impact"><strong>High-impact moves (Simple mode) —</strong> this is <strong>not</strong> an
+          automated optimizer and <strong>does not</strong> use dollar costs, bill savings, or payback time. <strong>Row
+            1</strong> uses a demo-only field
+          (<em>tShare</em>) in the page data: a rough, county-specific share of a <em>simplified</em> “community CO₂ mix”
+          attributed to on-road/transport, to explain why VMT and mode shift often matter. <strong>Row 2</strong> is a
+          fixed narrative (building electrification) for many Bay Area <em>stories of gap</em>, not a custom model
+          output for every county. <strong>“~0.8 t CO₂/yr”</strong> is a static order-of-magnitude example, not
+          calculated from your inputs or a live inventory.</li>
+        <li id="fn-ces-number"><strong>Numbers like 55 on a neighborhood square</strong> are <strong>CES (0–100)</strong> for
+          that <em>sample</em> block in this demo, from the same OEHHA-style framing as the rest of the page. They are
+          <strong>not</strong> a percent emissions cut, a population share, a grade out of 100 in school sense, or
+          “Napa = 55% something.” <strong>Lower CES = less combined pollution + population stressor burden</strong> in
+          the index, per <a href="https://oehha.ca.gov/calenviroscreen" target="_blank" rel="noopener">OEHHA</a>—see
+          <a href="#fn-oehha">CES footnote</a>. Values in ZIP view are <strong>illustrative</strong> place samples, not
+          a certified tract extract in this student prototype.</li>
         <li>CARB, <em>Climate change Scoping Plan</em> and statewide GHG policy context. <a
             href="https://ww2.arb.ca.gov/our-work/programs/climate-change-scoping-plan" target="_blank"
             rel="noopener">arb.ca.gov</a></li>
@@ -3547,9 +3827,50 @@
         <strong>Reach Code</strong> = optional local building rules (often: new construction all-electric / no new gas), on top
         of state code—see <a href="https://www.bayareareachcodes.org/" target="_blank" rel="noopener">bayareareachcodes.org</a>.
         <strong>BESO</strong> = Berkeley <em>Building Emissions Saving Ordinance</em> (existing-building focus + phased rules);
-        <a href="#fn-berkeley-beso">short note</a>.</p>
+        <a href="#fn-berkeley-beso">short note</a>. <strong>High-impact moves</strong> = the two callout cards in Simple mode; see
+        <a href="#fn-high-impact">data logic</a>. <strong>“55” on a block</strong> = CES 0–100, not a % cut; see
+        <a href="#fn-ces-number">this note</a>.</p>
     </aside>
   </div>
+
+  <dialog class="def-dlg" id="defHipDialog" aria-labelledby="defHipTitle">
+    <div class="def-dlg-inner">
+      <button type="button" class="def-dlg-x" aria-label="Close" onclick="document.getElementById('defHipDialog').close()">×</button>
+      <h2 id="defHipTitle">High-impact moves — how this list is built</h2>
+      <p><strong>Is cost (money) part of the recommendation?</strong> <strong>No.</strong> This dashboard does
+        <em>not</em> score actions by price, payback, subsidies, or what is easiest for a given household. The section is
+        framed in <strong>emissions and sector storylines</strong> for learning, not financial advice.</p>
+      <p><strong>What is “Transport ≈ X% of CO₂”?</strong> For each county we store a single demo value
+        (<em>tShare</em>) in the page’s data. It stands in for “about what share of a <em>rough, illustrative</em> county
+        CO₂ mix is tied to on-road/transport” — useful for <em>why VMT and mode</em> get attention. It is
+        <strong>not</strong> pulled from a live CalEPA or MPO inventory in this prototype.</p>
+      <p><strong>Why two rows only?</strong> They repeat for every county: (1) transport lever, (2) buildings
+        electrification / gas hookups narrative. They are <strong>not</strong> a unique ranked list of “top 2 policies per
+        county” from a model.</p>
+      <p><strong>“~0.8 t CO₂/yr (illustrative)”</strong> is a <strong>static</strong> round number (order of magnitude) to
+        suggest that cutting drive-alone miles can matter; it is <strong>not</strong> recalculated per user or per county
+        in the code.</p>
+      <p class="def-dlg-foot">Same detail for citations: <a href="#fn-high-impact" style="color:var(--moss)">Sources →
+          High-impact footnote</a>.</p>
+      <p><button type="button" class="def-dlg-bt" onclick="document.getElementById('defHipDialog').close()">Close</button></p>
+    </div>
+  </dialog>
+
+  <dialog class="def-dlg" id="defCesDialog" aria-labelledby="defCesTitle">
+    <div class="def-dlg-inner">
+      <button type="button" class="def-dlg-x" aria-label="Close" onclick="document.getElementById('defCesDialog').close()">×</button>
+      <h2 id="defCesTitle">What does a number like “55” on the map mean?</h2>
+      <p>On a neighborhood square, that value is a <strong>CalEnviroScreen (CES) score from 0 to 100</strong>: combined
+        pollution exposure and community vulnerability in OEHHA’s index. <strong>Lower = less burden in that
+          index</strong> — it is <strong>not</strong> “55% of emissions” or a climate reduction percentage.</p>
+      <p>Example: <strong>Napa, Downtown (94558)</strong> in this demo’s sample data uses CES <strong>55</strong> as an
+        illustrative point — not an official real-time map pull in this student build.</p>
+      <p class="def-dlg-foot">Official methodology: <a href="https://oehha.ca.gov/calenviroscreen" target="_blank" rel="noopener"
+          style="color:var(--moss)">OEHHA CalEnviroScreen</a> · <a href="#fn-ces-number" style="color:var(--moss)">Full
+          footnote</a></p>
+      <p><button type="button" class="def-dlg-bt" onclick="document.getElementById('defCesDialog').close()">Close</button></p>
+    </div>
+  </dialog>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
   <script>
@@ -3659,6 +3980,138 @@
     const futureYears = [2025, 2026, 2027, 2028, 2029, 2030];
     const policyEffects = { reach: 4, ev: 6, transit: 2, solar: 5, roof: 2 };
     const policies = { reach: false, ev: false, transit: false, solar: false, roof: false };
+    const SIM_SCEN_KEY = 'fung-policy-scenarios-v1';
+    const POLICY_SECTOR = { buildings: ['reach', 'roof'], transport: ['ev', 'transit'], energy: ['solar'] };
+    let simScenarios = [];
+
+    function policySectorTotals(pol) {
+      const on = (k) => (pol[k] ? policyEffects[k] : 0);
+      return {
+        buildings: POLICY_SECTOR.buildings.reduce((s, k) => s + on(k), 0),
+        transport: POLICY_SECTOR.transport.reduce((s, k) => s + on(k), 0),
+        energy: POLICY_SECTOR.energy.reduce((s, k) => s + on(k), 0),
+        total: Object.keys(policyEffects).reduce((s, k) => s + on(k), 0)
+      };
+    }
+    function policiesSnapshot() {
+      return { reach: policies.reach, ev: policies.ev, transit: policies.transit, solar: policies.solar, roof: policies.roof };
+    }
+    function applyScenarioData(s) {
+      if (!s || !s.policies) return;
+      document.getElementById('simCounty').value = s.county || 'Alameda';
+      Object.keys(policies).forEach((k) => { policies[k] = !!s.policies[k]; });
+      ['reach', 'ev', 'transit', 'solar', 'roof'].forEach((k) => {
+        const pol = document.getElementById('pol-' + k);
+        const pn = document.getElementById('pn-' + k);
+        const ts = document.getElementById('ts-' + k);
+        if (pol) pol.classList.toggle('on', policies[k]);
+        if (pn) pn.classList.toggle('on', policies[k]);
+        if (ts) ts.classList.toggle('on', policies[k]);
+      });
+      updateSim();
+      drawTrendChart();
+    }
+    function saveCurrentScenario() {
+      const nameInp = document.getElementById('simScenName');
+      const raw = (nameInp && nameInp.value.trim()) || '';
+      const name = raw || ('Scenario ' + (simScenarios.length + 1));
+      if (nameInp) nameInp.value = '';
+      simScenarios.push({
+        id: 's' + Date.now(),
+        name,
+        county: document.getElementById('simCounty').value,
+        policies: policiesSnapshot(),
+        t: Date.now()
+      });
+      persistSimScenarios();
+      renderSimScenarios();
+    }
+    function persistSimScenarios() {
+      try { localStorage.setItem(SIM_SCEN_KEY, JSON.stringify(simScenarios)); } catch (e) { /* storage full or private mode */ }
+    }
+    function loadSimScenariosFromStorage() {
+      try {
+        const raw = localStorage.getItem(SIM_SCEN_KEY);
+        const p = raw ? JSON.parse(raw) : [];
+        simScenarios = Array.isArray(p) ? p : [];
+      } catch (e) {
+        simScenarios = [];
+      }
+    }
+    function deleteScenario(id) {
+      simScenarios = simScenarios.filter((x) => x.id !== id);
+      persistSimScenarios();
+      renderSimScenarios();
+    }
+    function escapeStr(s) {
+      const d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+    function renderSimScenarios() {
+      const tbody = document.getElementById('simScenBody');
+      if (!tbody) return;
+      if (simScenarios.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" style="font-size:9px;color:var(--muted);padding:8px">No saved scenarios. Toggle policies, name your package, and click <strong>Save current</strong>.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = simScenarios.map((s) => {
+        const t = policySectorTotals(s.policies);
+        return '<tr><td style="font-weight:600">' + escapeStr(s.name) + '</td><td>' + escapeStr(s.county) + '</td>' +
+          '<td style="text-align:right">-' + t.buildings + '%</td><td style="text-align:right">-' + t.transport + '%</td>' +
+          '<td style="text-align:right">-' + t.energy + '%</td><td style="text-align:right;font-weight:600">-' + t.total + '%</td><td>' +
+          '<button type="button" class="sim-scen-btn" data-sim-load="' + escapeStr(s.id) + '">Load</button> ' +
+          '<button type="button" class="sim-scen-btn danger" data-sim-del="' + escapeStr(s.id) + '">Delete</button></td></tr>';
+      }).join('');
+    }
+    function exportSimScenarios() {
+      const blob = new Blob([JSON.stringify(simScenarios, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'bay-area-policy-scenarios.json';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+    function importSimScenarios(ev) {
+      const f = ev.target && ev.target.files && ev.target.files[0];
+      if (!f) return;
+      const r = new FileReader();
+      r.onload = function () {
+        try {
+          const arr = JSON.parse(r.result);
+          if (Array.isArray(arr)) {
+            simScenarios = arr;
+            persistSimScenarios();
+            renderSimScenarios();
+          }
+        } catch (err) { /* invalid */ }
+      };
+      r.readAsText(f);
+      ev.target.value = '';
+    }
+    function initSimScenariosUi() {
+      loadSimScenariosFromStorage();
+      renderSimScenarios();
+      const bSave = document.getElementById('simScenSaveBtn');
+      const bEx = document.getElementById('simScenExportBtn');
+      const fIm = document.getElementById('simScenImport');
+      const tb = document.getElementById('simScenBody');
+      if (bSave) bSave.addEventListener('click', saveCurrentScenario);
+      if (bEx) bEx.addEventListener('click', exportSimScenarios);
+      if (fIm) fIm.addEventListener('change', importSimScenarios);
+      if (tb) {
+        tb.addEventListener('click', function (e) {
+          const L = e.target.closest('[data-sim-load]');
+          const D = e.target.closest('[data-sim-del]');
+          if (L) {
+            const id = L.getAttribute('data-sim-load');
+            const s = simScenarios.find((x) => x.id === id);
+            if (s) applyScenarioData(s);
+          }
+          if (D) deleteScenario(D.getAttribute('data-sim-del'));
+        });
+      }
+    }
     const acts = { bus: [4.6, 'gallons gas', 0.11, 'not burned'], utensils: [0.05, 'g plastic', 11, 'not used'], energy: [0.4, 'kWh', 8, 'saved at home'] };
     let curAct = 'bus', selCounty = 'Alameda', curGran = 'county';
     let selNeighborhoodName = null;
@@ -4415,12 +4868,24 @@
       });
     }
 
+    function initDefDialogs() {
+      ['defHipDialog', 'defCesDialog'].forEach(function (id) {
+        const d = document.getElementById(id);
+        if (!d) return;
+        d.addEventListener('click', function (e) {
+          if (e.target === d) d.close();
+        });
+      });
+    }
+
     // ── INIT (map embedded; no topojson script) ──
     initMap();
     buildCompareTable();
     selectCounty('Alameda');
     updateCalc();
     initActBridgeAnchors();
+    initDefDialogs();
+    initSimScenariosUi();
   </script>
 </body>
 
