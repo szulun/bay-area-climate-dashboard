@@ -2819,6 +2819,156 @@
     .scale-bridge a {
       color: var(--moss);
     }
+
+    /* ── SIMPLE: narrative navigator (shows the reading path) ── */
+    .story-nav {
+      position: sticky;
+      top: 0;
+      z-index: 36;
+      margin: -4px -4px 18px -4px;
+      padding: 11px 12px 12px;
+      background: linear-gradient(165deg,
+          rgba(255, 254, 252, 0.97) 0%,
+          rgba(239, 245, 240, 0.92) 45%,
+          rgba(232, 240, 234, 0.9) 100%);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(46, 92, 71, 0.16);
+      border-radius: var(--radius-md);
+      box-shadow: 0 10px 36px rgba(14, 47, 40, 0.09),
+        inset 0 1px 0 rgba(255, 255, 255, 0.72);
+    }
+
+    .story-nav-hd {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .story-nav-tag {
+      font-family: 'DM Serif Display', serif;
+      font-size: 14px;
+      letter-spacing: -0.015em;
+      color: var(--forest);
+      line-height: 1.2;
+    }
+
+    .story-nav-sub {
+      font-size: 10px;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    .story-nav-track {
+      display: flex;
+      gap: 7px;
+      overflow-x: auto;
+      overflow-y: visible;
+      padding-bottom: 4px;
+      margin-bottom: -2px;
+      scroll-padding-inline: 4px;
+      scroll-snap-type: x proximity;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(46, 92, 71, 0.35) transparent;
+      mask-image: linear-gradient(90deg, transparent 0%, #000 1.25%, #000 98.75%, transparent 100%);
+    }
+
+    .story-nav-track::-webkit-scrollbar {
+      height: 5px;
+    }
+
+    .story-nav-track::-webkit-scrollbar-thumb {
+      background: rgba(46, 92, 71, 0.28);
+      border-radius: 99px;
+    }
+
+    .story-nav-step {
+      scroll-snap-align: start;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border: 1px solid rgba(138, 150, 144, 0.55);
+      background: rgba(255, 255, 255, 0.65);
+      border-radius: 999px;
+      padding: 8px 12px min(11px, 2.75vw);
+      min-height: 40px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10.75px;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease,
+        background 0.15s ease, color 0.15s ease;
+    }
+
+    .story-nav-step:hover {
+      border-color: rgba(46, 92, 71, 0.35);
+      color: var(--forest);
+      background: #fff;
+    }
+
+    .story-nav-step:focus-visible {
+      outline: none;
+      box-shadow: var(--ring-focus), 0 2px 8px rgba(14, 47, 40, 0.08);
+    }
+
+    .story-nav-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 21px;
+      height: 21px;
+      border-radius: 50%;
+      font-size: 10.5px;
+      font-weight: 700;
+      background: rgba(232, 240, 234, 0.95);
+      color: var(--moss-muted);
+      border: 1px solid rgba(46, 92, 71, 0.12);
+    }
+
+    .story-nav-step.active {
+      border-color: rgba(46, 92, 71, 0.45);
+      color: var(--forest);
+      background: linear-gradient(155deg, #fff 0%, #eaf3ec 55%, #e5efe8 100%);
+      box-shadow: 0 3px 16px rgba(22, 54, 43, 0.12);
+      transform: translateY(-1px);
+    }
+
+    .story-nav-step.active .story-nav-num {
+      background: linear-gradient(145deg, var(--moss) 0%, #163d33 100%);
+      color: #eaf7f1;
+      border-color: rgba(255, 255, 255, 0.15);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    }
+
+    .nar-chapter {
+      position: relative;
+    }
+
+    #nar-map,
+    #nar-place,
+    #ejPanel,
+    #nar-actions,
+    #nar-closing {
+      scroll-margin-top: 88px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .story-nav-step.active {
+        transform: none;
+      }
+    }
+
+    @media print {
+      .story-nav {
+        display: none;
+      }
+    }
   </style>
 </head>
 
@@ -2842,7 +2992,7 @@
     <div class="layout">
       <div class="map-block">
         <div class="map-panel-inner">
-          <div class="map-main-col">
+          <div class="map-main-col" id="nar-map">
             <div class="breadcrumb" id="mapBc">
               <span class="bc-item bc-active" id="bcBayArea" onclick="resetToBayArea()">Bay Area</span>
               <span class="bc-sep" id="bcSepC" style="display:none;">&gt;</span>
@@ -2923,8 +3073,33 @@
         </div>
       </div>
 
+      <nav class="story-nav" id="storyNav" aria-label="Simple narrative path">
+        <div class="story-nav-hd">
+          <span class="story-nav-tag">Simple path — read in order, or tap to jump</span>
+          <span class="story-nav-sub">Map → county story → fairness → moves → calculator & policy</span>
+        </div>
+        <div class="story-nav-track">
+          <button type="button" class="story-nav-step active" data-story-target="nar-map" aria-current="step">
+            <span class="story-nav-num">1</span><span class="story-nav-txt">Map</span>
+          </button>
+          <button type="button" class="story-nav-step" data-story-target="nar-place">
+            <span class="story-nav-num">2</span><span class="story-nav-txt">Place & county</span>
+          </button>
+          <button type="button" class="story-nav-step" data-story-target="ejPanel">
+            <span class="story-nav-num">3</span><span class="story-nav-txt">Fairness</span>
+          </button>
+          <button type="button" class="story-nav-step" data-story-target="nar-actions">
+            <span class="story-nav-num">4</span><span class="story-nav-txt">Moves & tradeoffs</span>
+          </button>
+          <button type="button" class="story-nav-step" data-story-target="nar-closing">
+            <span class="story-nav-num">5</span><span class="story-nav-txt">You & policy</span>
+          </button>
+        </div>
+      </nav>
+
       <div class="smetrics">
         <!-- County summary -->
+        <div id="nar-place" class="nar-chapter">
         <div class="c-header">
           <div style="display:flex;justify-content:space-between;width:100%;align-items:baseline;">
             <div class="c-name" id="cName">Alameda County</div>
@@ -3077,6 +3252,8 @@
           </div>
         </div>
 
+        </div><!-- end nar-place -->
+
         <!-- ══ NEW: Environmental Justice Panel ══ -->
         <div class="sec">Environmental justice (EJ)</div>
         <div class="ej-panel" id="ejPanel" tabindex="-1">
@@ -3119,6 +3296,7 @@
         </div>
 
         <!-- ══ Biggest impact actions ══ -->
+        <div id="nar-actions" class="nar-chapter">
         <div class="sec hi-sec">High-impact moves · <span id="cNameAction">Alameda</span>
           <button type="button" class="def-help" id="defHipOpen"
             onclick="document.getElementById('defHipDialog').showModal()">How we pick these</button>
@@ -3179,7 +3357,10 @@
           </p>
         </div>
 
+        </div><!-- end nar-actions -->
+
         <!-- Personal Impact Calculator -->
+        <div id="nar-closing" class="nar-chapter">
         <div class="sec" id="personalImpact" tabindex="-1">
           <span>Your personal impact</span>
           <button type="button" class="def-help" onclick="document.getElementById('defCalcDialog').showModal()">How this
@@ -3372,7 +3553,10 @@
             <div class="pc-a-sub">Air district funding page; real charger projects often need city + utility too</div>
           </div>
         </div>
+
+        </div><!-- end nar-closing -->
       </div>
+
     </div>
   </div>
 
@@ -5147,8 +5331,74 @@
       }
     }
 
-    /** In-page jumps from act-bridge: move focus to target for keyboard / SR users (WCAG 2.4.3). */
-    function initActBridgeAnchors() {
+    function initStoryNav() {
+      const nav = document.getElementById('storyNav');
+      const sMode = document.getElementById('sMode');
+      if (!nav || !sMode) return;
+      var steps = [].slice.call(nav.querySelectorAll('.story-nav-step'));
+      var ids = steps.map(function (b) { return b.getAttribute('data-story-target'); }).filter(Boolean);
+      if (!steps.length) return;
+
+      function marginTop() {
+        return Math.round((nav.offsetHeight || 88) + 10);
+      }
+
+      function setActiveIdx(idx) {
+        steps.forEach(function (b, i) {
+          var on = i === idx;
+          b.classList.toggle('active', on);
+          if (on) b.setAttribute('aria-current', 'step');
+          else b.removeAttribute('aria-current');
+        });
+      }
+
+      function updateActive() {
+        if (window.getComputedStyle(sMode).display === 'none') return;
+        var m = marginTop();
+        var best = 0;
+        for (var i = ids.length - 1; i >= 0; i--) {
+          var el = document.getElementById(ids[i]);
+          if (!el) continue;
+          if (el.getBoundingClientRect().top <= m) {
+            best = i;
+            break;
+          }
+        }
+        setActiveIdx(best);
+      }
+
+      var tick = false;
+      function schedule() {
+        if (tick) return;
+        tick = true;
+        window.requestAnimationFrame(function () {
+          tick = false;
+          updateActive();
+        });
+      }
+
+      window.addEventListener('scroll', schedule, { passive: true });
+      window.addEventListener('resize', schedule);
+
+      steps.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var sid = btn.getAttribute('data-story-target');
+          var target = sid ? document.getElementById(sid) : null;
+          if (!target) return;
+          var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+          var ix = ids.indexOf(sid);
+          if (ix >= 0) setActiveIdx(ix);
+          try {
+            if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+            target.focus({ preventScroll: true });
+          } catch (e) { /* noop */ }
+        });
+      });
+
+      schedule();
+    }
+
       document.querySelectorAll('.act-bridge-cta a[href^="#"]').forEach(function (a) {
         a.addEventListener('click', function () {
           const id = this.getAttribute('href').slice(1);
@@ -5180,6 +5430,7 @@
     buildCompareTable();
     selectCounty('Alameda');
     updateCalc();
+    initStoryNav();
     initActBridgeAnchors();
     initDefDialogs();
     initSimScenariosUi();
