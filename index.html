@@ -60,17 +60,13 @@
       --readable-zoom: 1.085;
     }
 
-    /* ~+8.5% text where the dashboard packs detail; Chrome / Edge / Safari / Firefox 126+ */
-    #sMode > .layout,
-    #xMode,
+    /* Simple layout: NO zoom — avoids WebKit SVG/button hit-testing bugs. Larger type uses px in CSS below. Zoom only smaller foot/dialog copy + Expert textual panels. */
     .page-foot,
     dialog.def-dlg {
       zoom: var(--readable-zoom);
     }
 
     @media print {
-      #sMode > .layout,
-      #xMode,
       .page-foot,
       dialog.def-dlg {
         zoom: 1;
@@ -2981,8 +2977,8 @@
     </div>
     <div class="hdr-right">
       <div class="tog">
-        <button class="tb on" onclick="setMode('simple',this)">Simple</button>
-        <button class="tb" onclick="setMode('expert',this)">Expert</button>
+        <button type="button" class="tb on" onclick="setMode('simple',this)">Simple</button>
+        <button type="button" class="tb" onclick="setMode('expert',this)">Expert</button>
       </div>
     </div>
   </div>
@@ -5165,6 +5161,7 @@
     function buildCompareTable() {
       const rows = Object.entries(cData).sort((a, b) => b[1].tb - a[1].tb);
       const body = document.getElementById('compareBody');
+      if (!body) return;
       let html = '';
       rows.forEach(([name, d], i) => {
         const hist = histData[name];
@@ -5211,7 +5208,9 @@
       updateCalc();
     }
     function updateCalc() {
-      const freq = parseInt(document.getElementById('freqSlider').value);
+      const fs = document.getElementById('freqSlider');
+      if (!fs) return;
+      const freq = parseInt(fs.value, 10);
       document.getElementById('freqV').textContent = freq + 'x';
       const [co2, unit, factor, label] = acts[curAct];
       const m = Math.round(co2 * freq * 30);
@@ -5277,6 +5276,7 @@
         co2YouLine.innerHTML = `Same as not burning <strong>${gals.toFixed(1)} gal</strong> of gasoline (rough, <a href="#fn-epa" style="color:var(--moss)">EPA</a> factor). Compare the green “You” bar to the three rows above.`;
       }
       const d = cData[selCounty];
+      if (!d) return;
       const youY = m * 12;
       const reachFrac = policyEffects.reach / 100;
       const equivP = youY < 0.1 ? 0 : Math.round((reachFrac * d.pop * 10 * 1000) / youY);
@@ -5299,9 +5299,13 @@
     // ── MODE & TAB ──
     function setMode(m, btn) {
       document.querySelectorAll('.tb').forEach(b => b.classList.remove('on'));
-      btn.classList.add('on');
-      document.getElementById('sMode').style.display = m === 'simple' ? 'block' : 'none';
-      document.getElementById('xMode').style.display = m === 'expert' ? 'block' : 'none';
+      if (btn && btn.classList) btn.classList.add('on');
+      var simple = document.getElementById('sMode');
+      var expert = document.getElementById('xMode');
+      if (!simple || !expert) return;
+      var showSimple = m === 'simple';
+      simple.style.display = showSimple ? 'block' : 'none';
+      expert.style.display = showSimple ? 'none' : 'block';
     }
     function setXTab(tab, btn) {
       document.querySelectorAll('.x-tab').forEach(b => b.classList.remove('on'));
@@ -5399,6 +5403,8 @@
       schedule();
     }
 
+    /** In-page jumps from act-bridge: move focus to target for keyboard / SR users (WCAG 2.4.3). */
+    function initActBridgeAnchors() {
       document.querySelectorAll('.act-bridge-cta a[href^="#"]').forEach(function (a) {
         a.addEventListener('click', function () {
           const id = this.getAttribute('href').slice(1);
