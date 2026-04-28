@@ -56,6 +56,25 @@
       --radius-md: 12px;
       --ring-focus: 0 0 0 2px var(--surface), 0 0 0 4px var(--moss);
       --page-max: 960px;
+      /* Many rules use 8–10px; scales nested px for readability (header untouched). Tune 1.05–1.12 if needed. */
+      --readable-zoom: 1.085;
+    }
+
+    /* ~+8.5% text where the dashboard packs detail; Chrome / Edge / Safari / Firefox 126+ */
+    #sMode > .layout,
+    #xMode,
+    .page-foot,
+    dialog.def-dlg {
+      zoom: var(--readable-zoom);
+    }
+
+    @media print {
+      #sMode > .layout,
+      #xMode,
+      .page-foot,
+      dialog.def-dlg {
+        zoom: 1;
+      }
     }
 
     @media (prefers-contrast: more) {
@@ -186,7 +205,7 @@
 
     /* ── BREADCRUMB ── */
     .breadcrumb {
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 500;
       color: var(--muted);
       margin-bottom: 12px;
@@ -213,7 +232,7 @@
     .bc-sep {
       /* Not as faint as 1.46:1 border swatches — separator glyph stays parseable on cream */
       color: #6a7570;
-      font-size: 9px;
+      font-size: 10px;
     }
 
     /* ── LAYOUT — one centered column: map on top, metrics below (same max-width) ── */
@@ -293,7 +312,7 @@
     }
 
     .map-lbl {
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 600;
       color: var(--muted);
       text-transform: uppercase;
@@ -317,14 +336,14 @@
 
     .map-county-sel .map-county-sel-sub {
       display: block;
-      font-size: 8.5px;
+      font-size: 9.5px;
       font-weight: 500;
       color: var(--mid);
       margin-top: 3px;
     }
 
     .ces-zip-explainer {
-      font-size: 9.5px;
+      font-size: 10.5px;
       line-height: 1.45;
       color: var(--mid);
       background: #f4faf6;
@@ -340,7 +359,7 @@
 
     /* granularity hint banner */
     .gran-hint {
-      font-size: 10px;
+      font-size: 11px;
       color: var(--forest);
       background: linear-gradient(180deg, #f4faf7 0%, var(--lite) 100%);
       border: 1px solid rgba(46, 92, 71, 0.28);
@@ -355,7 +374,7 @@
       margin-top: 9px;
       padding-top: 9px;
       border-top: 1px solid rgba(22, 54, 43, 0.12);
-      font-size: 9px;
+      font-size: 10px;
       line-height: 1.5;
       color: var(--mid);
     }
@@ -472,7 +491,7 @@
     .ej-labels {
       display: flex;
       justify-content: space-between;
-      font-size: 8px;
+      font-size: 9px;
       color: var(--muted)
     }
 
@@ -483,12 +502,16 @@
     }
 
     .map-layer-toggle-hd {
-      font-size: 8.5px;
+      font-size: 9.5px;
       font-weight: 600;
       color: var(--forest);
       text-transform: uppercase;
       letter-spacing: .06em;
       margin-bottom: 6px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
     }
 
     .map-layer-btns {
@@ -498,7 +521,7 @@
     }
 
     .map-layer-btn {
-      font-size: 8.5px;
+      font-size: 9.5px;
       line-height: 1.2;
       padding: 5px 7px;
       border: 1px solid var(--border);
@@ -569,7 +592,7 @@
     }
 
     .c-rank {
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 600;
       color: var(--muted);
       background: #fff;
@@ -633,7 +656,7 @@
     }
 
     .hc-sec {
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 600;
       color: var(--muted);
       letter-spacing: .07em;
@@ -642,7 +665,7 @@
     }
 
     .hc-t-metric {
-      font-size: 8px;
+      font-size: 9px;
       font-weight: 600;
       color: var(--forest);
       line-height: 1.25;
@@ -669,7 +692,7 @@
     }
 
     .hc-lbl {
-      font-size: 9px;
+      font-size: 10px;
       color: var(--muted)
     }
 
@@ -687,7 +710,7 @@
     }
 
     .etag {
-      font-size: 8px;
+      font-size: 9px;
       font-weight: 600;
       background: rgba(26, 54, 43, 0.12);
       color: var(--forest);
@@ -718,7 +741,7 @@
     }
 
     .ctx-label {
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 600;
       color: var(--muted);
       text-transform: uppercase;
@@ -733,7 +756,7 @@
     }
 
     .ctx-sub {
-      font-size: 9px;
+      font-size: 10px;
       color: var(--muted)
     }
 
@@ -777,7 +800,7 @@
     }
 
     .ej-subtitle {
-      font-size: 9px;
+      font-size: 10px;
       color: var(--muted);
       margin-bottom: 10px;
       line-height: 1.4
@@ -801,7 +824,7 @@
     }
 
     .ej-m-lbl {
-      font-size: 8.5px;
+      font-size: 9.5px;
       color: var(--muted);
       line-height: 1.3
     }
@@ -825,7 +848,7 @@
     }
 
     .paradox-text {
-      font-size: 10px;
+      font-size: 11px;
       color: #7F1D1D;
       line-height: 1.5
     }
@@ -884,7 +907,7 @@
     }
 
     .act-bridge-eyebrow {
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -1000,7 +1023,7 @@
     }
 
     a.act-bridge-skip {
-      font-size: 8.5px;
+      font-size: 9.5px;
       color: var(--muted) !important;
       text-decoration: underline;
       text-underline-offset: 2px;
@@ -1020,7 +1043,7 @@
     /* Data-definition dialogs (from stakeholder feedback) */
     .def-help {
       font-family: 'DM Sans', sans-serif;
-      font-size: 8.5px;
+      font-size: 9.5px;
       font-weight: 600;
       color: var(--moss);
       background: #fff;
@@ -1061,7 +1084,7 @@
     }
 
     .def-dlg-inner h2 {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--forest);
       margin: 0 0 8px 0;
       font-weight: 600;
@@ -1070,7 +1093,7 @@
 
     .def-dlg-inner p,
     .def-dlg-inner li {
-      font-size: 9.5px;
+      font-size: 10.5px;
       line-height: 1.55;
       margin: 0 0 6px 0;
     }
@@ -1098,7 +1121,7 @@
     }
 
     .def-dlg-foot {
-      font-size: 8.5px;
+      font-size: 9.5px;
       color: var(--muted);
       margin: 8px 0 0 0;
       padding-top: 8px;
@@ -1106,7 +1129,7 @@
     }
 
     .def-dlg-bt {
-      font-size: 9.5px;
+      font-size: 10.5px;
       font-weight: 600;
       color: #fff;
       background: var(--moss);
@@ -1265,7 +1288,7 @@
     }
 
     .tradeoff-title {
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--forest);
       margin-bottom: 10px
@@ -1293,7 +1316,7 @@
     }
 
     .tc-header {
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 600;
       margin-bottom: 6px
     }
@@ -1307,7 +1330,7 @@
     }
 
     .tc-item {
-      font-size: 10px;
+      font-size: 11px;
       color: var(--mid);
       line-height: 1.6;
       display: flex;
@@ -1316,7 +1339,7 @@
 
     /* ── SEC divider ── */
     .sec {
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 600;
       color: var(--forest);
       text-transform: uppercase;
@@ -1332,6 +1355,10 @@
       flex: 1;
       height: 1px;
       background: var(--border)
+    }
+
+    .sec .def-help {
+      flex-shrink: 0
     }
 
     /* ── CALC ── */
@@ -1357,7 +1384,7 @@
       border: 1px solid var(--border);
       background: #fff;
       font-family: 'DM Sans', sans-serif;
-      font-size: 10px;
+      font-size: 11px;
       color: var(--mid);
       cursor: pointer;
       transition: all .18s
@@ -1377,7 +1404,7 @@
     }
 
     .freq-lbl {
-      font-size: 10px;
+      font-size: 11px;
       color: var(--muted);
       white-space: nowrap
     }
@@ -1430,21 +1457,21 @@
     }
 
     .ic-unit {
-      font-size: 8px;
+      font-size: 9px;
       color: var(--muted);
       text-transform: uppercase;
       letter-spacing: .06em
     }
 
     .ic-lbl {
-      font-size: 9px;
+      font-size: 10px;
       color: var(--mid);
       margin-top: 3px;
       line-height: 1.3
     }
 
     .calc-note {
-      font-size: 8.5px;
+      font-size: 9.5px;
       color: var(--muted);
       margin-top: 8px;
       font-style: italic
@@ -1460,7 +1487,7 @@
     }
 
     .calc-cta p {
-      font-size: 9.5px;
+      font-size: 10.5px;
       line-height: 1.55;
       color: #f7faf8;
       margin: 0 0 8px 0;
@@ -1479,7 +1506,7 @@
 
     .calc-cta a.calc-cta-btn {
       display: inline-block;
-      font-size: 9.5px;
+      font-size: 10.5px;
       font-weight: 600;
       color: var(--forest) !important;
       background: #c5e0c7;
@@ -1494,7 +1521,7 @@
     }
 
     .calc-cta a.calc-cta-sec {
-      font-size: 9px;
+      font-size: 10px;
       color: #b2dfdb !important;
       text-decoration: underline !important;
       text-underline-offset: 2px;
@@ -1505,7 +1532,7 @@
     }
 
     .calc-cta .calc-cta-illus {
-      font-size: 8.5px;
+      font-size: 9.5px;
       color: #dbe8e0;
       margin: 0;
       line-height: 1.45;
@@ -1696,7 +1723,7 @@
       /* Inactive tab: was 0.55 (barely 4.5:1 on some greens); 0.78 keeps comfortable margin for low vision */
       color: rgba(255, 255, 255, 0.78);
       font-family: 'DM Sans', sans-serif;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
       letter-spacing: 0.03em;
       cursor: pointer;
@@ -1712,6 +1739,19 @@
     .x-tab.on {
       color: #fff;
       border-bottom-color: #6ee7c8;
+    }
+
+    .expert-cite-prompt {
+      font-size: 10.5px;
+      color: var(--muted);
+      padding: 8px 20px 0;
+      margin: 0;
+      max-width: 900px;
+      line-height: 1.45;
+    }
+
+    .expert-cite-prompt a {
+      color: var(--moss);
     }
 
     .x-content {
@@ -1768,7 +1808,7 @@
     }
 
     .baseline-lbl {
-      font-size: 10px;
+      font-size: 11px;
       color: var(--muted);
       margin-bottom: 6px
     }
@@ -1787,7 +1827,7 @@
     }
 
     .baseline-goal {
-      font-size: 9px;
+      font-size: 10px;
       color: var(--muted);
       margin-top: 5px
     }
@@ -1815,13 +1855,13 @@
     }
 
     .trend-title {
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--forest)
     }
 
     .county-sel {
-      font-size: 10px;
+      font-size: 11px;
       padding: 3px 8px;
       border: 1px solid var(--border);
       border-radius: 5px;
@@ -1842,7 +1882,7 @@
       display: flex;
       align-items: center;
       gap: 4px;
-      font-size: 9px;
+      font-size: 10px;
       color: var(--muted)
     }
 
@@ -2007,14 +2047,14 @@
     }
 
     .sim-text h4 {
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--policy);
       margin-bottom: 2px
     }
 
     .sim-text p {
-      font-size: 9.5px;
+      font-size: 10.5px;
       color: var(--muted);
       line-height: 1.4
     }
@@ -2026,14 +2066,14 @@
     }
 
     .sim-scen-title {
-      font-size: 10.5px;
+      font-size: 11px;
       font-weight: 600;
       color: var(--forest);
       margin-bottom: 4px
     }
 
     .sim-scen-sub {
-      font-size: 8.5px;
+      font-size: 9.5px;
       color: var(--muted);
       line-height: 1.45;
       margin-bottom: 8px
@@ -2049,7 +2089,7 @@
 
     .sim-scen-row input[type="text"] {
       font-family: 'DM Sans', sans-serif;
-      font-size: 9.5px;
+      font-size: 10.5px;
       padding: 5px 8px;
       border: 1px solid var(--border);
       border-radius: 6px;
@@ -2058,7 +2098,7 @@
     }
 
     .sim-scen-save {
-      font-size: 9.5px;
+      font-size: 10.5px;
       font-weight: 600;
       color: #fff;
       background: var(--policy);
@@ -2078,7 +2118,7 @@
     }
 
     .sim-scen-btn {
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 600;
       color: var(--moss);
       background: #fff;
@@ -2096,7 +2136,7 @@
     .sim-scen-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 8.5px
+      font-size: 9.5px
     }
 
     .sim-scen-table th,
@@ -2113,14 +2153,14 @@
     }
 
     .sim-scen-note {
-      font-size: 8px;
+      font-size: 9px;
       color: var(--muted);
       margin: 6px 0 0;
       line-height: 1.4
     }
 
     .sim-scen-compare-hd {
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 600;
       color: var(--forest);
       margin-top: 8px
@@ -2137,14 +2177,14 @@
     }
 
     .comp-title {
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--forest);
       margin-bottom: 10px
     }
 
     .comp-spotlight {
-      font-size: 9.5px;
+      font-size: 10.5px;
       line-height: 1.5;
       color: var(--mid);
       background: #f4faf6;
@@ -2155,14 +2195,14 @@
     }
 
     .comp-spotlight h4 {
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 600;
       color: var(--forest);
       margin: 0 0 6px;
     }
 
     .comp-table-hint {
-      font-size: 8.5px;
+      font-size: 9.5px;
       color: var(--muted);
       margin: 0 0 8px;
       line-height: 1.45;
@@ -2175,7 +2215,7 @@
     }
 
     .ctable th {
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 600;
       color: var(--muted);
       padding: 4px 6px;
@@ -2320,7 +2360,7 @@
 
     .vahmani-box h4 {
       color: #fff;
-      font-size: 11px;
+      font-size: 12px;
       margin-bottom: 6px;
       font-weight: 600;
       line-height: 1.45;
@@ -2328,7 +2368,7 @@
 
     .vahmani-box p {
       color: rgba(255, 255, 255, 0.88);
-      font-size: 10px;
+      font-size: 11px;
       line-height: 1.55;
       font-weight: 400;
     }
@@ -2351,7 +2391,7 @@
     }
 
     .ej-expert-sub {
-      font-size: 10px;
+      font-size: 11px;
       color: var(--muted);
       margin-bottom: 14px;
       line-height: 1.5
@@ -2389,7 +2429,7 @@
       top: -4px;
       background: var(--forest);
       color: #fff;
-      font-size: 9px;
+      font-size: 10px;
       padding: 3px 7px;
       border-radius: 5px;
       white-space: nowrap;
@@ -2401,7 +2441,7 @@
       bottom: 8px;
       width: 100%;
       text-align: center;
-      font-size: 8px;
+      font-size: 9px;
       color: var(--muted)
     }
 
@@ -2410,7 +2450,7 @@
       left: 6px;
       top: 50%;
       transform: translateY(-50%) rotate(-90deg);
-      font-size: 8px;
+      font-size: 9px;
       color: var(--muted);
       white-space: nowrap
     }
@@ -2426,7 +2466,7 @@
       display: flex;
       align-items: center;
       gap: 4px;
-      font-size: 9px;
+      font-size: 10px;
       color: var(--muted)
     }
 
@@ -2446,7 +2486,7 @@
     }
 
     .vis-title {
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 600;
       color: var(--forest);
       margin-bottom: 5px;
@@ -2472,7 +2512,7 @@
     }
 
     .vis-caption {
-      font-size: 9px;
+      font-size: 10px;
       color: var(--muted);
       margin-top: 4px;
       font-style: italic
@@ -2487,7 +2527,7 @@
     }
 
     .co2-scale-title {
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 600;
       color: var(--forest);
       text-transform: uppercase;
@@ -2529,7 +2569,7 @@
     }
 
     .scale-text {
-      font-size: 9px;
+      font-size: 10px;
       color: var(--muted);
       white-space: nowrap;
       min-width: 90px
@@ -2537,7 +2577,7 @@
 
     .footer-line {
       text-align: center;
-      font-size: 9px;
+      font-size: 10px;
       color: var(--muted);
       letter-spacing: 0.03em;
       padding: 12px 16px 8px;
@@ -2549,13 +2589,13 @@
       max-width: var(--page-max);
       margin: 0 auto;
       padding: 0 20px 28px;
-      font-size: 9px;
+      font-size: 10px;
       line-height: 1.5;
       color: var(--muted);
     }
 
     .fn-title {
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.12em;
@@ -2577,7 +2617,7 @@
     }
 
     .fn-abbr {
-      font-size: 8.5px;
+      font-size: 9.5px;
       color: var(--muted);
       margin: 0;
       padding-top: 6px;
@@ -2745,7 +2785,7 @@
     }
 
     .ccd-val {
-      font-size: 7px;
+      font-size: 8px;
       color: var(--muted);
       text-align: right;
     }
@@ -2755,7 +2795,7 @@
     }
 
     .ccd-foot {
-      font-size: 8.5px;
+      font-size: 9.5px;
       color: var(--forest);
       margin: 8px 0 0;
       line-height: 1.45;
@@ -2766,7 +2806,7 @@
     }
 
     .scale-bridge {
-      font-size: 9.5px;
+      font-size: 10.5px;
       line-height: 1.5;
       color: var(--mid);
       margin: 12px 0 0;
@@ -2831,7 +2871,10 @@
           </div>
           <div class="map-legend-col">
             <div class="map-layer-toggle-wrap" id="mapLayerToggle" style="display:none">
-              <div class="map-layer-toggle-hd">9-county map — colors show</div>
+              <div class="map-layer-toggle-hd">9-county map — colors show
+                <button type="button" class="def-help"
+                  onclick="document.getElementById('defMapLayersDialog').showModal()">Legend (optional)</button>
+              </div>
               <div class="map-layer-btns" role="tablist" aria-label="County map layer">
                 <button type="button" class="map-layer-btn on" data-mode="progress" role="tab" aria-selected="true"
                   onclick="setMapColorMode('progress',this)">2030 climate goal (pace vs −40%)</button>
@@ -2954,6 +2997,11 @@
           </p>
         </div>
 
+        <div class="sec" aria-label="County snapshot section">
+          <span>County snapshot (3 sectors)</span>
+          <button type="button" class="def-help" onclick="document.getElementById('defHeroDialog').showModal()">Explain
+            these numbers (optional)</button>
+        </div>
         <!-- Hero metrics -->
         <div class="hero-row">
           <div class="hc e">
@@ -2989,7 +3037,11 @@
         </div>
 
         <!-- ══ NEW: Housing Density + Car Ownership ══ -->
-        <div class="sec">Density &amp; cars</div>
+        <div class="sec">
+          <span>Density &amp; cars</span>
+          <button type="button" class="def-help" onclick="document.getElementById('defContextDialog').showModal()">What
+            these cards mean (optional)</button>
+        </div>
         <div class="context-row" style="margin-bottom:14px">
           <div class="ctx-card">
             <div class="ctx-label">Housing Density</div>
@@ -3128,7 +3180,11 @@
         </div>
 
         <!-- Personal Impact Calculator -->
-        <div class="sec" id="personalImpact" tabindex="-1">Your personal impact</div>
+        <div class="sec" id="personalImpact" tabindex="-1">
+          <span>Your personal impact</span>
+          <button type="button" class="def-help" onclick="document.getElementById('defCalcDialog').showModal()">How this
+            is calculated (optional)</button>
+        </div>
         <div class="calc">
           <div class="streak-bar">
             <svg width="20" height="24" viewBox="0 0 20 24" fill="none" style="flex-shrink:0">
@@ -3322,8 +3378,8 @@
 
   <!-- ══ EXPERT MODE ══ -->
   <div id="xMode" style="display:none">
-    <p class="expert-cite-prompt" style="font-size:9px;color:var(--muted);padding:8px 20px 0;margin:0;max-width:900px">Expert
-      mode: <strong>Sources &amp; terms</strong> in <a href="#sources-footnotes" style="color:var(--moss)">small print
+    <p class="expert-cite-prompt">Expert
+      mode: <strong>Sources &amp; terms</strong> in <a href="#sources-footnotes">small print
         at bottom</a>.</p>
     <div class="x-tabs">
       <button class="x-tab on" onclick="setXTab('overview',this)">Why we're behind</button>
@@ -3652,6 +3708,36 @@
             <div class="toggle-sw" id="ts-roof"></div>
           </div>
         </div>
+        <div class="sim-custom" id="simCustomPanel" aria-label="Custom policy levers"
+          style="margin-top:12px;padding:10px;border:1px dashed var(--border);border-radius:8px;background:var(--lite)">
+          <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px;margin-bottom:6px">
+            <span style="font-size:10px;font-weight:600;color:var(--forest)">Add your own policy (illustrative)</span>
+            <button type="button" class="def-help"
+              onclick="document.getElementById('defSimCustomDialog').showModal()">Why this exists (optional)</button>
+          </div>
+          <p style="font-size:9px;color:var(--muted);margin:0 0 8px;line-height:1.45">Name a lever not listed (e.g. cordon
+            toll, commuter rail, electrify port trucks). Assign a rough <strong>−1 to −20</strong> “pts” per sector — same
+            units as toggles above, <strong>not</strong> dollars or CO₂ tonnes. Mix with presets to sketch a bolder
+            package.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;margin-bottom:6px">
+            <label style="font-size:8.5px">Name<br><input type="text" id="simCustomName" maxlength="80"
+                placeholder="e.g. Transit-only lanes on I-880" autocomplete="off"
+                style="width:min(200px,100%);font-size:10px;padding:4px 6px;border:1px solid var(--border);border-radius:5px;font-family:inherit"></label>
+            <label style="font-size:8.5px">Sector<br><select id="simCustomSector"
+                style="font-size:10px;padding:4px 6px;border-radius:5px;font-family:inherit">
+                <option value="transport">Transport</option>
+                <option value="buildings">Buildings</option>
+                <option value="energy">Energy</option>
+              </select></label>
+            <label style="font-size:8.5px">Extra − pts<br><input type="number" id="simCustomPct" min="1" max="20" value="4"
+                style="width:56px;font-size:10px;padding:4px 6px;border:1px solid var(--border);border-radius:5px;font-family:inherit"
+                aria-label="Points between 1 and 20"></label>
+            <button type="button" class="sim-scen-save" style="margin-top:14px;font-size:9px;padding:6px 10px"
+              id="simCustomAddBtn">Add</button>
+          </div>
+          <ul id="simCustomList" style="font-size:9px;margin:0;padding-left:1.15em;line-height:1.5;color:var(--mid)">
+          </ul>
+        </div>
         <div class="sim-result">
           <div class="sim-num" id="simPct">0%</div>
           <div class="sim-text" style="flex:1">
@@ -3691,7 +3777,8 @@
             </table>
           </div>
           <p class="sim-scen-note" id="simScenSectorsNote">Sector groups in this demo: <strong>Buildings</strong> = Reach
-            + cool roofs · <strong>Transport</strong> = EV + transit · <strong>Energy</strong> = community solar. “pts”
+            + cool roofs ± <strong>custom</strong> rows below · <strong>Transport</strong> = EV + transit ± custom ·
+            <strong>Energy</strong> = community solar ± custom. “pts”
             = sum of the same policy toggle percentages used in the chart above, not dollars or live inventory.</p>
         </div>
       </div>
@@ -3717,9 +3804,9 @@
     <!-- COMPARE TAB -->
     <div id="x-compare" class="x-content">
       <div class="comp-card">
-        <div class="comp-title">他山之石 · What works elsewhere (lessons, not just ranks)</div>
-        <p style="font-size:9.5px;color:var(--mid);line-height:1.55;margin:0 0 12px"><strong>他山之石</strong> = borrow
-          ideas from peers, then <strong>adapt</strong> them. Programs actually land at <strong>city &amp; ZIP /
+        <div class="comp-title">Learning from peers · What works elsewhere</div>
+        <p style="font-size:9.5px;color:var(--mid);line-height:1.55;margin:0 0 12px">Borrow ideas from other counties and
+          cities, then <strong>adapt</strong> them. Programs actually land at <strong>city &amp; ZIP /
             neighborhood</strong> scale (use <strong>Simple</strong> mode to drill down). The nine-county table below is
           only for <strong>orientation</strong> — the “so what” is the <strong>replicable lesson</strong> when you
           <strong>click a row</strong>.</p>
@@ -3888,6 +3975,82 @@
     </div>
   </dialog>
 
+  <dialog class="def-dlg" id="defHeroDialog" aria-labelledby="defHeroTitle">
+    <div class="def-dlg-inner">
+      <button type="button" class="def-dlg-x" aria-label="Close" onclick="document.getElementById('defHeroDialog').close()">×</button>
+      <h2 id="defHeroTitle">The three colored bars — plain English</h2>
+      <p>You do <strong>not</strong> need to memorize these names. Roughly:</p>
+      <ul>
+        <li><strong>Energy</strong> = how much of the grid / power picture is modeled as cleaner in this dashboard’s
+          <em>embedded county table</em> (demo data, one number per county).</li>
+        <li><strong>Buildings</strong> = how far homes are modeled as shifting off gas appliances in that same simplified
+          story.</li>
+        <li><strong>Getting around</strong> = share of households <strong>not</strong> relying on a gasoline‑only car
+          (includes car‑free, transit, EV)—see the small metric line under the title.</li>
+      </ul>
+      <p> Bars are short labels plus a qualitative line (etag names point to topical references—they are not live CalEPA).</p>
+      <p class="def-dlg-foot">Choosing another county swaps all three from the same <code>cData</code> table.</p>
+      <p><button type="button" class="def-dlg-bt" onclick="document.getElementById('defHeroDialog').close()">Close</button></p>
+    </div>
+  </dialog>
+
+  <dialog class="def-dlg" id="defContextDialog" aria-labelledby="defContextTitle">
+    <div class="def-dlg-inner">
+      <button type="button" class="def-dlg-x" aria-label="Close" onclick="document.getElementById('defContextDialog').close()">×</button>
+      <h2 id="defContextTitle">Density &amp; cars — what you’re seeing</h2>
+      <p><strong>Housing density</strong> helps describe sprawl vs. proximity (units per sq mi in this prototype).</p>
+      <p><strong>Car ownership rate</strong> = cars per household—context for how much daily driving dominates.</p>
+      <p><strong>Green space / transit spacing</strong> are simple place-quality hints (not suitability scores).</p>
+      <p class="def-dlg-foot">All pulled from the same county row as the map selection—illustrative, not a HUD extract.</p>
+      <p><button type="button" class="def-dlg-bt" onclick="document.getElementById('defContextDialog').close()">Close</button></p>
+    </div>
+  </dialog>
+
+  <dialog class="def-dlg" id="defCalcDialog" aria-labelledby="defCalcDlgTitle">
+    <div class="def-dlg-inner">
+      <button type="button" class="def-dlg-x" aria-label="Close" onclick="document.getElementById('defCalcDialog').close()">×</button>
+      <h2 id="defCalcDlgTitle">Your personal impact — calculation (optional detail)</h2>
+      <p>For each habit button we store a rough <strong>kg CO₂e saved per action per day</strong>. This month =
+        <strong>coefficient × “times per day” × 30 days</strong>.</p>
+      <p><strong>Trees</strong> divides that kg by ~1.8 as a <em>mental picture</em>—not a forestry inventory.</p>
+      <p><strong>Gallons / plastic / kWh lines</strong> use the paired conversion on the third tile (still ballpark).</p>
+      <p><strong>The icon “stack”</strong> repeats the same icon horizontally; count scales with kg so busy days look busier—it is not stacking different actions.</p>
+      <p class="def-dlg-foot">EPA gas factor and fuller citations live under <a href="#sources-footnotes"
+          style="color:var(--moss)">Sources &amp; footnotes</a>.</p>
+      <p><button type="button" class="def-dlg-bt" onclick="document.getElementById('defCalcDialog').close()">Close</button></p>
+    </div>
+  </dialog>
+
+  <dialog class="def-dlg" id="defMapLayersDialog" aria-labelledby="defMapLayersTitle">
+    <div class="def-dlg-inner">
+      <button type="button" class="def-dlg-x" aria-label="Close" onclick="document.getElementById('defMapLayersDialog').close()">×</button>
+      <h2 id="defMapLayersTitle">County map layers (nine counties)</h2>
+      <ul>
+        <li><strong>Pace toward the −40% line</strong> — green/yellow/peach buckets from our mock trend (“on track?” is
+          simplified).</li>
+        <li><strong>CES pollution burden</strong> — OEHHA-style 0–100 index at county resolution in this demo (not tract
+          ACS).</li>
+        <li><strong>GHG vs 1990</strong> — uses the continuous color scale from the same mock history curve as Trends.</li>
+      </ul>
+      <p>ZIP view switches to neighborhood CES squares—different legend.</p>
+      <p><button type="button" class="def-dlg-bt" onclick="document.getElementById('defMapLayersDialog').close()">Close</button></p>
+    </div>
+  </dialog>
+
+  <dialog class="def-dlg" id="defSimCustomDialog" aria-labelledby="defSimCustomTitle">
+    <div class="def-dlg-inner">
+      <button type="button" class="def-dlg-x" aria-label="Close" onclick="document.getElementById('defSimCustomDialog').close()">×</button>
+      <h2 id="defSimCustomTitle">Why add custom policies?</h2>
+      <p>In workshops, policymakers often ask “what about <em>my</em> corridor pricing / ferry / employer mandate?” The
+        fixed toggles cannot list every lever. Custom rows let you <strong>name</strong> a package and attach a rough
+        <strong>percentage “pts”</strong> to Buildings, Transport, or Energy—in the <strong>same fake units</strong> as
+        the sliders—then mix with presets and <strong>Save &amp; compare</strong>.</p>
+      <p><strong>Not optimization:</strong> this does not find the mathematically best plan, score costs, equity, or veto
+        points. Larger % = stronger illustrative push in this toy model only.</p>
+      <p><button type="button" class="def-dlg-bt" onclick="document.getElementById('defSimCustomDialog').close()">Close</button></p>
+    </div>
+  </dialog>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
   <script>
     const EMBEDDED_BAY_GEO = JSON.parse(atob('eyJiYXkiOnsidHlwZSI6IkZlYXR1cmVDb2xsZWN0aW9uIiwiZmVhdHVyZXMiOlt7InR5cGUiOiJGZWF0dXJlIiwiaWQiOiIwNjAxMyIsInByb3BlcnRpZXMiOnsibmFtZSI6IkNvbnRyYSBDb3N0YSJ9LCJnZW9tZXRyeSI6eyJ0eXBlIjoiUG9seWdvbiIsImNvb3JkaW5hdGVzIjpbW1stMTIyLjI2Nzc5ODA5Mzg4MDk0LDM4LjA1OTcwMjY5MDkxNjldLFstMTIyLjE4NTI0NDMzMjA0MzMxLDM4LjA1MzY4OTI3MzA4MjcyNV0sWy0xMjIuMTQyMTcyODA0MTI4MDIsMzguMDMxMzUzNzIxMTI3Ml0sWy0xMjIuMDU5NjE5MDQyMjkwNDIsMzguMDYyMjc5ODY5OTg4NjldLFstMTIxLjk4NDI0Mzg2ODQzODY4LDM4LjA2NzQzNDIyODEzMjI4XSxbLTEyMS45MjY4MTUxNjQ1NTE2NCwzOC4wNDY4MTY3OTU1NTc5NV0sWy0xMjEuODYyMjA3ODcyNjc4NzEsMzguMDY1NzE2MTA4NzUxMDhdLFstMTIxLjgzMzQ5MzUyMDczNTIsMzguMDMxMzUzNzIxMTI3Ml0sWy0xMjEuNzkwNDIxOTkyODE5OTIsMzguMDE4NDY3ODI1NzY4MjVdLFstMTIxLjczNjU4MjU4MjkyNTgyLDM4LjAyNzA1ODQyMjY3NDIyXSxbLTEyMS42ODI3NDMxNzMwMzE3MiwzOC4wNjE0MjA4MTAyOTgwOTVdLFstMTIxLjY2MTIwNzQwOTA3NDA4LDM4LjA5NTc4MzE5NzkyMTk3NV0sWy0xMjEuNTc4NjUzNjQ3MjM2NDYsMzguMDk0MDY1MDc4NTQwNzhdLFstMTIxLjU4NTgzMjIzNTIyMjM0LDM4LjAzNTY0OTAxOTU4MDE5XSxbLTEyMS41NTcxMTc4ODMyNzg4MywzOC4wMTY3NDk3MDYzODcwNl0sWy0xMjEuNTgyMjQyOTQxMjI5NCwzNy45ODQxMDU0MzgxNDQzNzVdLFstMTIxLjU1NzExNzg4MzI3ODgzLDM3LjkzMjU2MTg1NjcwODU2XSxbLTEyMS41Nzg2NTM2NDcyMzY0NiwzNy44NjEyNTk5MDIzODkwMTZdLFstMTIxLjUzNTU4MjExOTMyMTE5LDM3Ljg1MDA5MjEyNjQxMTI1NV0sWy0xMjEuNTU3MTE3ODgzMjc4ODMsMzcuODE2NTg4Nzk4NDc3OThdLFstMTIxLjk1NTUyOTUxNjQ5NTE1LDM3LjcxOTUxNTA1MzQ0MDUzXSxbLTEyMi4wMTI5NTgyMjAzODIxOSwzNy43NDcwMDQ5NjM1Mzk2M10sWy0xMjEuOTk4NjAxMDQ0NDEwNDQsMzcuNzYzMzI3MDk3NjYwOTddLFstMTIyLjA0NTI2MTg2NjMxODY1LDM3Ljc5ODU0ODU0NDk3NTQ0Nl0sWy0xMjIuMTM4NTgzNTEwMTM1MDksMzcuODA0NTYxOTYyODA5NjJdLFstMTIyLjE3ODA2NTc0NDA1NzQzLDM3LjgxNjU4ODc5ODQ3Nzk4XSxbLTEyMi4yMjQ3MjY1NjU5NjU2NSwzNy44Nzg0NDEwOTYyMDA5Nl0sWy0xMjIuMjcxMzg3Mzg3ODczODcsMzcuOTA1OTMxMDA2MzAwMDZdLFstMTIyLjMxNDQ1ODkxNTc4OTE1LDM3Ljg5NzM0MDQwOTM5NDA5XSxbLTEyMi4zNzkwNjYyMDc2NjIwOCwzNy45MDUwNzE5NDY2MDk0Nl0sWy0xMjIuNDI5MzE2MzIzNTYzMjMsMzcuOTYzNDg4MDA1NTcwMDVdLFstMTIyLjQwMDYwMTk3MTYxOTcxLDM3Ljk1NTc1NjQ2ODM1NDY4XSxbLTEyMi4zNjgyOTgzMjU2ODMyNCwzNy45NzgwOTIwMjAzMTAyXSxbLTEyMi4zNjgyOTgzMjU2ODMyNCwzOC4wMTI0NTQ0MDc5MzQwN10sWy0xMjIuMzAwMTAxNzM5ODE3MzksMzguMDEwNzM2Mjg4NTUyODhdLFstMTIyLjI2Nzc5ODA5Mzg4MDk0LDM4LjA1OTcwMjY5MDkxNjldXV19fSx7InR5cGUiOiJGZWF0dXJlIiwiaWQiOiIwNjA5NyIsInByb3BlcnRpZXMiOnsibmFtZSI6IlNvbm9tYSJ9LCJnZW9tZXRyeSI6eyJ0eXBlIjoiUG9seWdvbiIsImNvb3JkaW5hdGVzIjpbW1stMTIzLjUzNDgxODg3MzM4ODczLDM4Ljc2ODQyNjkzNTY1OTM1XSxbLTEyMy40OTg5MjU5MzM0NTkzMywzOC43Nzg3MzU2NTE5NDY1MV0sWy0xMjMuMzY5NzExMzQ5NzEzNSwzOC43NzcwMTc1MzI1NjUzMl0sWy0xMjMuMzY5NzExMzQ5NzEzNSwzOC44MDYyMjU1NjIwNDU2MV0sWy0xMjMuMTM2NDA3MjQwMTcyMzksMzguODA4ODAyNzQxMTE3NDA0XSxbLTEyMy4xMzY0MDcyNDAxNzIzOSwzOC44Mzk3Mjg4ODk5Nzg4OV0sWy0xMjMuMDgyNTY3ODMwMjc4MywzOC44NTI2MTQ3ODUzMzc4NV0sWy0xMjIuODIwNTQ5MzY4NzkzNjgsMzguODUwMDM3NjA2MjY2MDU2XSxbLTEyMi43NDg3NjM0ODg5MzQ4OCwzOC44MDQ1MDc0NDI2NjQ0Ml0sWy0xMjIuNjkxMzM0Nzg1MDQ3ODQsMzguNzEwODY5OTM2Mzg5MzZdLFstMTIyLjY0ODI2MzI1NzEzMjU2LDM4LjcwNjU3NDYzNzkzNjM3XSxbLTEyMi42MjY3Mjc0OTMxNzQ5MywzOC42Njc5MTY5NTE4NTk1MV0sWy0xMjIuNjQ0NjczOTYzMTM5NjIsMzguNTk4MzMzMTE2OTIxMTZdLFstMTIyLjYxOTU0ODkwNTE4OTA1LDM4LjU2MDUzNDQ5MDUzNDldLFstMTIyLjU0NDE3MzczMTMzNzMxLDM4LjUyMDE1ODY4NTA3Njg0NF0sWy0xMjIuNTI5ODE2NTU1MzY1NTYsMzguNDY5NDc0MTYzMzMxNjI2XSxbLTEyMi40ODMxNTU3MzM0NTczMiwzOC40NTIyOTI5Njk1MTk2OV0sWy0xMjIuNDk3NTEyOTA5NDI5MDgsMzguNDIzOTQzOTk5NzI5OTldLFstMTIyLjQ0NzI2Mjc5MzUyNzkzLDM4LjM3OTI3Mjg5NTgxODk1XSxbLTEyMi40NTgwMzA2NzU1MDY3NSwzOC4zNjcyNDYwNjAxNTA1OV0sWy0xMjIuMzkzNDIzMzgzNjMzODMsMzguMzA0NTM0NzAyNzM3MDJdLFstMTIyLjQwNDE5MTI2NTYxMjY0LDM4LjI4MTM0MDA5MTA5MDkwNF0sWy0xMjIuMzY4Mjk4MzI1NjgzMjQsMzguMjQ2OTc3NzAzNDY3MDNdLFstMTIyLjM1MDM1MTg1NTcxODU0LDM4LjE5MzcxNjAwMjY1MDAyXSxbLTEyMi4zNzE4ODc2MTk2NzYxOSwzOC4xNTc2MzU0OTU2NDQ5NV0sWy0xMjIuNDA3NzgwNTU5NjA1NTgsMzguMTU1OTE3Mzc2MjYzNzZdLFstMTIyLjM5NzAxMjY3NzYyNjc4LDM4LjE0MjE3MjQyMTIxNDIwNV0sWy0xMjIuNDQwMDg0MjA1NTQyMDUsMzguMTE3MjU5NjkwMTg2OV0sWy0xMjIuNDkwMzM0MzIxNDQzMjEsMzguMTA5NTI4MTUyOTcxNTJdLFstMTIyLjU2OTI5ODc4OTI4Nzg4LDM4LjE4Njg0MzUyNTEyNTI1XSxbLTEyMi42NDgyNjMyNTcxMzI1NiwzOC4xODA4MzAxMDcyOTEwNjVdLFstMTIyLjc0MTU4NDkwMDk0OSwzOC4yMDY2MDE4OTgwMDg5OF0sWy0xMjIuOTEwMjgxNzE4NjE3MTcsMzguMzIwODU2ODM2ODU4MzZdLFstMTIyLjk2NzcxMDQyMjUwNDIxLDM4LjMxNjU2MTUzODQwNTM4XSxbLTEyMy4wMDM2MDMzNjI0MzM2MSwzOC4yOTU5NDQxMDU4MzEwNTVdLFstMTIzLjA2NDYyMTM2MDMxMzYsMzguMzAxOTU3NTIzNjY1MjNdLFstMTIzLjA2ODIxMDY1NDMwNjU0LDM4LjM1OTUxNDUyMjkzNTIyXSxbLTEyMy4xMjkyMjg2NTIxODY1MSwzOC40NTA1NzQ4NTAxMzg0OTRdLFstMTIzLjIwMTAxNDUzMjA0NTMyLDM4LjQ5NDM4Njg5NDM1ODk0XSxbLTEyMy4yNTEyNjQ2NDc5NDY0NywzOC41MTA3MDkwMjg0ODAyOF0sWy0xMjMuMzMwMjI5MTE1NzkxMTYsMzguNTY1Njg4ODQ4Njc4NDg0XSxbLTEyMy40NjMwMzI5OTM1Mjk5NCwzOC43MTY4ODMzNTQyMjM1M10sWy0xMjMuNTM0ODE4ODczMzg4NzMsMzguNzY4NDI2OTM1NjU5MzVdXV19fSx7InR5cGUiOiJGZWF0dXJlIiwiaWQiOiIwNjA5NSIsInByb3BlcnRpZXMiOnsibmFtZSI6IlNvbGFubyJ9LCJnZW9tZXRyeSI6eyJ0eXBlIjoiUG9seWdvbiIsImNvb3JkaW5hdGVzIjpbW1stMTIyLjQwNzc4MDU1OTYwNTU4LDM4LjE1NTkxNzM3NjI2Mzc2XSxbLTEyMi4xOTYwMTIyMTQwMjIxMywzOC4xNTUwNTgzMTY1NzMxNl0sWy0xMjIuMjEzOTU4NjgzOTg2ODMsMzguMTc5OTcxMDQ3NjAwNDddLFstMTIyLjE5MjQyMjkyMDAyOTIsMzguMjEzNDc0Mzc1NTMzNzVdLFstMTIyLjIxNzU0Nzk3Nzk3OTc2LDM4LjI2MjQ0MDc3Nzg5Nzc3XSxbLTEyMi4xODg4MzM2MjYwMzYyNiwzOC4yNzE4OTA0MzQ0OTQzNF0sWy0xMjIuMjA2NzgwMDk2MDAwOTUsMzguMzE1NzAyNDc4NzE0NzhdLFstMTIyLjA2MzIwODMzNjI4MzM1LDM4LjMxNTcwMjQ3ODcxNDc4XSxbLTEyMi4wODgzMzMzOTQyMzM5MywzOC4zODQ0MjcyNTM5NjI1MzVdLFstMTIyLjEyNzgxNTYyODE1NjI3LDM4LjQyOTA5ODM1Nzg3MzU3XSxbLTEyMi4xMDI2OTA1NzAyMDU3LDM4LjUxMzI4NjIwNzU1MjA3XSxbLTEyMi4wNTYwMjk3NDgyOTc0OCwzOC41MTc1ODE1MDYwMDUwNV0sWy0xMjIuMDEyOTU4MjIwMzgyMTksMzguNDg4MzczNDc2NTI0NzZdLFstMTIxLjk0MTE3MjM0MDUyMzQsMzguNTMzMDQ0NTgwNDM1OF0sWy0xMjEuODU4NjE4NTc4Njg1NzgsMzguNTM4MTk4OTM4NTc5MzhdLFstMTIxLjc4NjgzMjY5ODgyNjk3LDM4LjUyMjczNTg2NDE0ODYzNl0sWy0xMjEuNzQwMTcxODc2OTE4NzcsMzguNTM3MzM5ODc4ODg4NzhdLFstMTIxLjY5MzUxMTA1NTAxMDUzLDM4LjUyNzAzMTE2MjYwMTYyXSxbLTEyMS42OTM1MTEwNTUwMTA1MywzOC4zMTQ4NDM0MTkwMjQxODZdLFstMTIxLjU5MzAxMDgyMzIwODIzLDM4LjMxMzEyNTI5OTY0Mjk5XSxbLTEyMS42MTQ1NDY1ODcxNjU4NiwzOC4xOTU0MzQxMjIwMzEyMTZdLFstMTIxLjY4NjMzMjQ2NzAyNDY3LDM4LjE1OTM1MzYxNTAyNjE0XSxbLTEyMS43MTE0NTc1MjQ5NzUyNCwzOC4wODU0NzQ0ODE2MzQ4MV0sWy0xMjEuNzQzNzYxMTcwOTExNzEsMzguMDg3MTkyNjAxMDE2MDFdLFstMTIxLjc5NzYwMDU4MDgwNTgsMzguMDYwNTYxNzUwNjA3NV0sWy0xMjEuODYyMjA3ODcyNjc4NzEsMzguMDY1NzE2MTA4NzUxMDhdLFstMTIxLjkyNjgxNTE2NDU1MTY0LDM4LjA0NjgxNjc5NTU1Nzk1XSxbLTEyMS45ODQyNDM4Njg0Mzg2OCwzOC4wNjc0MzQyMjgxMzIyOF0sWy0xMjIuMDU5NjE5MDQyMjkwNDIsMzguMDYyMjc5ODY5OTg4NjldLFstMTIyLjE0MjE3MjgwNDEyODAyLDM4LjAzMTM1MzcyMTEyNzJdLFstMTIyLjE4NTI0NDMzMjA0MzMxLDM4LjA1MzY4OTI3MzA4MjcyNV0sWy0xMjIuMjY3Nzk4MDkzODgwOTQsMzguMDU5NzAyNjkwOTE2OV0sWy0xMjIuMzAwMTAxNzM5ODE3MzksMzguMTA1MjMyODU0NTE4NTRdLFstMTIyLjM5NzAxMjY3NzYyNjc4LDM4LjE0MjE3MjQyMTIxNDIwNV0sWy0xMjIuNDA3NzgwNTU5NjA1NTgsMzguMTU1OTE3Mzc2MjYzNzZdXV19fSx7InR5cGUiOiJGZWF0dXJlIiwiaWQiOiIwNjA3NSIsInByb3BlcnRpZXMiOnsibmFtZSI6IlNhbiBGcmFuY2lzY28ifSwiZ2VvbWV0cnkiOnsidHlwZSI6Ik11bHRpUG9seWdvbiIsImNvb3JkaW5hdGVzIjpbW1tbLTEyMi4zMzI0MDUzODU3NTM4NCwzNy43ODU2NjI2NDk2MTY0OV0sWy0xMjIuMzI4ODE2MDkxNzYwOTEsMzcuNzgzMDg1NDcwNTQ0N10sWy0xMjIuMzMyNDA1Mzg1NzUzODQsMzcuNzg1NjYyNjQ5NjE2NDldLFstMTIyLjMzMjQwNTM4NTc1Mzg0LDM3Ljc4NTY2MjY0OTYxNjQ5XV1dLFtbWy0xMjIuMzg5ODM0MDg5NjQwODksMzcuNzA4MzQ3Mjc3NDYyNzddLFstMTIyLjUwMTEwMjIwMzQyMjAyLDM3LjcwODM0NzI3NzQ2Mjc3XSxbLTEyMi41MTU0NTkzNzkzOTM3OSwzNy43ODA1MDgyOTE0NzI5MDZdLFstMTIyLjQ2NTIwOTI2MzQ5MjYyLDM3LjgwNDU2MTk2MjgwOTYyXSxbLTEyMi40MDc3ODA1NTk2MDU1OCwzNy44MTE0MzQ0NDAzMzQzOTVdLFstMTIyLjM4NjI0NDc5NTY0Nzk0LDM3Ljc5MDgxNzAwNzc2MDA3XSxbLTEyMi4zNjExMTk3Mzc2OTczOCwzNy43MTUyMTk3NTQ5ODc1NDRdLFstMTIyLjM4OTgzNDA4OTY0MDg5LDM3LjcwODM0NzI3NzQ2Mjc3XV1dXX19LHsidHlwZSI6IkZlYXR1cmUiLCJpZCI6IjA2MDQxIiwicHJvcGVydGllcyI6eyJuYW1lIjoiTWFyaW4ifSwiZ2VvbWV0cnkiOnsidHlwZSI6Ik11bHRpUG9seWdvbiIsImNvb3JkaW5hdGVzIjpbW1tbLTEyMy4wMDM2MDMzNjI0MzM2MSwzOC4yOTU5NDQxMDU4MzEwNTVdLFstMTIyLjk2NzcxMDQyMjUwNDIxLDM4LjMxNjU2MTUzODQwNTM4XSxbLTEyMi45MTAyODE3MTg2MTcxNywzOC4zMjA4NTY4MzY4NTgzNl0sWy0xMjIuNzQxNTg0OTAwOTQ5LDM4LjIwNjYwMTg5ODAwODk4XSxbLTEyMi42NDgyNjMyNTcxMzI1NiwzOC4xODA4MzAxMDcyOTEwNjVdLFstMTIyLjU2OTI5ODc4OTI4Nzg4LDM4LjE4Njg0MzUyNTEyNTI1XSxbLTEyMi40OTAzMzQzMjE0NDMyMSwzOC4xMDk1MjgxNTI5NzE1Ml0sWy0xMjIuNDgzMTU1NzMzNDU3MzIsMzguMDcxNzI5NTI2NTg1MjZdLFstMTIyLjUwMTEwMjIwMzQyMjAyLDM4LjAzMjIxMjc4MDgxNzhdLFstMTIyLjQ0NzI2Mjc5MzUyNzkzLDM3Ljk4ODQwMDczNjU5NzM2XSxbLTEyMi40OTAzMzQzMjE0NDMyMSwzNy45NjY5MjQyNDQzMzI0NF0sWy0xMjIuNTA0NjkxNDk3NDE0OTcsMzcuOTI5MTI1NjE3OTQ2MTddLFstMTIyLjQzNjQ5NDkxMTU0OTEsMzcuODgxMDE4Mjc1MjcyNzQ0XSxbLTEyMi40NjE2MTk5Njk0OTk2OCwzNy44Njg5OTE0Mzk2MDQzOV0sWy0xMjIuNTAxMTAyMjAzNDIyMDIsMzcuODkzOTA0MTcwNjMxN10sWy0xMjIuNDc1OTc3MTQ1NDcxNDUsMzcuODMyOTEwOTMyNTk5MzJdLFstMTIyLjUyOTgxNjU1NTM2NTU2LDM3LjgxOTE2NTk3NzU0OTc3XSxbLTEyMi41NjIxMjAyMDEzMDIwMSwzNy44NTE4MTAyNDU3OTI0NV0sWy0xMjIuNjU1NDQxODQ1MTE4NDUsMzcuOTA0MjEyODg2OTE4ODZdLFstMTIyLjcwMjEwMjY2NzAyNjY3LDM3Ljg5MzkwNDE3MDYzMTddLFstMTIyLjc4NDY1NjQyODg2NDI4LDM3Ljk1MTQ2MTE2OTkwMTY5XSxbLTEyMi44MjA1NDkzNjg3OTM2OCwzNy45OTY5OTEzMzM1MDMzM10sWy0xMjIuODgxNTY3MzY2NjczNjYsMzguMDI1MzQwMzAzMjkzMDNdLFstMTIyLjkzODk5NjA3MDU2MDcsMzguMDMyMjEyNzgwODE3OF0sWy0xMjMuMDEwNzgxOTUwNDE5NSwzOC4wMDM4NjM4MTEwMjgxMDRdLFstMTIyLjk2MDUzMTgzNDUxODMzLDM4LjExMjk2NDM5MTczMzkxXSxbLTEyMi45NDk3NjM5NTI1Mzk1MSwzOC4xNTQxOTkyNTY4ODI1Nl0sWy0xMjIuOTkyODM1NDgwNDU0OCwzOC4yMzMyMzI3NDg0MTc0OF0sWy0xMjIuOTY3NzEwNDIyNTA0MjEsMzguMjUwNDEzOTQyMjI5NDE0XSxbLTEyMy4wMDM2MDMzNjI0MzM2MSwzOC4yOTU5NDQxMDU4MzEwNTVdXV1dfX0seyJ0eXBlIjoiRmVhdHVyZSIsImlkIjoiMDYwODUiLCJwcm9wZXJ0aWVzIjp7Im5hbWUiOiJTYW50YSBDbGFyYSJ9LCJnZW9tZXRyeSI6eyJ0eXBlIjoiUG9seWdvbiIsImNvb3JkaW5hdGVzIjpbW1stMTIyLjEwOTg2OTE1ODE5MTU3LDM3LjQ2NjA5MjQ0NDcxNDQ0XSxbLTEyMi4wNDUyNjE4NjYzMTg2NSwzNy40NTkyMTk5NjcxODk2N10sWy0xMjEuOTQ4MzUwOTI4NTA5MjksMzcuNDY3ODEwNTY0MDk1NjM2XSxbLTEyMS45MjY4MTUxNjQ1NTE2NCwzNy40NTQwNjU2MDkwNDYwOF0sWy0xMjEuODY5Mzg2NDYwNjY0NiwzNy40ODMyNzM2Mzg1MjYzOF0sWy0xMjEuNDcwOTc0ODI3NDQ4MjYsMzcuNDgyNDE0NTc4ODM1NzhdLFstMTIxLjQ3MDk3NDgyNzQ0ODI2LDM3LjQyMzEzOTQ2MDE4NDU5XSxbLTEyMS40NTY2MTc2NTE0NzY1LDM3LjM5NTY0OTU1MDA4NTQ5NF0sWy0xMjEuNDA5OTU2ODI5NTY4MjksMzcuMzgxOTA0NTk1MDM1OTRdLFstMTIxLjQyNDMxNDAwNTU0MDA1LDM3LjM1ODcwOTk4MzM4OTgzXSxbLTEyMS40MDYzNjc1MzU1NzUzNiwzNy4zMTA2MDI2NDA3MTY0MDRdLFstMTIxLjQ2MDIwNjk0NTQ2OTQ1LDM3LjI4MzExMjczMDYxNzNdLFstMTIxLjQ1NjYxNzY1MTQ3NjUsMzcuMjQ5NjA5NDAyNjg0MDJdLFstMTIxLjQxNzEzNTQxNzU1NDE2LDM3LjIxMDk1MTcxNjYwNzE2XSxbLTEyMS4zOTIwMTAzNTk2MDM1OSwzNy4xNDgyNDAzNTkxOTM1ODZdLFstMTIxLjM1NjExNzQxOTY3NDE5LDM3LjE4NDMyMDg2NjE5ODY1NF0sWy0xMjEuMzI3NDAzMDY3NzMwNjcsMzcuMTY2MjgwNjEyNjk2MTJdLFstMTIxLjI4MDc0MjI0NTgyMjQ1LDM3LjE4MzQ2MTgwNjUwODA1Nl0sWy0xMjEuMjI2OTAyODM1OTI4MzQsMzcuMTM0NDk1NDA0MTQ0MDNdLFstMTIxLjI0NDg0OTMwNTg5MzA0LDM3LjA4OTgyNDMwMDIzM10sWy0xMjEuMjA4OTU2MzY1OTYzNjQsMzcuMDY4MzQ3ODA3OTY4MDc0XSxbLTEyMS4yNDQ4NDkzMDU4OTMwNCwzNy4wMjUzOTQ4MjM0MzgyMjZdLFstMTIxLjI0NDg0OTMwNTg5MzA0LDM2Ljk4MzMwMDg5ODU5ODk3Nl0sWy0xMjEuMjE2MTM0OTUzOTQ5NTMsMzYuOTYwOTY1MzQ2NjQzNDZdLFstMTIxLjQxNzEzNTQxNzU1NDE2LDM2Ljk2MDk2NTM0NjY0MzQ2XSxbLTEyMS40NTMwMjgzNTc0ODM1NiwzNi45ODg0NTUyNTY3NDI1Nl0sWy0xMjEuNDg4OTIxMjk3NDEyOTYsMzYuOTgzMzAwODk4NTk4OTc2XSxbLTEyMS41NjA3MDcxNzcyNzE3NywzNi44OTczOTQ5Mjk1MzkyOV0sWy0xMjEuNTgyMjQyOTQxMjI5NCwzNi44OTkxMTMwNDg5MjA0OF0sWy0xMjEuNTgyMjQyOTQxMjI5NCwzNi45MTg4NzE0MjE4MDQyMV0sWy0xMjEuNjQ2ODUwMjMzMTAyMzMsMzYuOTMyNjE2Mzc2ODUzNzY1XSxbLTEyMS43NTgxMTgzNDY4ODM0NiwzNy4wNDk0NDg0OTQ3NzQ5NF0sWy0xMjEuODYyMjA3ODcyNjc4NzEsMzcuMTA0NDI4MzE0OTczMTRdLFstMTIxLjg5MDkyMjIyNDYyMjI0LDM3LjEwNTI4NzM3NDY2Mzc0XSxbLTEyMS45OTE0MjI0NTY0MjQ1NiwzNy4xNDM5NDUwNjA3NDA2XSxbLTEyMi4wMzA5MDQ2OTAzNDY4OSwzNy4xOTAzMzQyODQwMzI4MzZdLFstMTIyLjA4ODMzMzM5NDIzMzkzLDM3LjIyMjk3ODU1MjI3NTUxNF0sWy0xMjIuMTUyOTQwNjg2MTA2ODYsMzcuMjg1Njg5OTA5Njg5MDldLFstMTIyLjE5MjQyMjkyMDAyOTIsMzcuMzE4MzM0MTc3OTMxNzc0XSxbLTEyMi4xNzQ0NzY0NTAwNjQ1LDM3LjMyNjA2NTcxNTE0NzE0NV0sWy0xMjIuMjAzMTkwODAyMDA4MDEsMzcuMzYwNDI4MTAyNzcxMDI0XSxbLTEyMi4xODg4MzM2MjYwMzYyNiwzNy40MzE3MzAwNTcwOTA1Nl0sWy0xMjIuMTYzNzA4NTY4MDg1NjcsMzcuNDUzMjA2NTQ5MzU1NDg1XSxbLTEyMi4xMDk4NjkxNTgxOTE1NywzNy40NjYwOTI0NDQ3MTQ0NF1dXX19LHsidHlwZSI6IkZlYXR1cmUiLCJpZCI6IjA2MDgxIiwicHJvcGVydGllcyI6eyJuYW1lIjoiU2FuIE1hdGVvIn0sImdlb21ldHJ5Ijp7InR5cGUiOiJQb2x5Z29uIiwiY29vcmRpbmF0ZXMiOltbWy0xMjIuNTAxMTAyMjAzNDIyMDIsMzcuNzA4MzQ3Mjc3NDYyNzddLFstMTIyLjM4OTgzNDA4OTY0MDg5LDM3LjcwODM0NzI3NzQ2Mjc3XSxbLTEyMi4zNTM5NDExNDk3MTE0OSwzNy42MTU1Njg4MzA4NzgzXSxbLTEyMi4zNjExMTk3Mzc2OTczOCwzNy41OTIzNzQyMTkyMzIxODRdLFstMTIyLjI2NDIwODc5OTg4OCwzNy41NzI2MTU4NDYzNDg0NTVdLFstMTIyLjE2NzI5Nzg2MjA3ODYxLDM3LjUwMzg5MTA3MTEwMDddLFstMTIyLjEzODU4MzUxMDEzNTA5LDM3LjUwODE4NjM2OTU1MzY5XSxbLTEyMi4xMDk4NjkxNTgxOTE1NywzNy40NjYwOTI0NDQ3MTQ0NF0sWy0xMjIuMTYzNzA4NTY4MDg1NjcsMzcuNDUzMjA2NTQ5MzU1NDg1XSxbLTEyMi4xODg4MzM2MjYwMzYyNiwzNy40MzE3MzAwNTcwOTA1Nl0sWy0xMjIuMjAzMTkwODAyMDA4MDEsMzcuMzYwNDI4MTAyNzcxMDI0XSxbLTEyMi4xNzQ0NzY0NTAwNjQ1LDM3LjMyNjA2NTcxNTE0NzE0NV0sWy0xMjIuMTkyNDIyOTIwMDI5MiwzNy4zMTgzMzQxNzc5MzE3NzRdLFstMTIyLjE1Mjk0MDY4NjEwNjg2LDM3LjI4NTY4OTkwOTY4OTA5XSxbLTEyMi4xNTI5NDA2ODYxMDY4NiwzNy4yMTUyNDcwMTUwNjAxNF0sWy0xMjIuMjQyNjczMDM1OTMwMzUsMzcuMjE1MjQ3MDE1MDYwMTRdLFstMTIyLjI0MjY3MzAzNTkzMDM1LDM3LjE5MDMzNDI4NDAzMjgzNl0sWy0xMjIuMzE4MDQ4MjA5NzgyMDksMzcuMTg2ODk4MDQ1MjcwNDQ2XSxbLTEyMi4yOTI5MjMxNTE4MzE1LDM3LjEwNzAwNTQ5NDA0NDkzNF0sWy0xMjIuMzM1OTk0Njc5NzQ2NzksMzcuMTE3MzE0MjEwMzMyMV0sWy0xMjIuMzQzMTczMjY3NzMyNjcsMzcuMTQzOTQ1MDYwNzQwNl0sWy0xMjIuNDA0MTkxMjY1NjEyNjQsMzcuMTk1NDg4NjQyMTc2NDE0XSxbLTEyMi40MTg1NDg0NDE1ODQ0LDM3LjI0ODc1MDM0Mjk5MzQyNV0sWy0xMjIuNDAwNjAxOTcxNjE5NzEsMzcuMzU5NTY5MDQzMDgwNDNdLFstMTIyLjQ0MzY3MzQ5OTUzNDk4LDM3LjQzNjAyNTM1NTU0MzU1XSxbLTEyMi40NTA4NTIwODc1MjA4NywzNy40ODA2OTY0NTk0NTQ1OV0sWy0xMjIuNDkzOTIzNjE1NDM2MTUsMzcuNDkyNzIzMjk1MTIyOTRdLFstMTIyLjUxNTQ1OTM3OTM5Mzc5LDM3LjUyMTA3MjI2NDkxMjY0XSxbLTEyMi41MTkwNDg2NzMzODY3MiwzNy41NzYwNTIwODUxMTA4NDVdLFstMTIyLjQ5MzkyMzYxNTQzNjE1LDM3LjY0MzkxNzgwMDY2OF0sWy0xMjIuNTAxMTAyMjAzNDIyMDIsMzcuNzA4MzQ3Mjc3NDYyNzddXV19fSx7InR5cGUiOiJGZWF0dXJlIiwiaWQiOiIwNjA1NSIsInByb3BlcnRpZXMiOnsibmFtZSI6Ik5hcGEifSwiZ2VvbWV0cnkiOnsidHlwZSI6IlBvbHlnb24iLCJjb29yZGluYXRlcyI6W1tbLTEyMi42MjY3Mjc0OTMxNzQ5MywzOC42Njc5MTY5NTE4NTk1MV0sWy0xMjIuNDY1MjA5MjYzNDkyNjIsMzguNzA0ODU2NTE4NTU1MThdLFstMTIyLjM5NzAxMjY3NzYyNjc4LDM4LjgwMzY0ODM4Mjk3MzgyNl0sWy0xMjIuMzcxODg3NjE5Njc2MTksMzguODE3MzkzMzM4MDIzMzddLFstMTIyLjM5MzQyMzM4MzYzMzgzLDM4Ljg2NDY0MTYyMTAwNjJdLFstMTIyLjM1MDM1MTg1NTcxODU0LDM4LjgzNTQzMzU5MTUyNTkwNl0sWy0xMjIuMjg5MzMzODU3ODM4NTcsMzguODM5NzI4ODg5OTc4ODldLFstMTIyLjIyNDcyNjU2NTk2NTY1LDM4LjY5OTcwMjE2MDQxMTZdLFstMTIyLjE2NzI5Nzg2MjA3ODYxLDM4LjY1NTAzMTA1NjUwMDU2XSxbLTEyMi4xMjc4MTU2MjgxNTYyNywzOC41ODM3MjkxMDIxODEwMl0sWy0xMjIuMTAyNjkwNTcwMjA1NywzOC41MTMyODYyMDc1NTIwN10sWy0xMjIuMTI3ODE1NjI4MTU2MjcsMzguNDI5MDk4MzU3ODczNTddLFstMTIyLjA4ODMzMzM5NDIzMzkzLDM4LjM4NDQyNzI1Mzk2MjUzNV0sWy0xMjIuMDYzMjA4MzM2MjgzMzUsMzguMzE1NzAyNDc4NzE0NzhdLFstMTIyLjIwNjc4MDA5NjAwMDk1LDM4LjMxNTcwMjQ3ODcxNDc4XSxbLTEyMi4xODg4MzM2MjYwMzYyNiwzOC4yNzE4OTA0MzQ0OTQzNF0sWy0xMjIuMjE3NTQ3OTc3OTc5NzYsMzguMjYyNDQwNzc3ODk3NzddLFstMTIyLjE5MjQyMjkyMDAyOTIsMzguMjEzNDc0Mzc1NTMzNzVdLFstMTIyLjIxMzk1ODY4Mzk4NjgzLDM4LjE3OTk3MTA0NzYwMDQ3XSxbLTEyMi4xOTYwMTIyMTQwMjIxMywzOC4xNTUwNTgzMTY1NzMxNl0sWy0xMjIuNDA3NzgwNTU5NjA1NTgsMzguMTU1OTE3Mzc2MjYzNzZdLFstMTIyLjM3MTg4NzYxOTY3NjE5LDM4LjE1NzYzNTQ5NTY0NDk1XSxbLTEyMi4zNTAzNTE4NTU3MTg1NCwzOC4xOTM3MTYwMDI2NTAwMl0sWy0xMjIuMzY4Mjk4MzI1NjgzMjQsMzguMjQ2OTc3NzAzNDY3MDNdLFstMTIyLjQwNDE5MTI2NTYxMjY0LDM4LjI4MTM0MDA5MTA5MDkwNF0sWy0xMjIuMzkzNDIzMzgzNjMzODMsMzguMzA0NTM0NzAyNzM3MDJdLFstMTIyLjQ1ODAzMDY3NTUwNjc1LDM4LjM2NzI0NjA2MDE1MDU5XSxbLTEyMi40NDcyNjI3OTM1Mjc5MywzOC4zNzkyNzI4OTU4MTg5NV0sWy0xMjIuNDk3NTEyOTA5NDI5MDgsMzguNDIzOTQzOTk5NzI5OTldLFstMTIyLjQ4MzE1NTczMzQ1NzMyLDM4LjQ1MjI5Mjk2OTUxOTY5XSxbLTEyMi41Mjk4MTY1NTUzNjU1NiwzOC40Njk0NzQxNjMzMzE2MjZdLFstMTIyLjU0NDE3MzczMTMzNzMxLDM4LjUyMDE1ODY4NTA3Njg0NF0sWy0xMjIuNjE5NTQ4OTA1MTg5MDUsMzguNTYwNTM0NDkwNTM0OV0sWy0xMjIuNjQ0NjczOTYzMTM5NjIsMzguNTk4MzMzMTE2OTIxMTZdLFstMTIyLjYyNjcyNzQ5MzE3NDkzLDM4LjY2NzkxNjk1MTg1OTUxXV1dfX0seyJ0eXBlIjoiRmVhdHVyZSIsImlkIjoiMDYwMDEiLCJwcm9wZXJ0aWVzIjp7Im5hbWUiOiJBbGFtZWRhIn0sImdlb21ldHJ5Ijp7InR5cGUiOiJQb2x5Z29uIiwiY29vcmRpbmF0ZXMiOltbWy0xMjIuMzE0NDU4OTE1Nzg5MTUsMzcuODk3MzQwNDA5Mzk0MDldLFstMTIyLjI3MTM4NzM4Nzg3Mzg3LDM3LjkwNTkzMTAwNjMwMDA2XSxbLTEyMi4yMjQ3MjY1NjU5NjU2NSwzNy44Nzg0NDEwOTYyMDA5Nl0sWy0xMjIuMTc4MDY1NzQ0MDU3NDMsMzcuODE2NTg4Nzk4NDc3OThdLFstMTIyLjEzODU4MzUxMDEzNTA5LDM3LjgwNDU2MTk2MjgwOTYyXSxbLTEyMi4wNDUyNjE4NjYzMTg2NSwzNy43OTg1NDg1NDQ5NzU0NDZdLFstMTIxLjk5ODYwMTA0NDQxMDQ0LDM3Ljc2MzMyNzA5NzY2MDk3XSxbLTEyMi4wMTI5NTgyMjAzODIxOSwzNy43NDcwMDQ5NjM1Mzk2M10sWy0xMjEuOTU1NTI5NTE2NDk1MTUsMzcuNzE5NTE1MDUzNDQwNTNdLFstMTIxLjU1NzExNzg4MzI3ODgzLDM3LjgxNjU4ODc5ODQ3Nzk4XSxbLTEyMS41NTcxMTc4ODMyNzg4MywzNy41NDI1NDg3NTcxNzc1Nl0sWy0xMjEuNTAzMjc4NDczMzg0NzMsMzcuNTI2MjI2NjIzMDU2MjI1XSxbLTEyMS40NzA5NzQ4Mjc0NDgyNiwzNy40ODE1NTU1MTkxNDUxOF0sWy0xMjEuNDcwOTc0ODI3NDQ4MjYsMzcuNDgyNDE0NTc4ODM1NzhdLFstMTIxLjg2OTM4NjQ2MDY2NDYsMzcuNDgzMjczNjM4NTI2MzhdLFstMTIxLjkyNjgxNTE2NDU1MTY0LDM3LjQ1NDA2NTYwOTA0NjA4XSxbLTEyMS45NDgzNTA5Mjg1MDkyOSwzNy40Njc4MTA1NjQwOTU2MzZdLFstMTIyLjA0NTI2MTg2NjMxODY1LDM3LjQ1OTIxOTk2NzE4OTY3XSxbLTEyMi4wNjY3OTc2MzAyNzYzLDM3LjQ5MTAwNTE3NTc0MTc1XSxbLTEyMi4xMDk4NjkxNTgxOTE1NywzNy41MDczMjczMDk4NjMwOV0sWy0xMjIuMTQ1NzYyMDk4MTIwOTcsMzcuNTgyMDY1NTAyOTQ1MDJdLFstMTIyLjE3MDg4NzE1NjA3MTU2LDM3LjY3NTcwMzAwOTIyMDA4Nl0sWy0xMjIuMjQ2MjYyMzI5OTIzMywzNy43MjIwOTIyMzI1MTIzMl0sWy0xMjIuMjUzNDQwOTE3OTA5MTcsMzcuNzYxNjA4OTc4Mjc5Nzc0XSxbLTEyMi4zMjg4MTYwOTE3NjA5MSwzNy43ODMwODU0NzA1NDQ3XSxbLTEyMi4zMzI0MDUzODU3NTM4NCwzNy43ODU2NjI2NDk2MTY0OV0sWy0xMjIuMzAwMTAxNzM5ODE3MzksMzcuODQ3NTE0OTQ3MzM5NDddLFstMTIyLjMxNDQ1ODkxNTc4OTE1LDM3Ljg5NzM0MDQwOTM5NDA5XV1dfX1dfSwiYmciOnsidHlwZSI6IkZlYXR1cmVDb2xsZWN0aW9uIiwiZmVhdHVyZXMiOlt7InR5cGUiOiJGZWF0dXJlIiwiaWQiOiIwNjAxOSIsInByb3BlcnRpZXMiOnsibmFtZSI6IkZyZXNubyJ9LCJnZW9tZXRyeSI6eyJ0eXBlIjoiUG9seWdvbiIsImNvb3JkaW5hdGVzIjpbW1stMTIwLjU0MTM0NzY4MzI3NjgzLDM3LjA0NDI5NDEzNjYzMTM2XSxbLTEyMC41MDkwNDQwMzczNDAzNywzNy4wMDczNTQ1Njk5MzU2OV0sWy0xMjAuNDUxNjE1MzMzNDUzMzMsMzYuOTExMTM5ODg0NTg4ODRdLFstMTIwLjQ1NTIwNDYyNzQ0NjI2LDM2Ljg2MzAzMjU0MTkxNTQxNl0sWy0xMjAuMzY5MDYxNTcxNjE1NywzNi44MTA2Mjk5MDA3ODldLFstMTIwLjM2OTA2MTU3MTYxNTcsMzYuNzg0ODU4MTEwMDcxMDldLFstMTIwLjIyOTA3OTEwNTg5MTA2LDM2Ljc2OTM5NTAzNTY0MDM1XSxbLTEyMC4wNzgzMjg3NTgxODc1OCwzNi44MjUyMzM5MTU1MjkxNV0sWy0xMjAuMDI4MDc4NjQyMjg2NDIsMzYuODE0OTI1MTk5MjQxOThdLFstMTE5Ljk4NTAwNzExNDM3MTE0LDM2Ljg0MDY5Njk4OTk1OTg5NV0sWy0xMTkuOTQxOTM1NTg2NDU1ODYsMzYuODMzODI0NTEyNDM1MTE1XSxbLTExOS44ODQ1MDY4ODI1Njg4MSwzNi44NTg3MzcyNDM0NjI0M10sWy0xMTkuODEyNzIxMDAyNzEwMDIsMzYuODUwMTQ2NjQ2NTU2NDZdLFstMTE5Ljc5MTE4NTIzODc1MjM4LDM2Ljg5NTY3NjgxMDE1ODA5XSxbLTExOS43MzM3NTY1MzQ4NjUzNCwzNi45NDYzNjEzMzE5MDMzMV0sWy0xMTkuNzQwOTM1MTIyODUxMjMsMzYuOTcwNDE1MDAzMjQwMDNdLFstMTE5LjcwMTQ1Mjg4ODkyODg4LDM3LjAwNDc3NzM5MDg2MzldLFstMTE5LjY2OTE0OTI0Mjk5MjQzLDM3LjAwOTA3MjY4OTMxNjg5XSxbLTExOS42NTEyMDI3NzMwMjc3MiwzNy4wNDE3MTY5NTc1NTk1N10sWy0xMTkuNjE4ODk5MTI3MDkxMjUsMzcuMDI3MTEyOTQyODE5NDJdLFstMTE5LjYwNDU0MTk1MTExOTUsMzcuMDcwOTI0OTg3MDM5ODddLFstMTE5LjU2MTQ3MDQyMzIwNDIzLDM3LjA2NjYyOTY4ODU4Njg4XSxbLTExOS41MzYzNDUzNjUyNTM2NSwzNy4xMDUyODczNzQ2NjM3NF0sWy0xMTkuNTY1MDU5NzE3MTk3MTYsMzcuMTE1NTk2MDkwOTUwOV0sWy0xMTkuNTUwNzAyNTQxMjI1NCwzNy4xNDQ4MDQxMjA0MzExOTZdLFstMTE5LjUyNTU3NzQ4MzI3NDgyLDM3LjEyODQ4MTk4NjMwOTg2XSxbLTExOS40ODk2ODQ1NDMzNDU0MiwzNy4xMzg3OTA3MDI1OTcwMl0sWy0xMTkuNDgyNTA1OTU1MzU5NTYsMzcuMTEwNDQxNzMyODA3MzI0XSxbLTExOS40Mjg2NjY1NDU0NjU0NSwzNy4xNjM3MDM0MzM2MjQzM10sWy0xMTkuMzg1NTk1MDE3NTUwMTcsMzcuMTQ5OTU4NDc4NTc0NzhdLFstMTE5LjMyODE2NjMxMzY2MzEzLDM3LjIwOTIzMzU5NzIyNTk3XSxbLTExOS4zMzUzNDQ5MDE2NDkwMSwzNy4zMTMxNzk4MTk3ODgxOV0sWy0xMTkuMzEzODA5MTM3NjkxMzgsMzcuMzUxODM3NTA1ODY1MDVdLFstMTE5LjAyMzA3NjMyNDI2MzIzLDM3LjU4NTUwMTc0MTcwNzQxXSxbLTExOC45NzY0MTU1MDIzNTUwMiwzNy41NTcxNTI3NzE5MTc3MTRdLFstMTE4LjkxNTM5NzUwNDQ3NTA0LDM3LjU1MDI4MDI5NDM5Mjk0XSxbLTExOC44NTA3OTAyMTI2MDIxMiwzNy40NzU1NDIxMDEzMTEwMV0sWy0xMTguNzk2OTUwODAyNzA4MDEsMzcuNDg4NDI3OTk2NjY5OTZdLFstMTE4Ljc3NTQxNTAzODc1MDM4LDM3LjQ2MjY1NjIwNTk1MjA1XSxbLTExOC43NjEwNTc4NjI3Nzg2MSwzNy40MzUxNjYyOTU4NTI5NV0sWy0xMTguNzg2MTgyOTIwNzI5MiwzNy4zODYxOTk4OTM0ODg5M10sWy0xMTguNzc5MDA0MzMyNzQzMzEsMzcuMzM1NTE1MzcxNzQzNzFdLFstMTE4LjY5Mjg2MTI3NjkxMjc3LDM3LjMwMDI5MzkyNDQyOTI0XSxbLTExOC42Njc3MzYyMTg5NjIxOCwzNy4yNTczNDA5Mzk4OTkzOV0sWy0xMTguNjg1NjgyNjg4OTI2ODcsMzcuMjI5ODUxMDI5ODAwMjk0XSxbLTExOC42NDYyMDA0NTUwMDQ1MywzNy4xMzk2NDk3NjIyODc2Ml0sWy0xMTguNTk1OTUwMzM5MTAzMzgsMzcuMTM3OTMxNjQyOTA2NDJdLFstMTE4LjUzMTM0MzA0NzIzMDQ2LDM3LjExMDQ0MTczMjgwNzMyNF0sWy0xMTguNDM4MDIxNDAzNDE0MDMsMzcuMDU0NjAyODUyOTE4NTJdLFstMTE4LjQyMDA3NDkzMzQ0OTMzLDM2Ljk5MTg5MTQ5NTUwNDk1XSxbLTExOC4zNjYyMzU1MjM1NTUyMiwzNi44OTQ4MTc3NTA0Njc0OTZdLFstMTE4LjM2NjIzNTUyMzU1NTIyLDM2LjgzOTgzNzkzMDI2OTNdLFstMTE4LjM5MTM2MDU4MTUwNTgxLDM2LjgzMjk2NTQ1Mjc0NDUyNF0sWy0xMTguMzU5MDU2OTM1NTY5MzYsMzYuNzQ0NDgyMzA0NjEzMDRdLFstMTE4Ljk4MzU5NDA5MDM0MDg5LDM2Ljc0MTkwNTEyNTU0MTI1XSxbLTExOC45ODM1OTQwOTAzNDA4OSwzNi42NTY4NTgyMTYxNzIxNTRdLFstMTE5LjMwMzA0MTI1NTcxMjU0LDM2LjY2MDI5NDQ1NDkzNDU0NF0sWy0xMTkuMzA2NjMwNTQ5NzA1NDksMzYuNTczNTI5NDI2MTg0MjZdLFstMTE5LjQ2NDU1OTQ4NTM5NDg0LDM2LjU3NTI0NzU0NTU2NTQ0Nl0sWy0xMTkuNTcyMjM4MzA1MTgzMDUsMzYuNDg4NDgyNTE2ODE1MTZdLFstMTE5LjY2NTU1OTk0ODk5OTQ5LDM2LjQxODg5ODY4MTg3NjgxXSxbLTExOS42NzI3Mzg1MzY5ODUzNiwzNi40MzA5MjU1MTc1NDUxN10sWy0xMTkuNzQ4MTEzNzEwODM3MSwzNi40MTYzMjE1MDI4MDUwMl0sWy0xMTkuNzU1MjkyMjk4ODIyOTgsMzYuNDAxNzE3NDg4MDY0ODc1XSxbLTExOS45NTk4ODIwNTY0MjA1NSwzNi40MDA4NTg0MjgzNzQyOF0sWy0xMTkuOTU5ODgyMDU2NDIwNTUsMzYuMTgxNzk4MjA3MjcyMDddLFstMTIwLjMxNTIyMjE2MTcyMTYxLDM1LjkwNjg5OTEwNjI4MTA2XSxbLTEyMC4zNTgyOTM2ODk2MzY5LDM1Ljk2MzU5NzA0NTg2MDQ1XSxbLTEyMC40MzM2Njg4NjM0ODg2MywzNS45Njg3NTE0MDQwMDQwM10sWy0xMjAuNDgwMzI5Njg1Mzk2ODQsMzYuMDA5OTg2MjY5MTUyNjg0XSxbLTEyMC41NDEzNDc2ODMyNzY4MywzNi4wMzY2MTcxMTk1NjExOV0sWy0xMjAuNTkxNTk3Nzk5MTc3OTgsMzYuMDcxODM4NTY2ODc1NjZdLFstMTIwLjYwMjM2NTY4MTE1NjgxLDM2LjEwMTkwNTY1NjA0NjU1NF0sWy0xMjAuNjQ5MDI2NTAzMDY1MDIsMzYuMTA3OTE5MDczODgwNzNdLFstMTIwLjY3MDU2MjI2NzAyMjY2LDM2LjE2NDYxNzAxMzQ2MDEzXSxbLTEyMC42Mjc0OTA3MzkxMDczOSwzNi4yMDMyNzQ2OTk1MzY5OV0sWy0xMjAuNjgxMzMwMTQ5MDAxNDgsMzYuMjUxMzgyMDQyMjEwNDE2XSxbLTEyMC42Nzc3NDA4NTUwMDg1NSwzNi4yNjc3MDQxNzYzMzE3NTVdLFstMTIwLjY1OTc5NDM4NTA0Mzg1LDM2LjMxNTgxMTUxOTAwNTE5XSxbLTEyMC41OTUxODcwOTMxNzA5MiwzNi4zMjg2OTc0MTQzNjQxMzZdLFstMTIwLjYwMjM2NTY4MTE1NjgxLDM2LjQ4ODQ4MjUxNjgxNTE2XSxbLTEyMC45MTgyMjM1NTI1MzU1MiwzNi43NDAxODcwMDYxNjAwNTZdLFstMTIwLjY1NjIwNTA5MTA1MDkxLDM2Ljk1MzIzMzgwOTQyODA4NV0sWy0xMjAuNTkxNTk3Nzk5MTc3OTgsMzYuOTUyMzc0NzQ5NzM3NDk0XSxbLTEyMC41OTg3NzYzODcxNjM4NywzNi45OTg3NjM5NzMwMjk3MjVdLFstMTIwLjU0MTM0NzY4MzI3NjgzLDM3LjA0NDI5NDEzNjYzMTM2XV1dfX0seyJ0eXBlIjoiRmVhdHVyZSIsImlkIjoiMDYwOTkiLCJwcm9wZXJ0aWVzIjp7Im5hbWUiOiJTdGFuaXNsYXVzIn0sImdlb21ldHJ5Ijp7InR5cGUiOiJQb2x5Z29uIiwiY29vcmRpbmF0ZXMiOltbWy0xMjEuNDcwOTc0ODI3NDQ4MjYsMzcuNDgyNDE0NTc4ODM1NzhdLFstMTIxLjQ3MDk3NDgyNzQ0ODI2LDM3LjQ4MTU1NTUxOTE0NTE4XSxbLTEyMS4yNDEyNjAwMTE5MDAxMSwzNy42NjM2NzYxNzM1NTE3M10sWy0xMjEuMTQ0MzQ5MDc0MDkwNzQsMzcuNzE3Nzk2OTM0MDU5MzM2XSxbLTEyMS4wNTgyMDYwMTgyNjAxNywzNy43NTA0NDEyMDIzMDIwMTRdLFstMTIxLjAyOTQ5MTY2NjMxNjY2LDM3Ljc0MDk5MTU0NTcwNTQ1XSxbLTEyMC45OTcxODgwMjAzODAyLDM3Ljc1OTg5MDg1ODg5ODU4XSxbLTEyMC45MjE4MTI4NDY1Mjg0NywzNy43Mzc1NTUzMDY5NDMwNjVdLFstMTIwLjkyNTQwMjE0MDUyMTQsMzguMDc3NzQyOTQ0NDE5NDRdLFstMTIwLjg3NTE1MjAyNDYyMDIzLDM4LjAyODc3NjU0MjA1NTQxXSxbLTEyMC42NTI2MTU3OTcwNTc5NiwzNy44MzIwNTE4NzI5MDg3Ml0sWy0xMjAuMzg3MDA4MDQxNTgwNCwzNy42MzM2MDkwODQzODA4MzZdLFstMTIwLjk4MjgzMDg0NDQwODQ0LDM3LjM5OTk0NDg0ODUzODQ4XSxbLTEyMC45NjQ4ODQzNzQ0NDM3MywzNy4zNDU4MjQwODgwMzA4NzRdLFstMTIxLjIyNjkwMjgzNTkyODM0LDM3LjEzNDQ5NTQwNDE0NDAzXSxbLTEyMS4yODA3NDIyNDU4MjI0NSwzNy4xODM0NjE4MDY1MDgwNTZdLFstMTIxLjMyNzQwMzA2NzczMDY3LDM3LjE2NjI4MDYxMjY5NjEyXSxbLTEyMS4zNTYxMTc0MTk2NzQxOSwzNy4xODQzMjA4NjYxOTg2NTRdLFstMTIxLjM5MjAxMDM1OTYwMzU5LDM3LjE0ODI0MDM1OTE5MzU4Nl0sWy0xMjEuNDE3MTM1NDE3NTU0MTYsMzcuMjEwOTUxNzE2NjA3MTZdLFstMTIxLjQ1NjYxNzY1MTQ3NjUsMzcuMjQ5NjA5NDAyNjg0MDJdLFstMTIxLjQ2MDIwNjk0NTQ2OTQ1LDM3LjI4MzExMjczMDYxNzNdLFstMTIxLjQwNjM2NzUzNTU3NTM2LDM3LjMxMDYwMjY0MDcxNjQwNF0sWy0xMjEuNDI0MzE0MDA1NTQwMDUsMzcuMzU4NzA5OTgzMzg5ODNdLFstMTIxLjQwOTk1NjgyOTU2ODI5LDM3LjM4MTkwNDU5NTAzNTk0XSxbLTEyMS40NTY2MTc2NTE0NzY1LDM3LjM5NTY0OTU1MDA4NTQ5NF0sWy0xMjEuNDcwOTc0ODI3NDQ4MjYsMzcuNDIzMTM5NDYwMTg0NTldLFstMTIxLjQ3MDk3NDgyNzQ0ODI2LDM3LjQ4MjQxNDU3ODgzNTc4XV1dfX0seyJ0eXBlIjoiRmVhdHVyZSIsImlkIjoiMDYwNzciLCJwcm9wZXJ0aWVzIjp7Im5hbWUiOiJTYW4gSm9hcXVpbiJ9LCJnZW9tZXRyeSI6eyJ0eXBlIjoiUG9seWdvbiIsImNvb3JkaW5hdGVzIjpbW1stMTIxLjU3ODY1MzY0NzIzNjQ2LDM4LjA5NDA2NTA3ODU0MDc4XSxbLTEyMS41ODU4MzIyMzUyMjIzNCwzOC4xMTk4MzY4NjkyNTg2ODRdLFstMTIxLjUzNTU4MjExOTMyMTE5LDM4LjE1MTYyMjA3NzgxMDc3XSxbLTEyMS41Mjg0MDM1MzEzMzUzLDM4LjE5MzcxNjAwMjY1MDAyXSxbLTEyMS40ODE3NDI3MDk0MjcxLDM4LjI1Mzg1MDE4MDk5MTgwNV0sWy0xMjEuNDI3OTAzMjk5NTMyOTksMzguMjU0NzA5MjQwNjgyNF0sWy0xMjEuNDA5OTU2ODI5NTY4MjksMzguMjMxNTE0NjI5MDM2MjhdLFstMTIxLjM0NTM0OTUzNzY5NTM3LDM4LjIyODA3ODM5MDI3Mzg5XSxbLTEyMS4yNjk5NzQzNjM4NDM2MywzOC4yNTIxMzIwNjE2MTA2MV0sWy0xMjEuMjIzMzEzNTQxOTM1NDEsMzguMjQ0NDAwNTI0Mzk1MjRdLFstMTIxLjE3MzA2MzQyNjAzNDI1LDM4LjI1NTU2ODMwMDM3M10sWy0xMjEuMDY1Mzg0NjA2MjQ2MDYsMzguMjk5MzgwMzQ0NTkzNDRdLFstMTIxLjAyNTkwMjM3MjMyMzcxLDM4LjMwMDIzOTQwNDI4NDAzNV0sWy0xMjAuOTk3MTg4MDIwMzgwMiwzOC4yMjU1MDEyMTEyMDIxMV0sWy0xMjAuOTM5NzU5MzE2NDkzMTcsMzguMDg4MDUxNjYwNzA2NjA0XSxbLTEyMC45MjU0MDIxNDA1MjE0LDM4LjA3Nzc0Mjk0NDQxOTQ0XSxbLTEyMC45MjE4MTI4NDY1Mjg0NywzNy43Mzc1NTUzMDY5NDMwNjVdLFstMTIwLjk5NzE4ODAyMDM4MDIsMzcuNzU5ODkwODU4ODk4NThdLFstMTIxLjAyOTQ5MTY2NjMxNjY2LDM3Ljc0MDk5MTU0NTcwNTQ1XSxbLTEyMS4wNTgyMDYwMTgyNjAxNywzNy43NTA0NDEyMDIzMDIwMTRdLFstMTIxLjE0NDM0OTA3NDA5MDc0LDM3LjcxNzc5NjkzNDA1OTMzNl0sWy0xMjEuMjQxMjYwMDExOTAwMTEsMzcuNjYzNjc2MTczNTUxNzNdLFstMTIxLjQ3MDk3NDgyNzQ0ODI2LDM3LjQ4MTU1NTUxOTE0NTE4XSxbLTEyMS41MDMyNzg0NzMzODQ3MywzNy41MjYyMjY2MjMwNTYyMjVdLFstMTIxLjU1NzExNzg4MzI3ODgzLDM3LjU0MjU0ODc1NzE3NzU2XSxbLTEyMS41NTcxMTc4ODMyNzg4MywzNy44MTY1ODg3OTg0Nzc5OF0sWy0xMjEuNTM1NTgyMTE5MzIxMTksMzcuODUwMDkyMTI2NDExMjU1XSxbLTEyMS41Nzg2NTM2NDcyMzY0NiwzNy44NjEyNTk5MDIzODkwMTZdLFstMTIxLjU1NzExNzg4MzI3ODgzLDM3LjkzMjU2MTg1NjcwODU2XSxbLTEyMS41ODIyNDI5NDEyMjk0LDM3Ljk4NDEwNTQzODE0NDM3NV0sWy0xMjEuNTU3MTE3ODgzMjc4ODMsMzguMDE2NzQ5NzA2Mzg3MDZdLFstMTIxLjU4NTgzMjIzNTIyMjM0LDM4LjAzNTY0OTAxOTU4MDE5XSxbLTEyMS41Nzg2NTM2NDcyMzY0NiwzOC4wOTQwNjUwNzg1NDA3OF1dXX19LHsidHlwZSI6IkZlYXR1cmUiLCJpZCI6IjA2MDY3IiwicHJvcGVydGllcyI6eyJuYW1lIjoiU2FjcmFtZW50byJ9LCJnZW9tZXRyeSI6eyJ0eXBlIjoiUG9seWdvbiIsImNvb3JkaW5hdGVzIjpbW1stMTIxLjU5MzAxMDgyMzIwODIzLDM4LjMxMzEyNTI5OTY0Mjk5XSxbLTEyMS41ODIyNDI5NDEyMjk0LDM4LjMzMjAyNDYxMjgzNjEyXSxbLTEyMS41MjEyMjQ5NDMzNDk0MiwzOC4zNjAzNzM1ODI2MjU4Ml0sWy0xMjEuNTMxOTkyODI1MzI4MjUsMzguNDI5MDk4MzU3ODczNTddLFstMTIxLjUwMzI3ODQ3MzM4NDczLDM4LjQ0MTEyNTE5MzU0MTkzXSxbLTEyMS41MDY4Njc3NjczNzc2NiwzOC40Njk0NzQxNjMzMzE2MjZdLFstMTIxLjU0Mjc2MDcwNzMwNzA3LDM4LjQ3NzIwNTcwMDU0Njk5Nl0sWy0xMjEuNTUzNTI4NTg5Mjg1ODksMzguNTE0MTQ1MjY3MjQyNjddLFstMTIxLjUyNDgxNDIzNzM0MjM3LDM4LjUxOTI5OTYyNTM4NjI0Nl0sWy0xMjEuNTEwNDU3MDYxMzcwNiwzOC42MDA5MTAyOTU5OTI5NV0sWy0xMjEuNTUzNTI4NTg5Mjg1ODksMzguNjAzNDg3NDc1MDY0NzQ2XSxbLTEyMS41NjQyOTY0NzEyNjQ3LDM4LjY0MjE0NTE2MTE0MTYwNl0sWy0xMjEuNTkzMDEwODIzMjA4MjMsMzguNjQzODYzMjgwNTIyOF0sWy0xMjEuNjMyNDkzMDU3MTMwNTcsMzguNjg1OTU3MjA1MzYyMDQ0XSxbLTEyMS42MDM3Nzg3MDUxODcwNCwzOC43MzU3ODI2Njc0MTY2NjVdLFstMTIxLjQ4NTMzMjAwMzQyMDAzLDM4LjczNDkyMzYwNzcyNjA3NF0sWy0xMjEuMTQwNzU5NzgwMDk3OCwzOC43MTE3Mjg5OTYwNzk5NTVdLFstMTIxLjExOTIyNDAxNjE0MDE1LDM4LjcxNjg4MzM1NDIyMzUzXSxbLTEyMS4wMjU5MDIzNzIzMjM3MSwzOC41MDgxMzE4NDk0MDg0ODVdLFstMTIxLjAyNTkwMjM3MjMyMzcxLDM4LjMwMDIzOTQwNDI4NDAzNV0sWy0xMjEuMDY1Mzg0NjA2MjQ2MDYsMzguMjk5MzgwMzQ0NTkzNDRdLFstMTIxLjE3MzA2MzQyNjAzNDI1LDM4LjI1NTU2ODMwMDM3M10sWy0xMjEuMjIzMzEzNTQxOTM1NDEsMzguMjQ0NDAwNTI0Mzk1MjRdLFstMTIxLjI2OTk3NDM2Mzg0MzYzLDM4LjI1MjEzMjA2MTYxMDYxXSxbLTEyMS4zNDUzNDk1Mzc2OTUzNywzOC4yMjgwNzgzOTAyNzM4OV0sWy0xMjEuNDA5OTU2ODI5NTY4MjksMzguMjMxNTE0NjI5MDM2MjhdLFstMTIxLjQyNzkwMzI5OTUzMjk5LDM4LjI1NDcwOTI0MDY4MjRdLFstMTIxLjQ4MTc0MjcwOTQyNzEsMzguMjUzODUwMTgwOTkxODA1XSxbLTEyMS41Mjg0MDM1MzEzMzUzLDM4LjE5MzcxNjAwMjY1MDAyXSxbLTEyMS41MzU1ODIxMTkzMjExOSwzOC4xNTE2MjIwNzc4MTA3N10sWy0xMjEuNTg1ODMyMjM1MjIyMzQsMzguMTE5ODM2ODY5MjU4Njg0XSxbLTEyMS41Nzg2NTM2NDcyMzY0NiwzOC4wOTQwNjUwNzg1NDA3OF0sWy0xMjEuNjYxMjA3NDA5MDc0MDgsMzguMDk1NzgzMTk3OTIxOTc1XSxbLTEyMS42ODI3NDMxNzMwMzE3MiwzOC4wNjE0MjA4MTAyOTgwOTVdLFstMTIxLjczNjU4MjU4MjkyNTgyLDM4LjAyNzA1ODQyMjY3NDIyXSxbLTEyMS43OTA0MjE5OTI4MTk5MiwzOC4wMTg0Njc4MjU3NjgyNV0sWy0xMjEuODMzNDkzNTIwNzM1MiwzOC4wMzEzNTM3MjExMjcyXSxbLTEyMS44NjIyMDc4NzI2Nzg3MSwzOC4wNjU3MTYxMDg3NTEwOF0sWy0xMjEuNzk3NjAwNTgwODA1OCwzOC4wNjA1NjE3NTA2MDc1XSxbLTEyMS43NDM3NjExNzA5MTE3MSwzOC4wODcxOTI2MDEwMTYwMV0sWy0xMjEuNzExNDU3NTI0OTc1MjQsMzguMDg1NDc0NDgxNjM0ODFdLFstMTIxLjY4NjMzMjQ2NzAyNDY3LDM4LjE1OTM1MzYxNTAyNjE0XSxbLTEyMS42MTQ1NDY1ODcxNjU4NiwzOC4xOTU0MzQxMjIwMzEyMTZdLFstMTIxLjU5MzAxMDgyMzIwODIzLDM4LjMxMzEyNTI5OTY0Mjk5XV1dfX0seyJ0eXBlIjoiRmVhdHVyZSIsImlkIjoiMDYxMTMiLCJwcm9wZXJ0aWVzIjp7Im5hbWUiOiJZb2xvIn0sImdlb21ldHJ5Ijp7InR5cGUiOiJQb2x5Z29uIiwiY29vcmRpbmF0ZXMiOltbWy0xMjIuMzM5NTgzOTczNzM5NzQsMzguOTIzOTE2NzM5NjU3MzldLFstMTIxLjgzNzA4MjgxNDcyODE1LDM4LjkyNDc3NTc5OTM0Nzk4NF0sWy0xMjEuODA0Nzc5MTY4NzkxNjgsMzguOTE1MzI2MTQyNzUxNDJdLFstMTIxLjgxNTU0NzA1MDc3MDUsMzguODc2NjY4NDU2Njc0NTZdLFstMTIxLjc4MzI0MzQwNDgzNDA0LDM4Ljg1NjkxMDA4Mzc5MDgzXSxbLTEyMS43NTA5Mzk3NTg4OTc1NywzOC44NzE1MTQwOTg1MzA5OF0sWy0xMjEuNzIyMjI1NDA2OTU0MDcsMzguODUwODk2NjY1OTU2NjU0XSxbLTEyMS43MjIyMjU0MDY5NTQwNywzOC44MDM2NDgzODI5NzM4MjZdLFstMTIxLjY4NjMzMjQ2NzAyNDY3LDM4Ljc2MzI3MjU3NzUxNTc3XSxbLTEyMS41OTMwMTA4MjMyMDgyMywzOC43NjMyNzI1Nzc1MTU3N10sWy0xMjEuNjAzNzc4NzA1MTg3MDQsMzguNzM1NzgyNjY3NDE2NjY1XSxbLTEyMS42MzI0OTMwNTcxMzA1NywzOC42ODU5NTcyMDUzNjIwNDRdLFstMTIxLjU5MzAxMDgyMzIwODIzLDM4LjY0Mzg2MzI4MDUyMjhdLFstMTIxLjU2NDI5NjQ3MTI2NDcsMzguNjQyMTQ1MTYxMTQxNjA2XSxbLTEyMS41NTM1Mjg1ODkyODU4OSwzOC42MDM0ODc0NzUwNjQ3NDZdLFstMTIxLjUxMDQ1NzA2MTM3MDYsMzguNjAwOTEwMjk1OTkyOTVdLFstMTIxLjUyNDgxNDIzNzM0MjM3LDM4LjUxOTI5OTYyNTM4NjI0Nl0sWy0xMjEuNTUzNTI4NTg5Mjg1ODksMzguNTE0MTQ1MjY3MjQyNjddLFstMTIxLjU0Mjc2MDcwNzMwNzA3LDM4LjQ3NzIwNTcwMDU0Njk5Nl0sWy0xMjEuNTA2ODY3NzY3Mzc3NjYsMzguNDY5NDc0MTYzMzMxNjI2XSxbLTEyMS41MDMyNzg0NzMzODQ3MywzOC40NDExMjUxOTM1NDE5M10sWy0xMjEuNTMxOTkyODI1MzI4MjUsMzguNDI5MDk4MzU3ODczNTddLFstMTIxLjUyMTIyNDk0MzM0OTQyLDM4LjM2MDM3MzU4MjYyNTgyXSxbLTEyMS41ODIyNDI5NDEyMjk0LDM4LjMzMjAyNDYxMjgzNjEyXSxbLTEyMS41OTMwMTA4MjMyMDgyMywzOC4zMTMxMjUyOTk2NDI5OV0sWy0xMjEuNjkzNTExMDU1MDEwNTMsMzguMzE0ODQzNDE5MDI0MTg2XSxbLTEyMS42OTM1MTEwNTUwMTA1MywzOC41MjcwMzExNjI2MDE2Ml0sWy0xMjEuNzQwMTcxODc2OTE4NzcsMzguNTM3MzM5ODc4ODg4NzhdLFstMTIxLjc4NjgzMjY5ODgyNjk3LDM4LjUyMjczNTg2NDE0ODYzNl0sWy0xMjEuODU4NjE4NTc4Njg1NzgsMzguNTM4MTk4OTM4NTc5MzhdLFstMTIxLjk0MTE3MjM0MDUyMzQsMzguNTMzMDQ0NTgwNDM1OF0sWy0xMjIuMDEyOTU4MjIwMzgyMTksMzguNDg4MzczNDc2NTI0NzZdLFstMTIyLjA1NjAyOTc0ODI5NzQ4LDM4LjUxNzU4MTUwNjAwNTA1XSxbLTEyMi4xMDI2OTA1NzAyMDU3LDM4LjUxMzI4NjIwNzU1MjA3XSxbLTEyMi4xMjc4MTU2MjgxNTYyNywzOC41ODM3MjkxMDIxODEwMl0sWy0xMjIuMTY3Mjk3ODYyMDc4NjEsMzguNjU1MDMxMDU2NTAwNTZdLFstMTIyLjIyNDcyNjU2NTk2NTY1LDM4LjY5OTcwMjE2MDQxMTZdLFstMTIyLjI4OTMzMzg1NzgzODU3LDM4LjgzOTcyODg4OTk3ODg5XSxbLTEyMi4zNTAzNTE4NTU3MTg1NCwzOC44MzU0MzM1OTE1MjU5MDZdLFstMTIyLjM5MzQyMzM4MzYzMzgzLDM4Ljg2NDY0MTYyMTAwNjJdLFstMTIyLjQyMjEzNzczNTU3NzM1LDM4LjkwNDE1ODM2Njc3MzY2NV0sWy0xMjIuNDA0MTkxMjY1NjEyNjQsMzguOTI1NjM0ODU5MDM4NThdLFstMTIyLjMzOTU4Mzk3MzczOTc0LDM4LjkyMzkxNjczOTY1NzM5XV1dfX1dfX0='));
@@ -3999,15 +4162,36 @@
     const SIM_SCEN_KEY = 'fung-policy-scenarios-v1';
     const POLICY_SECTOR = { buildings: ['reach', 'roof'], transport: ['ev', 'transit'], energy: ['solar'] };
     let simScenarios = [];
+    let customPolicyItems = [];
 
-    function policySectorTotals(pol) {
+    function clampSimCustomPct(n) {
+      const x = Number(n);
+      if (!Number.isFinite(x)) return 4;
+      return Math.min(20, Math.max(1, Math.round(x)));
+    }
+    function policySectorTotals(pol, customList) {
       const on = (k) => (pol[k] ? policyEffects[k] : 0);
-      return {
-        buildings: POLICY_SECTOR.buildings.reduce((s, k) => s + on(k), 0),
-        transport: POLICY_SECTOR.transport.reduce((s, k) => s + on(k), 0),
-        energy: POLICY_SECTOR.energy.reduce((s, k) => s + on(k), 0),
-        total: Object.keys(policyEffects).reduce((s, k) => s + on(k), 0)
-      };
+      let buildings = POLICY_SECTOR.buildings.reduce((s, k) => s + on(k), 0);
+      let transport = POLICY_SECTOR.transport.reduce((s, k) => s + on(k), 0);
+      let energy = POLICY_SECTOR.energy.reduce((s, k) => s + on(k), 0);
+      let total = Object.keys(policyEffects).reduce((s, k) => s + on(k), 0);
+      (customList || []).forEach(function (x) {
+        const p = clampSimCustomPct(x.pct);
+        if (x.sector === 'buildings') buildings += p;
+        else if (x.sector === 'transport') transport += p;
+        else if (x.sector === 'energy') energy += p;
+        total += p;
+      });
+      return { buildings: buildings, transport: transport, energy: energy, total: total };
+    }
+    function getSimExtraFromToggles() {
+      return Object.entries(policies).filter(([k, v]) => v).reduce((s, [k]) => s + policyEffects[k], 0);
+    }
+    function getSimExtraCustomOnly() {
+      return customPolicyItems.reduce((s, x) => s + clampSimCustomPct(x.pct), 0);
+    }
+    function getSimExtraTotal() {
+      return getSimExtraFromToggles() + getSimExtraCustomOnly();
     }
     function policiesSnapshot() {
       return { reach: policies.reach, ev: policies.ev, transit: policies.transit, solar: policies.solar, roof: policies.roof };
@@ -4024,6 +4208,17 @@
         if (pn) pn.classList.toggle('on', policies[k]);
         if (ts) ts.classList.toggle('on', policies[k]);
       });
+      customPolicyItems = Array.isArray(s.customPolicies)
+        ? s.customPolicies.map(function (x) {
+          return {
+            id: String(x.id || ('c' + Math.random().toString(36).slice(2, 10))),
+            name: String(x.name || 'Custom').slice(0, 80),
+            sector: ['buildings', 'transport', 'energy'].includes(x.sector) ? x.sector : 'transport',
+            pct: clampSimCustomPct(x.pct),
+          };
+        })
+        : [];
+      renderSimCustomList();
       updateSim();
       drawTrendChart();
     }
@@ -4037,6 +4232,9 @@
         name,
         county: document.getElementById('simCounty').value,
         policies: policiesSnapshot(),
+        customPolicies: customPolicyItems.map(function (x) {
+          return { id: x.id, name: x.name, sector: x.sector, pct: x.pct };
+        }),
         t: Date.now()
       });
       persistSimScenarios();
@@ -4064,6 +4262,20 @@
       d.textContent = s;
       return d.innerHTML;
     }
+    function renderSimCustomList() {
+      const ul = document.getElementById('simCustomList');
+      if (!ul) return;
+      if (!customPolicyItems.length) {
+        ul.innerHTML = '<li style="list-style:none;font-size:8.5px;color:var(--muted);margin:0;padding:0">No custom rows yet.</li>';
+        return;
+      }
+      ul.innerHTML = customPolicyItems.map(function (c) {
+        return '<li style="margin-bottom:4px">' + escapeStr(c.name) +
+          ' <span style="opacity:.85;">(−' + c.pct + ' pts · ' + escapeStr(c.sector) + ')</span> ' +
+          '<button type="button" class="btn-link-inline sim-custom-rm" style="font-size:8.5px" data-cid="' +
+          escapeStr(c.id) + '">remove</button></li>';
+      }).join('');
+    }
     function renderSimScenarios() {
       const tbody = document.getElementById('simScenBody');
       if (!tbody) return;
@@ -4072,7 +4284,7 @@
         return;
       }
       tbody.innerHTML = simScenarios.map((s) => {
-        const t = policySectorTotals(s.policies);
+        const t = policySectorTotals(s.policies, s.customPolicies);
         return '<tr><td style="font-weight:600">' + escapeStr(s.name) + '</td><td>' + escapeStr(s.county) + '</td>' +
           '<td style="text-align:right">-' + t.buildings + '%</td><td style="text-align:right">-' + t.transport + '%</td>' +
           '<td style="text-align:right">-' + t.energy + '%</td><td style="text-align:right;font-weight:600">-' + t.total + '%</td><td>' +
@@ -4127,6 +4339,36 @@
           if (D) deleteScenario(D.getAttribute('data-sim-del'));
         });
       }
+      const simPan = document.getElementById('simCustomPanel');
+      if (simPan) {
+        simPan.addEventListener('click', function (e) {
+          const rm = e.target.closest('.sim-custom-rm');
+          if (rm) {
+            const cid = rm.getAttribute('data-cid');
+            customPolicyItems = customPolicyItems.filter(function (x) { return x.id !== cid; });
+            renderSimCustomList();
+            updateSim();
+            drawTrendChart();
+          }
+        });
+      }
+      const addB = document.getElementById('simCustomAddBtn');
+      if (addB) {
+        addB.addEventListener('click', function () {
+          const nameEl = document.getElementById('simCustomName');
+          const secEl = document.getElementById('simCustomSector');
+          const pctEl = document.getElementById('simCustomPct');
+          const name = (nameEl && nameEl.value.trim()) ? nameEl.value.trim().slice(0, 80) : 'Custom policy';
+          const sector = secEl && secEl.value ? secEl.value : 'transport';
+          const pct = clampSimCustomPct(pctEl && pctEl.value);
+          customPolicyItems.push({ id: 'c' + Date.now(), name: name, sector: sector, pct: pct });
+          if (nameEl) nameEl.value = '';
+          renderSimCustomList();
+          updateSim();
+          drawTrendChart();
+        });
+      }
+      renderSimCustomList();
     }
     const acts = { bus: [4.6, 'gallons gas', 0.11, 'not burned'], utensils: [0.05, 'g plastic', 11, 'not used'], energy: [0.4, 'kWh', 8, 'saved at home'] };
     let curAct = 'bus', selCounty = 'Alameda', curGran = 'county';
@@ -4635,7 +4877,7 @@
       const lastVal = hist[hist.length - 1];
       const bauRate = (hist[hist.length - 1] - hist[hist.length - 4]) / 3 * 0.5;
       const bauFuture = futureYears.map((_, i) => lastVal + bauRate * (i + 1));
-      const polTotal = Object.entries(policies).filter(([k, v]) => v).reduce((s, [k]) => s + policyEffects[k], 0);
+      const polTotal = getSimExtraTotal();
       const polFuture = futureYears.map((_, i) => lastVal - (polTotal / 6) * (i + 1));
       const allY = [...hist, ...bauFuture, ...polFuture, -40];
       const yMin = Math.min(...allY) - 5, yMax = 5;
@@ -4690,12 +4932,20 @@
     function updateSim() {
       const county = document.getElementById('simCounty')?.value || 'Alameda';
       const base = Math.abs(histData[county][histData[county].length - 1]);
-      const extra = Object.entries(policies).filter(([k, v]) => v).reduce((s, [k]) => s + policyEffects[k], 0);
+      const eb = getSimExtraFromToggles();
+      const ec = getSimExtraCustomOnly();
+      const extra = eb + ec;
       const total = base + extra;
       document.getElementById('simPct').textContent = '-' + total + '%';
       const gap = 40 - total;
       document.getElementById('simHeadline').textContent = gap > 0 ? `${total}% projected by 2030 — ${gap}% short of goal` : `✓ 2030 target reached!`;
-      document.getElementById('simDetail').textContent = extra > 0 ? `Policies add ${extra}% to ${county}'s ${base}% baseline.` : `${county} at ${base}% since 1990. Toggle policies to model impact.`;
+      let det = `${county} at ${base}% since 1990. Toggle policies or add customs to model impact.`;
+      if (extra > 0) {
+        if (eb > 0 && ec > 0) det = `Preset policies ${eb}% + custom ${ec}% (${extra}% total) on top of ${county}'s ${base}% baseline.`;
+        else if (eb > 0) det = `Policies add ${extra}% to ${county}'s ${base}% baseline.`;
+        else det = `Custom policies add ${ec}% on top of ${county}'s ${base}% baseline.`;
+      }
+      document.getElementById('simDetail').textContent = det;
       const simEq = document.getElementById('simEquivalent');
       if (simEq && extra > 0) {
         const countyPop = cData[county]?.pop || 1000000;
@@ -4916,7 +5166,7 @@
     }
 
     function initDefDialogs() {
-      ['defHipDialog', 'defCesDialog'].forEach(function (id) {
+      ['defHipDialog', 'defCesDialog', 'defHeroDialog', 'defContextDialog', 'defCalcDialog', 'defMapLayersDialog', 'defSimCustomDialog'].forEach(function (id) {
         const d = document.getElementById(id);
         if (!d) return;
         d.addEventListener('click', function (e) {
@@ -4933,6 +5183,8 @@
     initActBridgeAnchors();
     initDefDialogs();
     initSimScenariosUi();
+    updateSim();
+    drawTrendChart();
   </script>
 </body>
 
